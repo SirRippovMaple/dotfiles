@@ -67,6 +67,7 @@ alias g=git
 
 export EDITOR=vim
 export GOPATH=$HOME/go
+export PATH="$PATH:$HOME/.dotnet/tools"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 

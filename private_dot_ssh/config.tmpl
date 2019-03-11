@@ -4,3 +4,13 @@ Host github.com
     IdentityFile ~/.ssh/github
 
 {{ (bitwarden "item" "ssh_config_drangrybot_1").notes }}
+
+{{- if hasSuffix "salesforce.com" .chezmoi.hostname }}
+
+{{ (bitwarden "item" "ssh_config_moveit").notes }}
+
+{{ (bitwarden "item" "ssh_config_et_github").notes }}
+
+{{ (bitwarden "item" "ssh_config_bastion").notes }}
+
+{{- end }}

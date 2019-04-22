@@ -41,7 +41,7 @@ alias g=git
 
 export EDITOR=vim
 export GOPATH=$HOME/go
-export PATH="$PATH:$HOME/.dotnet/tools"
+export PATH="$PATH:$GOPATH/bin:$HOME/.dotnet/tools"
 
 alias unlock='export BW_SESSION=`bw unlock --raw`'
 alias lock='bw lock'

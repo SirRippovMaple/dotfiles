@@ -6,15 +6,6 @@
 source "$HOME/.antigen/antigen.zsh"
 [[ ! -d "$HOME/.nvm" ]] && git clone https://github.com/creationix/nvm "$HOME/.nvm"
 
-#
-# Attach to TMux
-#
-if [ -z "$TMUX" ]
-then
-    tmux attach -t default || tmux new -s default;
-    exit;
-fi
-
 # Set the default plugin repo to be zsh-utils
 antigen use oh-my-zsh
 
@@ -47,3 +38,4 @@ alias unlock='export BW_SESSION=`bw unlock --raw`'
 alias lock='bw lock'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH="/usr/local/bin:$PATH"

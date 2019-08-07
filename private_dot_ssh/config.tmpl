@@ -1,3 +1,4 @@
+# {{ .chezmoi.fullHostname }}
 Host github.com
     AddKeysToAgent yes
     UseKeyChain yes
@@ -5,7 +6,7 @@ Host github.com
 
 {{ (bitwarden "item" "ssh_config_drangrybot_1").notes }}
 
-{{- if hasSuffix "salesforce.com" .chezmoi.hostname }}
+{{- if hasSuffix "salesforce.com" .chezmoi.fullHostname }}
 
 {{ (bitwarden "item" "ssh_config_moveit").notes }}
 

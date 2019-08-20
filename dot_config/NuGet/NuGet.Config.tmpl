@@ -1,17 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <packageSources>
-    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
 {{- if hasSuffix "salesforce.com" .chezmoi.fullHostname }}
     <add key="Artifactory" value="https://artifactory-dev.brighter.io/api/nuget/nuget-repo" protocolVersion="2" />
 {{- end }}
+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
   </packageSources>
-  <packageSourceCredentials>
+  <apikeys>
 {{- if hasSuffix "salesforce.com" .chezmoi.fullHostname }}
-      <Artifactory>
-          <add key="Username" value="{{ (bitwarden "item" "artifactory-dev.brighter.io").login.username }}" />
-          <add key="Password" value="{{ (bitwarden "item" "artifactory-dev.brighter.io").login.password }}" />
-      </Artifactory>
+    <add key="https://artifactory-dev.brighter.io/api/nuget/nuget-repo" value="{{ (bitwarden "item" "artifactory-dev.brighter.io").login.password }}" />
 {{- end }}
-  </packageSourceCredentials>
+  </apikeys>
 </configuration>

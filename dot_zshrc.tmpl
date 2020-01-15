@@ -38,9 +38,11 @@ alias g=git
 export EDITOR=vim
 export GOPATH=$HOME/go
 export PATH="/usr/local/bin:/usr/local/share/dotnet:$PATH:$GOPATH/bin:$HOME/.dotnet/tools"
+
 {{- if hasSuffix "salesforce.com" .chezmoi.fullHostname }}
 export AD_STUDIO_ARTIFACTORY_AUTH="{{ (bitwarden "item" "artifactory-dev.brighter.io").notes }}"
 export AD_STUDIO_ARTIFACTORY_EMAIL="{{ .email }}"
+{{ (bitwarden "item" "sf_exports").notes }}
 {{- end }}
 
 

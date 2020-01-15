@@ -48,4 +48,8 @@ alias unlock='export BW_SESSION=`bw unlock --raw`'
 alias lock='bw lock'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f ~/.okrepo/ok.sh ] && source ~/.okrepo/ok.sh
+if [ -f ~/.okrepo/ok.sh ]; then
+    pushd .okrepo
+    source ./ok.sh auto_show
+    popd
+fi

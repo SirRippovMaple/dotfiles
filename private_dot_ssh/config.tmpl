@@ -4,8 +4,6 @@ Host github.com
     UseKeyChain yes
     IdentityFile ~/.ssh/github
 
-{{ (bitwarden "item" "ssh_config_drangrybot_1").notes }}
-
 {{- if hasSuffix "salesforce.com" .chezmoi.fullHostname }}
 
 {{ (bitwarden "item" "ssh_config_moveit").notes }}

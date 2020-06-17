@@ -21,7 +21,6 @@ antigen bundle completion
 antigen bundle git
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-autosuggestions
-antigen bundle vi-mode
 antigen bundle vscode
 antigen bundle aws
 antigen bundle brew
@@ -37,26 +36,6 @@ antigen apply
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-
-# VI Mode
-bindkey -v
-export KEYTIMEOUT=1
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-
-zle-keymap-select () {
-    if [ "$TERM" = "xterm-256color" ]; then
-        if [ $KEYMAP = vicmd ]; then
-            # the command mode for vi
-            echo -ne "\e[2 q"
-        else
-            # the insert mode for vi
-            echo -ne "\e[4 q"
-        fi
-    fi
-}
 
 # User configuration
 

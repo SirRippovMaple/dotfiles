@@ -5,6 +5,8 @@ Host github.com
     UseKeyChain yes
 {{- end }}
     IdentityFile ~/.ssh/github
+    StrictHostKeyChecking yes
+    CheckHostIP no
 
 {{- if hasSuffix "salesforce.com" .chezmoi.fullHostname }}
 

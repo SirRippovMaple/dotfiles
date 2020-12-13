@@ -55,7 +55,9 @@ alias start=open
 alias start=xdg-open
 {{- end }}
 
+[ -f ~/todo/todo.sh ] && alias t=~/todo/todo.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 if [ -f ~/.okrepo/ok.sh ]; then
     pushd ~/.okrepo
     source ./ok.sh auto_show > /dev/null 2>&1
@@ -72,7 +74,11 @@ function openpr() {
   github_url=`git remote -v | awk "/^${remote}.*\\(fetch\\)$/{print \\$2}" | sed -Ee 's#(git@|git://)#https://#' -e 's@com:@com/@' -e 's%\.git$%%'`;
   branch_name=`git symbolic-ref HEAD | cut -d"/" -f 3,4`;
   pr_url=$github_url"/compare/master..."$branch_name
+  {{- if eq .chezmoi.os "darwin" }}
   open $pr_url;
+  {{- else }}
+  xdg-open $pr_url;
+  {{- end }}
 }
 
 function pruneBranches() {

@@ -27,6 +27,7 @@ antigen bundle brew
 antigen bundle docker
 antigen bundle dotnet
 antigen bundle rupa/z
+antigen bundle dotenv
 
 antigen theme agnoster
 
@@ -44,7 +45,8 @@ alias g=git
 export EDITOR="code --wait"
 export KUBE_EDITOR="code --wait"
 export GOPATH=$HOME/go
-export PATH="/usr/local/bin:/usr/local/share/dotnet:$PATH:$GOPATH/bin:$HOME/.dotnet/tools"
+export GOROOT=/usr/local/go/bin
+export PATH="/usr/local/go/bin:/usr/local/bin:/usr/local/share/dotnet:$PATH:$GOPATH/bin:$HOME/.dotnet/tools"
 
 alias unlock='export BW_SESSION=`bw unlock --raw`'
 alias lock='bw lock'

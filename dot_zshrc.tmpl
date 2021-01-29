@@ -48,6 +48,8 @@ export GOPATH=$HOME/go
 export GOROOT=/usr/local/go/bin
 export PATH="/usr/local/go/bin:/usr/local/bin:/usr/local/share/dotnet:$PATH:$GOPATH/bin:$HOME/.dotnet/tools"
 
+alias g=git
+alias k=kubectl
 alias unlock='export BW_SESSION=`bw unlock --raw`'
 alias lock='bw lock'
 alias update='source ~/.zshrc'
@@ -58,6 +60,11 @@ alias start=xdg-open
 {{- end }}
 
 [ -f ~/todo/todo.sh ] && alias t=~/todo/todo.sh
+{{- if hasSuffix "salesforce.com" .chezmoi.fullHostname }}
+[ -f ~/todo/todo.sh ] && alias tedit=code ~/todo/work.txt
+{{- else }}
+[ -f ~/todo/todo.sh ] && alias tedit=code ~/todo/todo.txt
+{{- end }}
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [ -f ~/.okrepo/ok.sh ]; then

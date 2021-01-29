@@ -29,6 +29,7 @@
     co = checkout
     pf = push --force-with-lease
     st = status
+    refork = "!git fetch upstream && git reset upstream/master --hard"
     prepare = "!f() { \
         git checkout master && git fetch -p; \
         for branch in $(git branch -vv | grep ': gone]' | awk '{print $1}'); do \

@@ -13,21 +13,26 @@ antigen use oh-my-zsh
 antigen bundle zsh-users/zsh-completions
 
 # Specify plugins we want
-antigen bundle editor
-antigen bundle history
-antigen bundle prompt
-antigen bundle utility
-antigen bundle completion
-antigen bundle git
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-autosuggestions
-antigen bundle vscode
 antigen bundle aws
 antigen bundle brew
+antigen bundle completion
 antigen bundle docker
-antigen bundle dotnet
-antigen bundle rupa/z
+antigen bundle docker-compose
 antigen bundle dotenv
+antigen bundle dotnet
+antigen bundle editor
+antigen bundle fzf
+antigen bundle git
+antigen bundle git-prompt
+antigen bundle history
+antigen bundle httpie
+antigen bundle kubectl
+antigen bundle rupa/z
+antigen bundle utility
+antigen bundle vault
+antigen bundle vscode
+antigen bundle zsh-autosuggestions
+antigen bundle zsh-users/zsh-syntax-highlighting
 
 antigen theme agnoster
 
@@ -52,10 +57,8 @@ export GOROOT=/usr/local/go
 [ -d $HOME/scripts ] && export PATH="$HOME/scripts:$PATH"
 [ -d /usr/local/share/dotnet ] && export PATH="/usr/local/share/dotnet:$PATH"
 [ -d /usr/local/bin ] && export PATH="/usr/local/bin:$PATH"
-[ -d $GOROOT/bin ] && export PATH="$GOROOT/bin:$PATH"
 
 # Appended path
-[ -d $GOPATH/bin ] && export PATH="$PATH:$GOPATH/bin"
 [ -d $HOME/.dotnet/tools ] && export PATH="$PATH:$HOME/.dotnet/tools"
 [ -d $HOME/repositories/useful-scripts ] && export PATH="$PATH:$HOME/repositories/useful-scripts"
 
@@ -76,7 +79,12 @@ alias start=xdg-open
 {{- else }}
 [ -f ~/todo/todo.sh ] && alias tedit=code ~/todo/todo.txt
 {{- end }}
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if [ -f ~/.fzf.zsh ]; then
+    source ~/.fzf.zsh
+    export FZF_COMPLETION_OPTS='--border --info=inline'
+    alias searchhist="history | cut -c 8-| sort | uniq | fzf"
+fi
 
 if [ -f ~/.okrepo/ok.sh ]; then
     pushd ~/.okrepo
@@ -84,7 +92,11 @@ if [ -f ~/.okrepo/ok.sh ]; then
     popd > /dev/null 2>&1
 fi
 
+# Completion for vault
 complete -o nospace -C /usr/local/bin/vault vault
+
+# Completion for kitty
+kitty + complete setup zsh | source /dev/stdin
 
 source ~/.profile
 

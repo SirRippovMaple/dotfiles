@@ -57,6 +57,7 @@ export GOPATH=$HOME/go
 [ -d /usr/local/bin ] && export PATH="/usr/local/bin:$PATH"
 
 # Appended path
+[ -d $GOPATH/bin ] && export PATH="$PATH:$GOPATH/bin"
 [ -d $HOME/.dotnet/tools ] && export PATH="$PATH:$HOME/.dotnet/tools"
 [ -d $HOME/repositories/useful-scripts ] && export PATH="$PATH:$HOME/repositories/useful-scripts"
 

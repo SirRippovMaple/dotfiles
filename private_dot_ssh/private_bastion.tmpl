@@ -1,3 +1,3 @@
-{{- if hasSuffix "salesforce.com" .chezmoi.fullHostname }}
+{{- if hasSuffix "salesforce.com" .chezmoi.fqdnHostname }}
 {{ (bitwarden "item" "private_key_bastion").notes }}
 {{- end }}

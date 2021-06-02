@@ -5,7 +5,7 @@
 export TODO_DIR=$(dirname "$0")
 
 # Your todo/done/report.txt locations
-{{- if hasSuffix "salesforce.com" .chezmoi.fullHostname }}
+{{- if hasSuffix "salesforce.com" .chezmoi.fqdnHostname }}
 export TODO_FILE="$TODO_DIR/work.txt"
 export DONE_FILE="$TODO_DIR/work-done.txt"
 {{- else }}

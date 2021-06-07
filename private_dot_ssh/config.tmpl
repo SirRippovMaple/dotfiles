@@ -1,4 +1,4 @@
-# {{ .chezmoi.fqdnHostname }}
+# {{ .email }}
 Host github.com
     AddKeysToAgent yes
 {{- if eq .chezmoi.os "darwin" }}
@@ -8,7 +8,7 @@ Host github.com
     StrictHostKeyChecking yes
     CheckHostIP no
 
-{{- if hasSuffix "salesforce.com" .chezmoi.fqdnHostname }}
+{{- if hasSuffix "salesforce.com" .email }}
 
 {{ (bitwarden "item" "ssh_config_moveit").notes }}
 

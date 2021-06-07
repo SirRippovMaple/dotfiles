@@ -1,7 +1,7 @@
 [user]
     email = {{ .email }}
     name = Trevor Green
-{{- if hasSuffix "salesforce.com" .chezmoi.fqdnHostname }}
+{{- if hasSuffix "salesforce.com" .email }}
     signingkey = 3B2B4F3EEFF77D3B
 {{- end}}
 [core]
@@ -37,7 +37,7 @@
         done; \
         git pull -r && git checkout -b $1 && git push -u origin $1; \
         }; f"
-{{- if hasSuffix "salesforce.com" .chezmoi.fqdnHostname }}
+{{- if hasSuffix "salesforce.com" .email }}
 [gpg]
     program = /usr/local/bin/gpg
 [commit]

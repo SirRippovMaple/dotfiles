@@ -46,6 +46,7 @@ bindsym $mod+Return exec kitty
 # Common applications
 bindsym $mod+b exec brave-browser
 bindsym $mod+e exec kitty ranger
+bindsym $mod+n exec kitty newsboat
 
 # kill focused window
 bindsym $mod+q kill
@@ -180,10 +181,18 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
+# bar {
+#         status_command i3status
+#         position top
+# }
+#
 bar {
-        status_command i3status
-        position top
+	status_command /home/trumpi/.local/bin/bumblebee-status \
+		-m disk memory datetime pasource pasink \
+		-p datetime.format="%-d %B %Y %H:%M" \
+		-t iceberg-dark-powerline
+	position top
 }
 
 default_border pixel
-
+focus_follows_mouse no

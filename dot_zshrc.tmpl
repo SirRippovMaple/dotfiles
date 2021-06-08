@@ -29,7 +29,6 @@ antigen bundle git
 antigen bundle history
 antigen bundle httpie
 antigen bundle kubectl
-antigen bundle rupa/z
 antigen bundle utility
 antigen bundle vault
 antigen bundle vscode
@@ -43,7 +42,6 @@ antigen apply
 # User configuration
 
 export EDITOR="code --wait"
-export KUBE_EDITOR="code --wait"
 export GOPATH=$HOME/go
 
 # Prepended path
@@ -61,10 +59,32 @@ export GOPATH=$HOME/go
 [ -d $HOME/repositories/useful-scripts ] && export PATH="$PATH:$HOME/repositories/useful-scripts"
 [ -d $HOME/.local/bin ] && export PATH="$PATH:$HOME/.local/bin"
 
-alias g=git
-alias k=kubectl
-alias unlock='export BW_SESSION=`bw unlock --raw`'
-alias lock='bw lock'
+if [ -x "$(command -v git)" ]; then
+  alias g=git
+fi
+
+if [ -x "$(command -v kubectl)" ]; then
+  alias k=kubectl
+  export KUBE_EDITOR=$EDITOR
+fi
+
+if [ -x "$(command -v bw)" ]; then
+  alias unlock='export BW_SESSION=`bw unlock --raw`'
+  alias lock='bw lock'
+fi
+
+if [ -x "$(command -v exa)" ]; then
+  alias ls=exa
+fi
+
+if [ -x "$(command -v batcat)" ]; then
+  alias cat=batcat
+fi
+
+if [ -x "$(command -v zoxide)" ]; then
+  eval "$(zoxide init zsh)"
+fi
+
 alias update='source ~/.zshrc'
 {{- if eq .chezmoi.os "darwin" }}
 alias start=open

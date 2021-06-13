@@ -1,3 +1,11 @@
 {{- $email := promptString "email" -}}
+{{- $batcmd := "" }}
+{{- if eq .chezmoi.osRelease.idLike "debian" }}
+{{- $batcmd = "batcat" }}
+{{- else }}
+{{- $batcmd = "bat" }}
+{{- end -}}
+pager = "{{ $batcmd }}"
+
 [data]
   email = "{{ $email }}"

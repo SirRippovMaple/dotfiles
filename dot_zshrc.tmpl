@@ -63,9 +63,17 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # User configuration
+{{- if eq .chezmoi.os "darwin" }}
+batcmd=bat
+{{- else }}
+batcmd=batcat
+{{- end }}
 
 export EDITOR="nvim"
 export GOPATH=$HOME/go
+export MANPAGER="$batcmd --language manpage"
+export PAGER=$batcmd
+export BAT_PAGER="less -RF"
 
 if [ -x "$(command -v nvim)" ]; then
   alias vim=nvim

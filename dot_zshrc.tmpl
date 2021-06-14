@@ -6,6 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Basic auto/tab complete:
+autoload -U compinit
 compinit
 _comp_options+=(globdots)
 
@@ -31,12 +32,14 @@ _comp_options+=(globdots)
 [[ ! -d "$HOME/.antigen" ]] && git clone https://github.com/zsh-users/antigen.git "$HOME/.antigen"
 source "$HOME/.antigen/antigen.zsh"
 
-antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle djui/alias-tips
+antigen bundle MichaelAquilina/zsh-auto-notify
 antigen bundle nocttuam/autodotenv
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 antigen bundle Aloxaf/fzf-tab
 antigen bundle unixorn/fzf-zsh-plugin@main
+antigen bundle zsh-users/zsh-syntax-highlighting
 
 antigen theme romkatv/powerlevel10k
 
@@ -68,6 +71,8 @@ batcmd=batcat
 {{- else }}
 batcmd=bat
 {{- end }}
+
+export AUTO_NOTIFY_THRESHOLD=20
 
 export EDITOR="nvim"
 export GOPATH=$HOME/go

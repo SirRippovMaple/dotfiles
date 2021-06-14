@@ -63,10 +63,10 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # User configuration
-{{- if eq .chezmoi.os "darwin" }}
-batcmd=bat
-{{- else }}
+{{- if eq .chezmoi.osRelease.idLike "debian" }}
 batcmd=batcat
+{{- else }}
+batcmd=bat
 {{- end }}
 
 export EDITOR="nvim"
@@ -97,13 +97,13 @@ if [ -x "$(command -v exa)" ]; then
   alias ls=exa
 fi
 
-{{- if eq .chezmoi.os "darwin" }}
-if [ -x "$(command -v bat)" ]; then
-  alias cat=bat
-fi
-{{- else }}
+{{- if eq .chezmoi.osRelease.idLike "debian" }}
 if [ -x "$(command -v batcat)" ]; then
   alias cat=batcat
+fi
+{{- else }}
+if [ -x "$(command -v bat)" ]; then
+  alias cat=bat
 fi
 {{- end }}
 

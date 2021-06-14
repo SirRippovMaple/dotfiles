@@ -18,6 +18,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
 Plug 'ap/vim-css-color'
 Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'rakr/vim-one'
 call plug#end()
 
@@ -103,11 +104,6 @@ set noshowcmd
 	nnoremap gk k
 	nnoremap gj j
 
-" Buffers
-	nnoremap ]b :bn<CR>
-	nnoremap [b :bp<CR>
-	nnoremap <leader>b :buffers<CR>:buffer<Space>
-
 " Replace ex mode with gq
 	map Q gq
 
@@ -135,7 +131,6 @@ set noshowcmd
 	map <leader>v :VimwikiIndex
 	let g:vimwiki_list = [{'path': '~/.notable', 'syntax': 'markdown', 'ext': '.md'}]
 	autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
-	autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
 	autocmd BufRead,BufNewFile *.tex set filetype=tex
 
 " Save file as sudo on files that require root permission
@@ -152,17 +147,26 @@ set noshowcmd
 	autocmd BufWritePre * %s/\n\+\%$//e
 	autocmd BufWritePre *.[ch] %s/\%$/\r/e
 
-" When shortcut files are updated, renew bash and ranger configs with new material:
-	autocmd BufWritePost bm-files,bm-dirs !shortcuts
-" Run xrdb whenever Xdefaults or Xresources are updated.
-	autocmd BufRead,BufNewFile Xresources,Xdefaults,xresources,xdefaults set filetype=xdefaults
-	autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
 " Recompile dwmblocks on config edit.
-	autocmd BufWritePost ~/.local/src/dwmblocks/config.h !cd ~/.local/src/dwmblocks/; sudo make install && { killall -q dwmblocks;setsid -f dwmblocks }
+
+" FZF
+	map <leader>f :FZF<CR>
+
+" Buffers
+	nnoremap ]b :bn<CR>
+	nnoremap [b :bp<CR>
+	nnoremap <leader>b :Buffers<CR>
 
 " Turns off highlighting on the bits of code that are changed, so the line that is changed is highlighted but the actual text that has changed stands out on the line and is readable.
 if &diff
     highlight! link DiffText MatchParen
+endif
+
+" ripgrep
+if executable("rg")
+	nnoremap <leader>g :Rg<space>
+	set grepprg=rg\ --vimgrep\ --smart-case\ --hidden
+	set grepformat=%f:%l:%c:%m
 endif
 
 " Function for toggling the bottom statusbar:

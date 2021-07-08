@@ -17,6 +17,11 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
 Plug 'ap/vim-css-color'
+Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+Plug 'SirVer/ultisnips'
+Plug 'SirRippovMaple/ultisnips-snippets'
+Plug '907th/vim-auto-save'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'rakr/vim-one'
@@ -45,6 +50,14 @@ set background=dark
 colorscheme one
 let g:airline_powerline_fonts=1
 let g:airline_theme='one'
+let g:deoplete#enable_at_startup=1
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:auto_save=0
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 set title
 set go=a

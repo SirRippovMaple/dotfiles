@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+kitty --title="d1d983dc-617f-4af0-a93e-469b83c7e92f" --class="fzfmenu" bash -c "fzf $* < /proc/$$/fd/0 > /proc/$$/fd/1"

@@ -1,9 +1,9 @@
 {{- $email := promptString "email" -}}
-{{- $batcmd := "" }}
+{{- $batcmd := "bat" }}
+{{- if eq .chezmoi.os "linux" }}
 {{- if eq .chezmoi.osRelease.idLike "debian" }}
 {{- $batcmd = "batcat" }}
-{{- else }}
-{{- $batcmd = "bat" }}
+{{- end }}
 {{- end -}}
 pager = "{{ $batcmd }}"
 

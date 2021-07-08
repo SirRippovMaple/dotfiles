@@ -66,8 +66,12 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # User configuration
+{{- if eq .chezmoi.os "linux" }}
 {{- if eq .chezmoi.osRelease.idLike "debian" }}
 batcmd=batcat
+{{- else }}
+batcmd=bat
+{{- end }}
 {{- else }}
 batcmd=bat
 {{- end }}

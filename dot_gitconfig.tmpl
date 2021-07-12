@@ -8,13 +8,9 @@
     editor = nvim
     pager = nvim -c 'setlocal noswapfile buftype=nofile bufhidden=hide' -c 'setlocal nomodified readonly nomodifiable' -c 'setlocal noexpandtab tabstop=8 softtabstop=8 shiftwidth=8' -c 'setlocal number norelativenumber' -c 'setlocal foldcolumn=0 colorcolumn=0 nolist nofoldenable' -c 'nnoremap <silent> <buffer> <nowait> q :lclose<CR>:q<CR>' -c 'nnoremap <silent> <buffer> j gj' -c 'nnoremap <silent> <buffer> k gk'
 [merge]
-    tool = vscode
-[mergetool "vscode"]
-    cmd = code --wait $MERGED
-[diff]
-    tool = vscode
-[difftool "vscode"]
-    cmd = code --wait --diff $LOCAL $REMOTE
+    tool = nvim
+[mergetool "nvim"]
+    cmd = nvim \"$MERGED\"
 [color]
     ui = true
     pager = no

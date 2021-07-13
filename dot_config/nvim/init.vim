@@ -8,6 +8,7 @@ if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autolo
 endif
 
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
+Plug 'mhinz/vim-startify'
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
@@ -19,6 +20,8 @@ Plug 'jreybert/vimagit'
 Plug 'vimwiki/vimwiki'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'akinsho/nvim-bufferline.lua'
 Plug 'tpope/vim-commentary'
 Plug 'ap/vim-css-color'
 Plug 'SirVer/ultisnips'
@@ -62,6 +65,10 @@ let g:auto_save=0
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
+lua << EOF
+require('bufferline').setup{}
+EOF
+
 set title
 set go=a
 set mouse=a
@@ -86,7 +93,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " Perform dot commands over visual blocks:
 vnoremap . :normal .<CR>
 " Goyo plugin makes text more readable when writing prose:
-map <leader>f :Goyo \| set bg=light \| set linebreak<CR>
+map <leader>g :Goyo \| set linebreak<CR>
 " Spell-check set to <leader>o, 'o' for 'orthography':
 map <leader>o :setlocal spell! spelllang=en_us<CR>
 " Splits open at the bottom and right, which is non-retarded, unlike vim defaults.

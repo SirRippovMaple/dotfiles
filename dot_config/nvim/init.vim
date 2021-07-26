@@ -28,7 +28,8 @@ Plug 'SirVer/ultisnips'
 Plug 'SirRippovMaple/ultisnips-snippets'
 Plug '907th/vim-auto-save'
 Plug 'nvim-treesitter/nvim-treesitter', {'branch': '0.5-compat', 'do': ':TSUpdate'}
-Plug 'junegunn/fzf', {'do': { -> fzf#install() } }
+Plug 'neoclide/coc.nvim' {'branch': 'release'}
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'
 Plug 'rakr/vim-one'

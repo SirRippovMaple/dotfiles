@@ -27,7 +27,7 @@ Plug 'ap/vim-css-color'
 Plug 'SirVer/ultisnips'
 Plug 'SirRippovMaple/ultisnips-snippets'
 Plug '907th/vim-auto-save'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'branch': '0.5-compat', 'do': ':TSUpdate'}
 Plug 'junegunn/fzf', {'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'
@@ -154,7 +154,7 @@ autocmd VimLeave *.tex !texclear %
 
 " Ensure files are read as what I want:
 let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-map <leader>v :VimwikiIndex
+map <leader>v :VimwikiIndex<CR>
 let g:vimwiki_list = [{'path': '~/.notable', 'syntax': 'markdown', 'ext': '.md'}]
 autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
 autocmd BufRead,BufNewFile *.tex set filetype=tex

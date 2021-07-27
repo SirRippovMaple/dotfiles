@@ -27,8 +27,9 @@ Plug 'ap/vim-css-color'
 Plug 'SirVer/ultisnips'
 Plug 'SirRippovMaple/ultisnips-snippets'
 Plug '907th/vim-auto-save'
+Plug 'lambdalisue/suda.vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'branch': '0.5-compat', 'do': ':TSUpdate'}
-Plug 'neoclide/coc.nvim' {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'
@@ -159,9 +160,6 @@ map <leader>v :VimwikiIndex<CR>
 let g:vimwiki_list = [{'path': '~/.notable', 'syntax': 'markdown', 'ext': '.md'}]
 autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
 autocmd BufRead,BufNewFile *.tex set filetype=tex
-
-" Save file as sudo on files that require root permission
-cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 " Enable Goyo by default for mutt writing
 autocmd BufRead,BufNewFile /tmp/neomutt* let g:goyo_width=80

@@ -28,8 +28,16 @@ Plug 'SirVer/ultisnips'
 Plug 'SirRippovMaple/ultisnips-snippets'
 Plug '907th/vim-auto-save'
 Plug 'lambdalisue/suda.vim'
+Plug 'FotiadisM/tabset.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'branch': '0.5-compat', 'do': ':TSUpdate'}
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'
@@ -72,6 +80,18 @@ let g:rooter_patterns = ['.git']
 
 lua << EOF
 require('bufferline').setup{}
+require('tabset').setup({
+    defaults = {
+        tabwidth = 4,
+        shiftwidth = 4,
+        expandtab = true
+    },
+    languages = {
+        go = {
+            expandtab = false
+        }
+    }
+})
 EOF
 
 set title

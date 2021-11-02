@@ -69,8 +69,8 @@ let g:airline_powerline_fonts=1
 let g:airline_theme='one'
 let g:deoplete#enable_at_startup=1
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 let g:auto_save=0
 
 " If you want :UltiSnipsEdit to split your window.

@@ -14,7 +14,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-surround'
-Plug 'preservim/nerdtree'
 Plug 'junegunn/goyo.vim'
 Plug 'jreybert/vimagit'
 Plug 'vimwiki/vimwiki'
@@ -29,6 +28,12 @@ Plug 'SirRippovMaple/ultisnips-snippets'
 Plug '907th/vim-auto-save'
 Plug 'lambdalisue/suda.vim'
 Plug 'FotiadisM/tabset.nvim'
+Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
+
 Plug 'nvim-treesitter/nvim-treesitter', {'branch': '0.5-compat', 'do': ':TSUpdate'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
@@ -37,9 +42,8 @@ Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'
 Plug 'rakr/vim-one'
 call plug#end()
@@ -89,7 +93,11 @@ require('tabset').setup({
     languages = {
         go = {
             expandtab = false
-        }
+        },
+        ts = {
+            tabwidth = 2,
+            shiftwidth = 2
+        },
     }
 })
 EOF
@@ -127,21 +135,9 @@ map <leader>o :setlocal spell! spelllang=en_us<CR>
 " Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
 set splitbelow splitright
 
-" Nerd tree
-map <leader>n :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-if has('nvim')
-    let NERDTreeBookmarksFile = stdpath('data') . '/NERDTreeBookmarks'
-else
-    let NERDTreeBookmarksFile = '~/.vim' . '/NERDTreeBookmarks'
-endif
-
-" vimling:
-nm <leader><leader>d :call ToggleDeadKeys()<CR>
-imap <leader><leader>d <esc>:call ToggleDeadKeys()<CR>a
-nm <leader><leader>i :call ToggleIPA()<CR>
-imap <leader><leader>i <esc>:call ToggleIPA()<CR>a
-nm <leader><leader>q :call ToggleProse()<CR>
+" Ranger
+let g:rnvimr_ex_enable = 1
+nmap <leader>n <cmd>RnvimrToggle<CR>
 
 " Shortcutting split navigation, saving a keypress:
 map <C-h> <C-w>h
@@ -195,41 +191,40 @@ autocmd BufWritePre * %s/\s\+$//e
 autocmd BufWritePre * %s/\n\+\%$//e
 autocmd BufWritePre *.[ch] %s/\%$/\r/e
 
-" Recompile dwmblocks on config edit.
+" Telescope
+nnoremap <leader>f <cmd>Telescope find_files<CR>
+nnoremap <leader>g <cmd>Telescope live_grep<CR>
+nnoremap <leader>b <cmd>Telescope buffers<CR>
+nnoremap <leader>h <cmd>Telescopr help_tags<CR>
 
-" FZF
-map <leader>f :FZF<CR>
+lua << EOF
+local actions = require('telescope.actions')
+require('telescope').setup{
+    defaults = {
+        mappings = {
+            i = {
+                ["<C-j>"] = actions.move_selection_next,
+                ["<C-k>"] = actions.move_selection_previous,
+            },
+        }
+    },
+    extensions = {
+        fzy_native = {
+            override_generic_sorter = false,
+            override_file_sorter = true,
+        }
+    }
+}
+require('telescope').load_extension('fzy_native')
+EOF
 
 " Buffers
 nnoremap ]b :bn<CR>
 nnoremap [b :bp<CR>
-nnoremap <leader>b :Buffers<CR>
 
 " Turns off highlighting on the bits of code that are changed, so the line that is changed is highlighted but the actual text that has changed stands out on the line and is readable.
 if &diff
     highlight! link DiffText MatchParen
-endif
-
-" ripgrep
-if executable("rg")
-    " Get text in files with Rg
-    command! -bang -nargs=* Rg
-      \ call fzf#vim#grep(
-      \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-      \   fzf#vim#with_preview(), <bang>0)
-
-    " Ripgrep advanced
-    function! RipgrepFzf(query, fullscreen)
-      let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
-      let initial_command = printf(command_fmt, shellescape(a:query))
-      let reload_command = printf(command_fmt, '{q}')
-      let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-      call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-    endfunction
-
-    command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-
-    nnoremap <leader>g :Rg<CR>
 endif
 
 " Function for toggling the bottom statusbar:

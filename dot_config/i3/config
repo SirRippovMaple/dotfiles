@@ -22,6 +22,7 @@ font pango:MesloLGM NerdFont Mono 12
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 exec --no-startup-id picom -b
+exec --no-startup-id feh --randomize --bg-fill ~/Pictures/wallpaper/*
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
@@ -113,16 +114,28 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
+set $leftDisplay "DVI-I-1"
+set $rightDisplay "DVI-D-0"
+
+set $ws1 "1: Browser"
+set $ws2 "2: Launchers"
 set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws4 "4: Comms"
+set $ws5 "5: Browser"
+set $ws6 "6: Games"
+set $ws7 "7: Moderator"
+set $ws8 "8: Database"
+set $ws9 "9: Terminal"
+set $ws10 "10: IDE"
+
+workspace $ws1 output $leftDisplay
+workspace $ws2 output $leftDisplay
+workspace $ws5 output $rightDisplay
+workspace $ws6 output $rightDisplay
+workspace $ws7 output $rightDisplay
+workspace $ws8 output $rightDisplay
+workspace $ws9 output $rightDisplay
+workspace $ws10 output $rightDisplay
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -169,10 +182,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym r resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -196,12 +209,14 @@ bindsym $mod+r mode "resize"
 # }
 #
 bar {
-	status_command /home/trumpi/.local/bin/bumblebee-status \
-		-m disk memory datetime pasource pasink \
-		-p datetime.format="%-d %B %Y %H:%M" \
-		-t iceberg-dark-powerline
-	position top
+	status_command i3status
+    position top
 }
 
 default_border pixel
 focus_follows_mouse no
+
+assign [class="jetbrains-rider" instance="jetbrains-rider"] $ws10
+assign [class="jetbrains-datagrip" instance="jetbrains-datagrip"] $ws8
+assign [class="MultiMC5" instance="MultiMC"] $ws2
+assign [class="Minecraft" instance="Minecraft"] $ws6

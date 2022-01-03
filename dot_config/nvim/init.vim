@@ -34,15 +34,22 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
-Plug 'nvim-treesitter/nvim-treesitter', {'branch': '0.5-compat', 'do': ':TSUpdate'}
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+
+" C# plugins
+Plug 'razzmatazz/csharp-language-server'
+" Go plugins
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Typescript plugins
+Plug 'theia-ide/typescript-language-server'
 
 Plug 'airblade/vim-rooter'
 Plug 'rakr/vim-one'
@@ -50,23 +57,7 @@ call plug#end()
 
 nmap <leader>P :PlugInstall<CR>
 
-"Credit joshdick
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX))
-    if (has("nvim"))
-        "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-        let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-    endif
-    "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-    "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-    " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-    if (has("termguicolors"))
-        set termguicolors
-    endif
-endif
-
+set termguicolors
 set background=dark
 colorscheme one
 let g:airline_powerline_fonts=1
@@ -121,6 +112,7 @@ set nocompatible
 filetype plugin on
 syntax on
 set encoding=utf-8
+set fileencoding=utf-8
 set number relativenumber
 " Enable autocompletion:
 set wildmode=longest,list,full
@@ -128,12 +120,62 @@ set wildmode=longest,list,full
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " Perform dot commands over visual blocks:
 vnoremap . :normal .<CR>
-" Goyo plugin makes text more readable when writing prose:
-map <leader>G :Goyo \| set linebreak<CR>
-" Spell-check set to <leader>o, 'o' for 'orthography':
-map <leader>o :setlocal spell! spelllang=en_us<CR>
 " Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
 set splitbelow splitright
+
+" cmp
+set completeopt=menu,menuone,noselect
+
+lua <<EOF
+    local cmp = require('cmp')
+
+    cmp.setup {
+        snippet = {
+            expand = function (args)
+                vim.fn["UltiSnips#Anon"](args.body)
+            end,
+        },
+        mapping = {
+            ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item()),
+            ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item()),
+            ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
+            ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        },
+        sources = cmp.config.sources({
+            { name = 'nvim_lsp' },
+            { name = 'ultisnips' },
+            { name = 'buffer' },
+        })
+    }
+
+    -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+    cmp.setup.cmdline('/', {
+        sources = {
+            { name = 'buffer' }
+        }
+    })
+
+    -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+    cmp.setup.cmdline(':', {
+        sources = cmp.config.sources({
+            { name = 'path' }
+        }, {
+            { name = 'cmdline' }
+        })
+    })
+
+    -- Setup lspconfig.
+    local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+    require('lspconfig').csharp_ls.setup{
+        capabilities = capabilities
+    }
+    require('lspconfig').tsserver.setup{
+        capabilities = capabilities
+    }
+EOF
+
+nmap <C-b> <cmd>lua vim.lsp.buf.definition()<CR>
 
 " Ranger
 let g:rnvimr_ex_enable = 1
@@ -151,45 +193,24 @@ nnoremap j gj
 nnoremap gk k
 nnoremap gj j
 
-" Replace ex mode with gq
-map Q gq
+imap jj <ESC>
+vnoremap < <gv
+vnoremap > >gv
 
-" Check file in shellcheck:
-map <leader>s :!clear && shellcheck -x %<CR>
-
-" Open my bibliography file in split
-map <leader>B :vsp<space>$BIB<CR>
-map <leader>r :vsp<space>$REFER<CR>
-
-" Replace all is aliased to S.
-nnoremap S :%s//g<Left><Left>
-
-" Compile document, be it groff/LaTeX/markdown/etc.
-map <leader>c :w! \| !compiler "<c-r>%"<CR>
-
-" Open corresponding .pdf/.html or preview
-map <leader>p :!opout <c-r>%<CR><CR>
-
-" Runs a script that cleans out tex build files whenever I close out of a .tex file.
-autocmd VimLeave *.tex !texclear %
-
-" Ensure files are read as what I want:
-let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-map <leader>v :VimwikiIndex<CR>
-let g:vimwiki_list = [{'path': '~/.notable', 'syntax': 'markdown', 'ext': '.md'}]
-autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
-autocmd BufRead,BufNewFile *.tex set filetype=tex
-
-" Enable Goyo by default for mutt writing
-autocmd BufRead,BufNewFile /tmp/neomutt* let g:goyo_width=80
-autocmd BufRead,BufNewFile /tmp/neomutt* :Goyo
-autocmd BufRead,BufNewFile /tmp/neomutt* map ZZ :Goyo\|x!<CR>
-autocmd BufRead,BufNewFile /tmp/neomutt* map ZQ :Goyo\|q!<CR>
-
-" Automatically deletes all trailing whitespace and newlines at end of file on save.
-autocmd BufWritePre * %s/\s\+$//e
-autocmd BufWritePre * %s/\n\+\%$//e
-autocmd BufWritePre *.[ch] %s/\%$/\r/e
+" Treesitter
+lua << EOF
+require('nvim-treesitter.configs').setup {
+    ensure_installed = "maintained",
+    sync_install = false,
+    autopairs = {
+        enable = true,
+    },
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = true,
+    },
+}
+EOF
 
 " Telescope
 nnoremap <leader>f <cmd>Telescope find_files<CR>

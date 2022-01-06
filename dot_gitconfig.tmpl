@@ -26,9 +26,14 @@
     co = checkout
     pf = push --force-with-lease
     st = status
-    refork = "!git fetch upstream && git reset upstream/master --hard"
+    sign = "!git rebase --exec 'git commit --amend --no-edit -n -S' -i origin/HEAD"
+    refork = "!f() { \
+        main_branch=`git remote show upstream | sed -n '/HEAD branch/s/.*: //p'`; \
+        git checkout $main_branch && git fetch upstream && git reset upstream/$main_branch --hard && git push -f; \
+        }; f"
     prepare = "!f() { \
-        git checkout master && git fetch -p; \
+        main_branch=`git remote show origin | sed -n '/HEAD branch/s/.*: //p'`; \
+        git checkout $main_branch && git fetch -p; \
         for branch in $(git branch -vv | grep ': gone]' | awk '{print $1}'); do \
             git branch -D $branch; \
         done; \

@@ -30,6 +30,8 @@ Plug '907th/vim-auto-save'
 Plug 'lambdalisue/suda.vim'
 Plug 'FotiadisM/tabset.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'numToStr/Comment.nvim'
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'

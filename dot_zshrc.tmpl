@@ -115,7 +115,7 @@ if [ -x "$(command -v exa)" ]; then
 fi
 
 if [ -x "$(command -v $batcmd)" ]; then
-  export BAT_PAGER="less -RF"
+  export BAT_PAGER="less"
   alias cat=$batcmd
 fi
 
@@ -159,4 +159,16 @@ function openpr() {
 
 function pruneBranches() {
   git fetch -p && for branch in $(git branch -vv | grep ': gone]' | awk '{print $1}'); do git branch -D $branch; done
+}
+
+function merge() {
+  git ls-files -u | awk '{print $4}' | sort -u | xargs -o vim
+}
+
+function clean build dbmigrate () {
+  if [[ -x ./build.sh ]]; then
+    ./build.sh -target=$0 $*
+  else
+    command $0 "$@"
+  fi
 }

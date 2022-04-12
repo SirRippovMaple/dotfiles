@@ -3,6 +3,8 @@
     name = Trevor Green
 {{- if hasSuffix "salesforce.com" .email }}
     signingkey = 3B2B4F3EEFF77D3B
+{{- else }}
+    signingkey = C5F334C69F7F0B6C
 {{- end}}
 [core]
     editor = nvim
@@ -39,11 +41,7 @@
         done; \
         git pull -r && git checkout -b $1 && git push -u origin $1; \
         }; f"
-{{- if hasSuffix "salesforce.com" .email }}
-[gpg]
-    program = /usr/local/bin/gpg
 [commit]
     gpgsign = true
-{{- end}}
 [pull]
     ff = only

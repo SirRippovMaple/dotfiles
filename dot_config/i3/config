@@ -27,17 +27,11 @@ exec --no-startup-id feh --randomize --bg-fill ~/Pictures/wallpaper/*
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+bindsym $mod+Mod1+l exec loginctl lock-session
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
-
-# Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -58,9 +52,7 @@ bindsym $mod+q kill
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-for_window [instance="fzfmenu"] floating enable, resize set 640 480;
-for_window [instance="fzfmenu"] move scratchpad, scratchpad show, move position center, move scratchpad, scratchpad show
-bindsym $mod+space exec ~/.config/i3/launcher; [instance="fzfmenu"] scratchpad show
+bindsym $mod+space exec rofi -show drun -modi drun -theme arthur -show combi -icon-theme "Papirus" -show-icons
 
 # change focus
 bindsym $mod+h focus left
@@ -117,25 +109,16 @@ bindsym $mod+a focus parent
 set $leftDisplay "DVI-I-1"
 set $rightDisplay "DVI-D-0"
 
-set $ws1 "1: Browser"
-set $ws2 "2: Launchers"
+set $ws1 "1"
+set $ws2 "2"
 set $ws3 "3"
-set $ws4 "4: Comms"
-set $ws5 "5: Browser"
-set $ws6 "6: Games"
-set $ws7 "7: Moderator"
-set $ws8 "8: Database"
-set $ws9 "9: Terminal"
-set $ws10 "10: IDE"
-
-workspace $ws1 output $leftDisplay
-workspace $ws2 output $leftDisplay
-workspace $ws5 output $rightDisplay
-workspace $ws6 output $rightDisplay
-workspace $ws7 output $rightDisplay
-workspace $ws8 output $rightDisplay
-workspace $ws9 output $rightDisplay
-workspace $ws10 output $rightDisplay
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -209,8 +192,7 @@ bindsym $mod+r mode "resize"
 # }
 #
 bar {
-	status_command i3status
-    position top
+    i3bar_command ~/.config/polybar/launch.sh
 }
 
 default_border pixel
@@ -220,3 +202,43 @@ assign [class="jetbrains-rider" instance="jetbrains-rider"] $ws10
 assign [class="jetbrains-datagrip" instance="jetbrains-datagrip"] $ws8
 assign [class="MultiMC5" instance="MultiMC"] $ws2
 assign [class="Minecraft" instance="Minecraft"] $ws6
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec light -A 5 # increase screen brightness
+bindsym XF86MonBrightnessDown exec light -U 5 # decrease screen brightness
+
+# ALSA controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset Master 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse sset Master 5%-
+bindsym XF86AudioMute exec --no-startup-id amixer -D pulse sset Master toggle
+#bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && refresh_i3status
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# Display
+bindsym XF86Display exec "lxrandr"
+
+# color variables
+
+set $bg-color           #20212B
+set $inactive-bg-color  #20212B
+set $text-color          #f3f4f5
+set $inactive-text-color #676E7D
+set $urgent-bg-color     #E53935
+
+#window colors
+#                       border              background         text                 indicator
+client.focused          $bg-color           $bg-color          $text-color          #00ff00
+client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color #00ff00
+client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color #00ff00
+client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #00ff00
+
+# disable window titlebars
+for_window [class=".*"] border pixel 0
+gaps inner 3
+gaps outer 3
+
+smart_gaps on

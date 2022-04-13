@@ -1,11 +1,18 @@
-{{- $email := promptString "email" -}}
-{{- $batcmd := "bat" }}
-{{- if eq .chezmoi.os "linux" }}
-{{- if eq .chezmoi.osRelease.idLike "debian" }}
-{{- $batcmd = "batcat" }}
+{{- $workDnsSuffix := trim (bitwarden "item" "work_dns_suffix").notes }}
+{{- $fullHostname := trim ( output "hostname" ) }}
+{{- $atWork := hasSuffix $workDnsSuffix $fullHostname }}
+{{- $email := "" }}
+{{- $name := "Sir Rippov the Maple" }}
+{{- if $atWork }}
+{{- $email = trim (bitwarden "item" "work-identity").identity.email }}
+{{- $name = printf "%s %s" (bitwarden "item" "work-identity").identity.firstName (bitwarden "item" "work-identity").identity.lastName }}
+{{- else }}
+{{- $email = trim (bitwarden "item" "git-identity").identity.email }}
 {{- end }}
-{{- end -}}
-pager = "{{ $batcmd }}"
+{{- $batcmd := "bat" }}
+pager = {{ $batcmd | quote }}
 
 [data]
-  email = "{{ $email }}"
+  work = {{ $atWork | quote }}
+  name = {{ $name | quote }}
+  email = {{ $email | quote }}

@@ -1,1 +1,3 @@
-{{- if hasSuffix "salesforce.com" .email }}{{ (bitwarden "item" "private_key_git_soma").notes }}{{- end }}
+{{- if eq .work "true" -}}
+{{ (bitwarden "item" "private_key_git_soma").notes }}
+{{ end -}}

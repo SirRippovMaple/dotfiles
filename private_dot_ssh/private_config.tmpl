@@ -1,12 +1,9 @@
 # {{ .email }}
-{{- if hasSuffix "salesforce.com" .email }}
+{{- if eq .work "true" }}
 Host github.com-SirRippovMaple
     HostName github.com
     User git
     AddKeysToAgent yes
-{{- if eq .chezmoi.os "darwin" }}
-    UseKeyChain yes
-{{- end }}
     IdentityFile ~/.ssh/github
     IdentitiesOnly yes
     StrictHostKeyChecking yes
@@ -14,31 +11,14 @@ Host github.com-SirRippovMaple
 {{- else }}
 Host github.com
     AddKeysToAgent yes
-{{- if eq .chezmoi.os "darwin" }}
-    UseKeyChain yes
-{{- end }}
     IdentityFile ~/.ssh/github
     StrictHostKeyChecking yes
     CheckHostIP no
 {{- end }}
 
-{{- if hasSuffix "salesforce.com" .email }}
+{{- if eq .work "true" }}
 
-{{ (bitwarden "item" "ssh_config_moveit").notes }}
-
-{{ (bitwarden "item" "ssh_config_et_github").notes }}
-{{- if eq .chezmoi.os "darwin" }}
-    UseKeyChain yes
-{{- end }}
-
-{{ (bitwarden "item" "ssh_config_git_soma").notes }}
-{{- if eq .chezmoi.os "darwin" }}
-    UseKeyChain yes
-{{- end }}
-
-{{ (bitwarden "item" "ssh_config_bastion").notes }}
-
-{{ (bitwarden "item" "ssh_config_sf_github").notes }}
+{{ (bitwarden "item" "ssh_config_work").notes }}
 
 {{- else }}
 

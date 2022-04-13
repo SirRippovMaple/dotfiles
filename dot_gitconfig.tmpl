@@ -1,7 +1,7 @@
 [user]
     email = {{ .email }}
-    name = Trevor Green
-{{- if hasSuffix "salesforce.com" .email }}
+    name = {{ .name }}
+{{- if eq .work "true" }}
     signingkey = 3B2B4F3EEFF77D3B
 {{- else }}
     signingkey = C5F334C69F7F0B6C

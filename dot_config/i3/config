@@ -120,6 +120,15 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
+workspace $ws1 output $leftDisplay
+workspace $ws2 output $leftDisplay
+workspace $ws5 output $rightDisplay
+workspace $ws6 output $rightDisplay
+workspace $ws7 output $rightDisplay
+workspace $ws8 output $rightDisplay
+workspace $ws9 output $rightDisplay
+workspace $ws10 output $rightDisplay
+
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
 bindsym $mod+2 workspace number $ws2
@@ -200,7 +209,7 @@ focus_follows_mouse no
 
 assign [class="jetbrains-rider" instance="jetbrains-rider"] $ws10
 assign [class="jetbrains-datagrip" instance="jetbrains-datagrip"] $ws8
-assign [class="MultiMC5" instance="MultiMC"] $ws2
+assign [class="PolyMC" instance="polymc"] $ws2
 assign [class="Minecraft" instance="Minecraft"] $ws6
 
 # Sreen brightness controls

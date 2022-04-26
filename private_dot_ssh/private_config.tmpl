@@ -2,7 +2,6 @@
 {{- if eq .work "true" }}
 Host github.com-SirRippovMaple
     HostName github.com
-    User git
     IdentityFile ~/.ssh/github.pub
     IdentitiesOnly yes
     StrictHostKeyChecking yes
@@ -23,7 +22,6 @@ Host github.com
 
 Host git.trumpi.co.za
     Port 2222
-    AddKeysToAgent yes
     IdentityFile ~/.ssh/github.pub
     IdentitiesOnly yes
     StrictHostKeyChecking yes
@@ -38,7 +36,6 @@ Host trumpi-nas.internal.trumpi.co.za
 Host ns527547.ip-192-99-37.net
     User ubuntu
     Port 2332
-    AddKeysToAgent yes
     IdentityFile ~/.ssh/personal.pub
     LocalForward 5432 localhost:5432
     LocalForward 6379 localhost:6379

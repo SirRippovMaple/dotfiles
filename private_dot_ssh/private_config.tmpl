@@ -3,15 +3,14 @@
 Host github.com-SirRippovMaple
     HostName github.com
     User git
-    AddKeysToAgent yes
-    IdentityFile ~/.ssh/github
+    IdentityFile ~/.ssh/github.pub
     IdentitiesOnly yes
     StrictHostKeyChecking yes
     CheckHostIP no
 {{- else }}
 Host github.com
-    AddKeysToAgent yes
-    IdentityFile ~/.ssh/github
+    IdentityFile ~/.ssh/github.pub
+    IdentitiesOnly yes
     StrictHostKeyChecking yes
     CheckHostIP no
 {{- end }}
@@ -25,20 +24,22 @@ Host github.com
 Host git.trumpi.co.za
     Port 2222
     AddKeysToAgent yes
-    IdentityFile ~/.ssh/github
+    IdentityFile ~/.ssh/github.pub
+    IdentitiesOnly yes
     StrictHostKeyChecking yes
     CheckHostIP no
 
 Host trumpi-nas.internal.trumpi.co.za
     User trumpi
-    IdentityFile ~/.ssh/github
+    IdentityFile ~/.ssh/personal.pub
+    IdentitiesOnly yes
 {{- end }}
 
 Host ns527547.ip-192-99-37.net
     User ubuntu
     Port 2332
     AddKeysToAgent yes
-    IdentityFile ~/.ssh/github
+    IdentityFile ~/.ssh/personal.pub
     LocalForward 5432 localhost:5432
     LocalForward 6379 localhost:6379
     LocalForward 8081 localhost:8081

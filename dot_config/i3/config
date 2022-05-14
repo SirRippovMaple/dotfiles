@@ -22,7 +22,7 @@ font pango:MesloLGM NerdFont Mono 12
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 exec --no-startup-id picom -b
-exec --no-startup-id feh --randomize --bg-fill ~/Pictures/wallpaper/*
+exec --no-startup-id feh --no-feh-bg --randomize --bg-fill ~/Pictures/wallpaper/*
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
@@ -247,7 +247,7 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 
 # disable window titlebars
 for_window [class=".*"] border pixel 0
-gaps inner 3
-gaps outer 3
+gaps inner 5
+gaps outer 0
 
 smart_gaps on

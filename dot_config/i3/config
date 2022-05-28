@@ -230,6 +230,10 @@ bindsym XF86AudioPrev exec playerctl previous
 # Display
 bindsym XF86Display exec "lxrandr"
 
+# Do not disturb
+bindsym $mod+Shift+n exec --no-startup-id ~/.config/dunst/dnd.sh -s
+bindsym $mod+Ctrl+n exec --no-startup-id ~/.config/dunst/dnd.sh -e
+
 # color variables
 
 set $bg-color           #20212B

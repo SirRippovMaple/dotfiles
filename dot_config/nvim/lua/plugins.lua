@@ -168,12 +168,37 @@ return require('packer').startup(
                 }
             end
         }
+
         use {
             'nvim-telescope/telescope-fzy-native.nvim',
             requires = {'nvim-telescope/telescope.nvim'},
             config = function()
                 require('telescope').load_extension('fzy_native')
             end
+        }
+
+        use {
+            'renerocksai/telekasten.nvim',
+            requires = {
+                'nvim-telescope/telescope.nvim',
+                'renerocksai/calendar-vim'
+            },
+            config = function()
+                local home = vim.fn.expand("~/.notable")
+                require('telekasten').setup({
+                    home = home,
+                    take_over_my_home = true,
+                    auto_set_filetype = true,
+                })
+            end
+        }
+        
+        use {
+            'renerocksai/calendar-vim',
+        }
+
+        use {
+            'lervag/vimtex',
         }
 
         use {

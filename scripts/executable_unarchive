@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+pushd ~/repositories
+tar --extract --verbose --file ${1:?No archive file specified} 
+popd

@@ -14,8 +14,8 @@ mapkey('n', 'j', 'gj', { noremap = true })
 mapkey('n', 'gk', 'k', { noremap = true })
 mapkey('n', 'gj', 'j', { noremap = true })
 mapkey('i', 'jj', '<esc>', { noremap = true })
-mapkey('n', ']b', '<cmd>bn', { noremap = true, silent = true })
-mapkey('n', '[b', '<cmd>bp', { noremap = true, silent = true })
+mapkey('n', ']b', '<cmd>bn<cr>', { noremap = true, silent = true })
+mapkey('n', '[b', '<cmd>bp<cr>', { noremap = true, silent = true })
 
 vim.g.mapleader = ' '
 vim.g.auto_save = 0

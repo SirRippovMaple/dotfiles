@@ -22,6 +22,7 @@ font pango:MesloLGM NerdFont Mono 12
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 exec --no-startup-id picom -b
+exec --no-startup-id udiskie --tray
 exec --no-startup-id feh --no-fehbg --randomize --bg-fill ~/Pictures/wallpaper/*
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the

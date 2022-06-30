@@ -44,6 +44,7 @@ bindsym $mod+Return exec kitty
 bindsym $mod+b exec brave
 bindsym $mod+e exec kitty ranger
 bindsym $mod+n exec kitty newsboat
+bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort
 
 # kill focused window
 bindsym $mod+q kill

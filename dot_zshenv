@@ -7,3 +7,5 @@ export XDG_CACHE_HOME=$HOME/.cache
 export NPM_CONFIG_PREFIX=$XDG_DATA_HOME/.npm-global
 mkdir -p $NPM_CONFIG_PREFIX
 export PATH=$NPM_CONFIG_PREFIX/bin:$PATH
+
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"

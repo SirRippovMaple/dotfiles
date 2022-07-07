@@ -17,7 +17,7 @@ return require('packer').startup(
 
         use {
             'nvim-lualine/lualine.nvim',
-            requires = { 'kyazdani42/nvim-web-devicons' },
+            requires = { 'kyazdani42/nvim-web-devicons', opt = true },
             config = function()
                 local config = require('lualine')
                 config.setup {
@@ -394,7 +394,8 @@ return require('packer').startup(
                     "sumneko_lua",
                     "dockerls",
                     "jsonls",
-                    "cssls"
+                    "cssls",
+                    "bashls",
                 }
 
                 for _, server in pairs(lspServers) do

@@ -78,7 +78,7 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # History options
-[ -f ~/.histfile ] && mkdir -p "$XDG_DATA_HOME/zsh" && move ~/.histfile "$XDG_DATA_HOME/history"
+[ -f ~/.histfile ] && mkdir -p "$XDG_DATA_HOME/zsh" && mv ~/.histfile "$XDG_DATA_HOME/history"
 export HISTFILE="$XDG_DATA_HOME/zsh/history"
 export HISTSIZE=1000000
 export SAVEHIST=1000000

@@ -143,10 +143,14 @@ enable-fzf-tab
 
 # Open the Pull Request URL for your current directory's branch (base branch defaults to master)
 function openpr() {
-  remote=${1:-origin}
+  backup_remote=$(git remote | grep --quiet --no-messages '^upstream$' && echo -n upstream || echo -n origin)
+  remote=${1:-$backup_remote}
   github_url=`git remote -v | awk "/^${remote}.*\\(fetch\\)$/{print \\$2}" | sed -Ee 's#(git@|git://)#https://#' -e 's#github.com-[^:]+#github.com#' -e 's@com:@com/@' -e 's%\.git$%%'`;
-  main_branch=`git remote show origin | sed -n '/HEAD branch/s/.*: //p'`
+  main_branch=`git remote show $remote | sed -n '/HEAD branch/s/.*: //p'`
   branch_name=`git symbolic-ref HEAD | cut -d"/" -f 3,4`;
+  if [ "$remote" = "upstream" ]; then
+    branch_name="trevor-green:$branch_name"
+  fi
   pr_url=$github_url"/compare/$main_branch..."$branch_name
   open $pr_url;
 }

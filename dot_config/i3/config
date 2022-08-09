@@ -46,6 +46,10 @@ bindsym $mod+e exec kitty ranger
 bindsym $mod+n exec kitty newsboat
 bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort
 
+# VPN
+bindsym $mod+Shift+v exec expressvpn connect
+bindsym $mod+Mod1+v exec expressvpn disconnect 
+
 # kill focused window
 bindsym $mod+q kill
 

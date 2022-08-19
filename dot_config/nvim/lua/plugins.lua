@@ -17,7 +17,10 @@ return require('packer').startup(
 
         use {
             'nvim-lualine/lualine.nvim',
-            requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+            requires = {
+                'kyazdani42/nvim-web-devicons',
+                'akinsho/nvim-bufferline.lua',
+            },
             config = function()
                 local config = require('lualine')
                 config.setup {
@@ -177,32 +180,11 @@ return require('packer').startup(
         }
 
         use {
-            'renerocksai/telekasten.nvim',
-            requires = {
-                'nvim-telescope/telescope.nvim',
-                'renerocksai/calendar-vim'
-            },
-            config = function()
-                local home = vim.fn.expand("~/.notable")
-                require('telekasten').setup({
-                    home = home,
-                    take_over_my_home = true,
-                    auto_set_filetype = true,
-                })
-            end
-        }
-
-        use {
-            'renerocksai/calendar-vim',
-        }
-
-        use {
             'lervag/vimtex',
         }
 
         use {
             'nvim-treesitter/nvim-treesitter',
-            as = 'telescope',
             run = ':TSUpdate',
             config = function()
                 require('nvim-treesitter.configs').setup {
@@ -396,6 +378,7 @@ return require('packer').startup(
                     "jsonls",
                     "cssls",
                     "bashls",
+                    "marksman",
                 }
 
                 for _, server in pairs(lspServers) do

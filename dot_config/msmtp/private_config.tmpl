@@ -1,11 +1,6 @@
 {{- $email := trim (bitwarden "item" "personal-identity").identity.email -}}
-{{- $password := "" }}
-{{- $fields := (bitwarden "item" "personal-identity").fields -}}
-{{- range $field := $fields }}
-    {{- if eq $field.name "smtp_password" }}
-        {{- $password = $field.value }}
-    {{- end }}
-{{- end -}}
+{{- $email := trim (bitwarden "item" "personal-identity").identity.email -}}
+{{- $password := (bitwardenFields "item" "personal-identity").smtp_password.value -}}
 # Set default values for all following accounts.
 defaults
 auth           on

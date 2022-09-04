@@ -14,6 +14,7 @@ export PATH=$NPM_CONFIG_PREFIX/bin:$PATH
 {{ if eq $field.name "masked_email_token" -}}
 {{ $token = $field.value -}}
 {{ end -}}
+{{ end -}}
 export FASTMAIL_MASKEDEMAIL_TOKEN='{{ $token }}'
 
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"

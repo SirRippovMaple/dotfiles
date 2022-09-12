@@ -21,6 +21,7 @@ fi
 autoload -Uz compinit
 compinit -d -"$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
 _comp_options+=(globdots)
+[ -d $XDG_CONFIG_HOME/zsh/functions ] && fpath=($XDG_CONFIG_HOME/zsh/functions $fpath)
 
 # Prepended path
 export GOPATH=$HOME/go

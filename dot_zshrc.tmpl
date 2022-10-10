@@ -95,6 +95,9 @@ fi
 if [ -x "$(command -v git)" ]; then
   alias g=git
 fi
+if [ -x "$(command -v gh)" ]; then
+  alias gh='PAGER=less gh'
+fi
 
 if [ -x "$(command -v kubectl)" ]; then
   alias k=kubectl

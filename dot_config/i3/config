@@ -37,10 +37,11 @@ floating_modifier $mod
 bindsym $mod+Return exec kitty
 
 # Common applications
-bindsym $mod+b exec brave
+bindsym $mod+b exec firefox
 bindsym $mod+e exec kitty ranger
 bindsym $mod+n exec kitty newsboat
 bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort
+bindsym $mod+v exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 
 # VPN
 bindsym $mod+Shift+v exec expressvpn connect
@@ -81,10 +82,10 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+z split h
+bindsym $mod+'-' split h
 
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+'|' split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle

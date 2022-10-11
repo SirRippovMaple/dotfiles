@@ -1,0 +1,1 @@
+crontab ~/.config/cron/crontab

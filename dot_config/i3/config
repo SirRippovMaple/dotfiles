@@ -217,7 +217,7 @@ focus_follows_mouse no
 
 assign [class="jetbrains-rider" instance="jetbrains-rider"] $ws10
 assign [class="jetbrains-datagrip" instance="jetbrains-datagrip"] $ws8
-assign [class="PolyMC" instance="polymc"] $ws2
+assign [class="PrismLauncher" instance="prismlauncher"] $ws2
 assign [class="Minecraft" instance="Minecraft"] $ws6
 
 # Sreen brightness controls

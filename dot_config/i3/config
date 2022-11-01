@@ -130,6 +130,8 @@ set $ws10 "10"
 
 workspace $ws1 output $leftDisplay
 workspace $ws2 output $leftDisplay
+workspace $ws3 output $leftDisplay
+workspace $ws4 output $leftDisplay
 workspace $ws5 output $rightDisplay
 workspace $ws6 output $rightDisplay
 workspace $ws7 output $rightDisplay
@@ -215,10 +217,13 @@ bar {
 default_border pixel
 focus_follows_mouse no
 
-assign [class="jetbrains-rider" instance="jetbrains-rider"] $ws10
-assign [class="jetbrains-datagrip" instance="jetbrains-datagrip"] $ws8
 assign [class="PrismLauncher" instance="prismlauncher"] $ws2
+assign [class="discord" instance="discord"] $ws4
+assign [class="Skype" instance="skype"] $ws4
+assign [class="Signal" instance="signal"] $ws4
 assign [class="Minecraft" instance="Minecraft"] $ws6
+assign [class="jetbrains-datagrip" instance="jetbrains-datagrip"] $ws8
+assign [class="jetbrains-rider" instance="jetbrains-rider"] $ws10
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec light -A 5 # increase screen brightness

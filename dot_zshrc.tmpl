@@ -127,6 +127,8 @@ if [ -x "$(command -v zoxide)" ]; then
   eval "$(zoxide init zsh)"
 fi
 
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && source "/opt/homebrew/opt/nvm/nvm.sh"
+
 alias update='source ~/.zshrc'
 {{- if eq .chezmoi.os "darwin" }}
 alias start=open
@@ -142,6 +144,7 @@ fi
 {{- end }}
 
 [ -x "$(command -v todo.sh)" ] && alias t=todo.sh
+alias b='${EDITOR} ~/todo/bookmarks.txt'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

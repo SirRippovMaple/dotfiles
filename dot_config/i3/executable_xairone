@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+script=$(realpath $0)
+exec 6< "$script"
+flock -n 6 || exit 1
+
+xairedit

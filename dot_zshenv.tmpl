@@ -1,16 +1,52 @@
+function move_config() {
+    OLD_DIR="$1"
+    NEW_DIR="$2"
+    if [ -d "$OLD_DIR" ]; then
+        [ ! -d "$NEW_DIR" ] && mkdir -p "$NEW_DIR" && mv "$OLD_DIR"/* "$NEW_DIR" && rm -rf "$OLD_DIR" || echo "Unable to move files from $OLD_DIR to $NEW_DIR."
+    fi
+}
+
+function move_config_file() {
+    OLD_LOCATION="$1"
+    NEW_LOCATION="$2"
+    if [ -f "$OLD_LOCATION" ]; then
+        [ ! -f "$NEW_LOCATION" ] && mkdir -p "$(dirname "$NEW_LOCATION")" && mv "$OLD_LOCATION" "$NEW_LOCATION" || echo "Unable to move $OLD_LOCATION to $NEW_LOCATION."
+    fi
+}
+
 export XDG_DATA_HOME=$HOME/.local/share
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_STATE_HOME=$HOME/.local/state
 export XDG_CACHE_HOME=$HOME/.cache
 export LC_ALL=en_US.UTF-8
 
-# Move npm global directory
-export NVM_HOME="$XDG_DATA_HOME/nvim"
-mkdir -p $NVM_HOME
-# export NPM_CONFIG_PREFIX=$XDG_DATA_HOME/.npm-global
-# mkdir -p $NPM_CONFIG_PREFIX
-# export PATH=$NPM_CONFIG_PREFIX/bin:$PATH
+export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
 
 export FASTMAIL_MASKEDEMAIL_TOKEN='{{ (bitwardenFields "item" "www.fastmail.com").masked_email_token.value }}'
 
-[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+move_config "$HOME/.cargo" "$CARGO_HOME"
+[ -f "$CARGO_HOME/env" ] && . "$CARGO_HOME/env"
+
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
+move_config "$HOME/.nv" "$CUDA_CACHE_PATH"
+
+export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
+move_config "$HOME"/.docker "$DOCKER_CONFIG"
+
+export GOPATH="$XDG_DATA_HOME"/go
+move_config "$HOME"/go "$GOPATH"
+
+export MPLAYER_HOME="$XDG_CONFIG_HOME"/mplayer
+move_config "$HOME"/.mplayer "$MPLAYER_HOME"
+
+export NUGET_PACKAGES="$XDG_CACHE_HOME"/NuGetPackages
+rm -rf "$HOME"/.nuget/packages
+
+export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
+move_config "$HOME"/.rustup "$RUSTUP_HOME"
+
+move_config_file "$HOME"/.wget-hsts "$XDG_DATA_HOME/wget-hsts"
+move_config "$HOME/.dosbox" "$XDG_CONFIG_HOME/dosbox"
+move_config_file "$HOME/.notmuch-config" "$XDG_CONFIG_HOME/notmuch/default/config"

@@ -2,11 +2,11 @@
 bw get item 'DCAA4AAF7954E095.gpg' | jq -r '.notes' | gpg --import -
 gpg --export-ssh-key DCAA4AAF7954E095 > ~/.ssh/github.pub
 
-bw get item 'A0D2143A1F988F3A.gpg' | jq -r '.notes' | gpg --import -
+bw get item 'A0D2143A1F988F3A.gpg' | jq -r '.notes' | gpg --import-options restore --import -
 gpg --export-ssh-key A0D2143A1F988F3A > ~/.ssh/work.pub
 
-bw get item '19411BB7C7E6C42F.gpg' | jq -r '.notes' | gpg --import -
-gpg --export-ssh-key 892D161A398D01FD > ~/.ssh/personal.pub
+bw get item '8042CE0E6B9CAB67.gpg' | jq -r '.notes' | gpg --import-options restore --import -
+# gpg --export-ssh-key 8042CE0E6B9CAB67 > ~/.ssh/personal.pub
 
 # https://musigma.blog/2021/05/09/gpg-ssh-ed25519.html
 # https://gist.github.com/mcattarinussi/834fc4b641ff4572018d0c665e5a94d3

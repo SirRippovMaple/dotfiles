@@ -35,11 +35,6 @@ _comp_options+=(globdots)
 [ -d $HOME/scripts ] && export PATH="$HOME/scripts:$PATH"
 [ -d /usr/local/share/dotnet ] && export PATH="/usr/local/share/dotnet:$PATH"
 [ -d /usr/local/bin ] && export PATH="/usr/local/bin:$PATH"
-[ -d /opt/homebrew/opt/grep/libexec/gnubin ] && export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
-[ -d /opt/homebrew/opt/gnu-tar/libexec/gnubin ] && export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
-[ -d /opt/homebrew/opt/gnu-sed/libexec/gnubin ] && export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
-[ -d /opt/homebrew/opt/coreutils/libexec/gnubin ] && export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
-[ -d /opt/homebrew/opt/coreutils/libexec/gnuman ] && export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
 
 # Appended path
 [ -d $GOPATH/bin ] && export PATH="$PATH:$GOPATH/bin"

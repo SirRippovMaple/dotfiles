@@ -222,10 +222,13 @@ default_border pixel
 focus_follows_mouse no
 
 assign [class="PrismLauncher" instance="prismlauncher"] $ws2
+assign [class="Steam"] $ws2
 assign [class="discord" instance="discord"] $ws4
 assign [class="Skype" instance="skype"] $ws4
 assign [class="Signal" instance="signal"] $ws4
 assign [class="Minecraft" instance="Minecraft"] $ws6
+assign [class="Paradox Launcher"] $ws6
+assign [class="Cities.x64"] $ws6
 assign [class="jetbrains-datagrip" instance="jetbrains-datagrip"] $ws8
 assign [class="jetbrains-rider" instance="jetbrains-rider"] $ws10
 
@@ -250,6 +253,11 @@ bindsym XF86Display exec "lxrandr"
 # Do not disturb
 bindsym $special+Shift+n exec --no-startup-id ~/.config/dunst/dnd.sh -s
 bindsym $special+Ctrl+n exec --no-startup-id ~/.config/dunst/dnd.sh -e
+
+# Notifications
+bindsym $special+shift+grave exec --no-startup-id dunstctl close
+bindsym $special+ctrl+grave exec --no-startup-id dunstctl close-all
+bindsym $special+grave exec --no-startup-id dunstctl history-pop
 
 # color variables
 

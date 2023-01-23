@@ -44,10 +44,25 @@ yabai -m config left_padding                 1
 yabai -m config right_padding                1
 yabai -m config window_gap                   1
 
-
-yabai -m rule --add app="^System Preferences$" manage=off
-yabai -m rule --add app="AnyConnect" manage=off
-yabai -m rule --add app="KeePassXC" manage=off
-yabai -m rule --add app="choose" manage=off
+ yabai -m space 9 --label Chrome
+ yabai -m space 8 --label Brave
+ yabai -m space 7 --label Quip
+ 
+ yabai -m space 2 --label Kitty
+ yabai -m space 3 --label Rider
+ yabai -m space 4 --label Idea
+ 
+ yabai -m rule --add app="^System Settings$" manage=off
+ yabai -m rule --add app="AnyConnect" manage=off
+ yabai -m rule --add app="KeePassXC" manage=off
+ yabai -m rule --add app="choose" manage=off
+ 
+ yabai -m rule --add app="Slack" space="Slack"
+ yabai -m rule --add app="Google Chrome" space="Chrome"
+ yabai -m rule --add app="Brave Browser" space="Brave"
+ 
+ yabai -m rule --add app="Docker Desktop" space="Docker"
+ yabai -m rule --add app="kitty" space="Kitty"
+ yabai -m rule --add app="JetBrains Rider" space="Rider"
 
 echo "yabai configuration loaded.."

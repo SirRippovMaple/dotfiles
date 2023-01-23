@@ -6,7 +6,7 @@
 if [[ ${@:2} == *'@work'* ]]; then
     todo.sh -t command add "${@:2}"
 else
-    todo.sh -t command add "${@:"} @work"
+    todo.sh -t command add "${@:2"} @work"
 fi
 {{- else }}
 todo.sh -t command add "${@:2}"

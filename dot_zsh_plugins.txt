@@ -10,3 +10,4 @@ zsh-users/zsh-syntax-highlighting
 ajeetdsouza/zoxide
 romkatv/powerlevel10k kind:zsh-theme
 MenkeTechnologies/zsh-dotnet-completion
+jeffreyse/zsh-vi-mode

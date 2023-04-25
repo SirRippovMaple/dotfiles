@@ -126,6 +126,7 @@ alias b='${EDITOR} ~/todo/bookmarks.txt'
 # Aliases
 alias cd..='cd ..'
 alias pwd='pwd && pwd | pbcopy'
+alias portkill='function killit(){kill -9 "$(lsof -t -i:$1)" &>/dev/null || true};killit'
 
 # Work folders
 [ -f ~/.folders.sh ] && source ~/.folders.sh

@@ -154,21 +154,15 @@ return require('packer').startup(
                 }
             end,
             run = function()
-                vim.api.nvim_create_autocmd("QuitPre", {
-                  callback = function()
-                    local invalid_win = {}
-                    local wins = vim.api.nvim_list_wins()
-                    for _, w in ipairs(wins) do
-                      local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(w))
-                      if bufname:match("NvimTree_") ~= nil then
-                        table.insert(invalid_win, w)
-                      end
-                    if #invalid_win == #wins - 1 then
-                      -- Should quit, so we close all invalid windows.
-                      for _, w in ipairs(invalid_win) do vim.api.nvim_win_close(w, true) end
-                    end
-                  end
-              })
+              vim.api.nvim_create_autocmd("BufEnter", {
+                group = vim.api.nvim_create_augroup("NvimTreeClose", {clear = true}),
+                pattern = "NvimTree_*",
+                callback = function()
+                  local layout = vim.api.nvim_call_function("winlayout", {})
+                  if layout[1] == "leaf" and vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(layout[2]), "filetype") == "NvimTree" and layout[3] == nil then vim.cmd("confirm quit") end
+                end
+              })     
+            end
         }
 
         use {
@@ -530,24 +524,6 @@ return require('packer').startup(
                 mapkey("x", "ga", "<Plug>(EasyAlign)", {})
                 mapkey("n", "ga", "<Plug>(EasyAlign)", {})
             end
-        }
-
-        use {
-            'renerocksai/telekasten.nvim',
-            config = function()
-                local home = vim.fn.expand("~/.notable")
-                local cfg = require('telekasten')
-                cfg.setup({
-                    home = home,
-                })
-
-                mapkeylua('n', '<Leader>zf', cfg.find_notes, { silent = true })
-                mapkeylua('n', '<Leader>zd', cfg.find_daily_notes, { silent = true })
-                mapkeylua('n', '<Leader>zg', cfg.search_notes, { silent = true })
-                mapkeylua('n', '<Leader>zz', cfg.follow_link, { silent = true })
-                mapkeylua('n', '<Leader>z', cfg.panel, { silent = true })
-            end
-
         }
     end
 )

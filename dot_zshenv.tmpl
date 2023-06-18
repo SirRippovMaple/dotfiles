@@ -44,5 +44,11 @@ rm -rf "$HOME"/.nuget/packages
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 move_config "$HOME"/.rustup "$RUSTUP_HOME"
 
+export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+move_config "$HOME/.docker" "$XDG_CONFIG_HOME/docker"
+
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+move_config "$HOME/.gnupg" "$XDG_DATA_HOME/gnupg"
+
 move_config "$HOME/.dosbox" "$XDG_CONFIG_HOME/dosbox"
 move_config_file "$HOME/.notmuch-config" "$XDG_CONFIG_HOME/notmuch/default/config"

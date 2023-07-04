@@ -515,4 +515,5 @@ return require('lazy').setup({
         lazy = true,
         ft = "puml",
     },
+    'mechatroner/rainbow_csv',
 })

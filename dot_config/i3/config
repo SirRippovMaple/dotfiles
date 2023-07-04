@@ -23,6 +23,7 @@ exec --no-startup-id picom -b
 exec --no-startup-id udiskie --tray
 exec --no-startup-id feh --no-fehbg --randomize --bg-fill ~/Pictures/wallpaper/*
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id unclutter
 
 bindsym $special+$alt+l exec loginctl lock-session
 

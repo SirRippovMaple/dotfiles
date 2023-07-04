@@ -31,13 +31,16 @@ xdotool windowactivate $w
 
 msg "Decide"
 
-decision=$(echo -e "Tag\nSplit\nDelete\nRemove Password\nQuit" | fzf)
+decision=$(echo -e "Tag\nSplit\nSkip\nDelete\nRemove Password\nQuit" | fzf)
 if [ "$decision" == "Split" ]; then
     split "$file"
 elif [ "$decision" == "Tag" ]; then
     tag "$file"
 elif [ "$decision" == "Delete" ]; then
     rm "$file"
+elif [ "$decision" == "Skip" ]; then
+    mkdir -p skip
+    mv "$file" skip
 elif [ "$decision" == "Remove Password" ]; then
     msg "Enter PDF password:"
     read -e -p "> " password

@@ -130,8 +130,8 @@ alias portkill='function killit(){kill -9 "$(lsof -t -i:$1)" &>/dev/null || true
 # Work folders
 [ -f ~/.folders.sh ] && source ~/.folders.sh
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# To customize prompt, run `p10k configure` or edit $ZDOTDIR/.p10k.zsh.
+[[ ! -f ${ZDOTDIR:-~}/.p10k.zsh ]] || source ${ZDOTDIR:-~}/.p10k.zsh
 
 # Completion for kitty
 kitty + complete setup zsh | source /dev/stdin

@@ -30,6 +30,9 @@ bindsym $special+$alt+l exec loginctl lock-session
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
+{{- if eq .chezmoi.hostname "walmarty" }}
+exec --no-startup-id blueman-applet
+{{- end }}
 
 # Use Mouse+$special to drag floating windows to their wanted position
 floating_modifier $special

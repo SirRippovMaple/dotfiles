@@ -26,14 +26,6 @@ _comp_options+=(globdots)
 source <(antibody init)
 antibody bundle < ~/.config/zsh/.zsh_plugins.txt
 
-# History options
-export HISTFILE="$XDG_STATE_HOME/zsh/history"
-export HISTSIZE=1000000
-export SAVEHIST=1000000
-setopt INC_APPEND_HISTORY_TIME
-setopt EXTENDED_HISTORY
-setopt HIST_FIND_NO_DUPS
-
 # User configuration
 batcmd=bat
 

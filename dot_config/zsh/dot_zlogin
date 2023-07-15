@@ -1,1 +1,1 @@
-[ -f ~/Documents] && (cd ~/Documents && git-sync)
+[ -f ~/Documents ] && (cd ~/Documents && git-sync)

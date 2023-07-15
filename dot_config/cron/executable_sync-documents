@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-cd ~/Documents
-git-sync

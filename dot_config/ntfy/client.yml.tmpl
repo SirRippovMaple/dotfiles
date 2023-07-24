@@ -1,0 +1,7 @@
+default-host: {{ (index (bitwarden "item" "83ab97c9-3a8a-4776-9655-b04700c255ca").login.uris 0).uri }}
+default-token: {{ (bitwardenFields "item" "83ab97c9-3a8a-4776-9655-b04700c255ca").token.value }}
+subscribe:
+  - topic: twitch
+    command: ~/.config/ntfy/ntfy-dunst.sh twitch "$raw" 
+  - topic: radarr
+    command: ~/.config/ntfy/ntfy-dunst.sh radarr "$raw" 

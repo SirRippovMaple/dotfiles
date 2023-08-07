@@ -53,7 +53,7 @@ if [ -x "$(command -v kubectl)" ]; then
 fi
 
 if [ -x "$(command -v bw)" ]; then
-  alias unlock='export BW_SESSION=`bw unlock --raw`'
+  alias unlock='export BW_SESSION=$(~/scripts/unlocker)'
   alias lock='bw lock'
 fi
 

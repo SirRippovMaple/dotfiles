@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+status=$(bw status|jq -r .status)
+
+case $status in
+    unauthenticated)
+        bw login --raw
+        ;;
+
+    locked)
+        bw unlock --raw
+        ;;
+
+    unlocked)
+        echo "$BW_SESSION"
+        ;;
+esac

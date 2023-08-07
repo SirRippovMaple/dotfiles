@@ -1,3 +1,9 @@
-cmd + ctrl + shift - b : cliclick w:100 t:"$(grep -v '^&#' ~/todo/bookmarks.txt | choose | cut -d',' -f2)"
-cmd + ctrl + shift - p : cliclick w:100 t:"$(gpg --quiet -d "$HOME/.password-store/$(~/scripts/passlist | choose).gpg")"
+#
+cmd + ctrl - n : yabai -m window $(yabai -m query --windows | jq '.[] | select(.app=="Obsidian") | .id') --toggle topmost 
 
+# open terminal, blazingly fast compared to iTerm/Hyper
+cmd - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
+
+# Experimental pass stuff
+cmd + ctrl + shift - b : cliclick w:100 t:"$(grep -v '^&#' ~/todo/bookmarks.txt | choose | cut -d',' -f2)"
+cmd + ctrl + shift - p : cliclick w:100 t:"$(gpg --quiet -d "$HOME/.password-store/$(~/scripts/passlist | choose).gpg | pbcopy")"

@@ -1,0 +1,8 @@
+[Unit]
+Description=Run getmail
+
+[Service]
+ExecStart=/usr/bin/getmail --quiet
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,8 @@
+[Unit]
+Description=Run vdirsyncer
+
+[Service]
+ExecStart=/usr/bin/vdirsyncer
+
+[Install]
+WantedBy=default.target

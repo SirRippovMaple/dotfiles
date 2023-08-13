@@ -1,0 +1,14 @@
+[retriever]
+type = SimpleIMAPSSLRetriever
+server = imap.fastmail.com
+username = {{ (bitwarden "item" "c721f5a6-154c-4b8a-8d91-adb90000decf").login.username }}
+port = 993
+password = {{ (bitwardenFields "item" "c721f5a6-154c-4b8a-8d91-adb90000decf").imapsync.value }}
+mailboxes = ("Archive",)
+
+[destination]
+type = Maildir
+path = ~/backups/fastmail/
+
+[options]
+read_all = False

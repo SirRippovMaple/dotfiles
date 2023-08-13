@@ -1,0 +1,31 @@
+[general]
+status_path = "~/.cache/vdirsyncer/status/"
+
+[pair icloudsync]
+collections = [["icloudcollections", "default", "card"]]
+a = "khard"
+b = "icloud"
+conflict_resolution = "a wins"
+
+[pair fastmailsync]
+collections = [["fastmailcollections", "default", "Default"]]
+a = "khard"
+b = "fastmail"
+conflict_resolution = "a wins"
+
+[storage khard]
+type = "filesystem"
+path = "~/contacts"
+fileext = ".vcf"
+
+[storage icloud]
+type = "carddav"
+url = "https://contacts.icloud.com"
+username = "{{ (bitwarden "item" "54a5fb7f-9639-45ed-aa5a-a8bf00949167").login.username }}"
+password = "{{ (bitwardenFields "item" "54a5fb7f-9639-45ed-aa5a-a8bf00949167").vdirsyncer.value }}"
+
+[storage fastmail]
+type = "carddav"
+url = "https://carddav.fastmail.com"
+username = "{{ (bitwarden "item" "c721f5a6-154c-4b8a-8d91-adb90000decf").login.username }}"
+password = "{{ (bitwardenFields "item" "c721f5a6-154c-4b8a-8d91-adb90000decf").vdirsyncer.value }}"

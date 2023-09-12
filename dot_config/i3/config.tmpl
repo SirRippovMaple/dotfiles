@@ -18,6 +18,7 @@ set $special Mod4
 
 font pango:MesloLGM NerdFont Mono 12
 
+exec --no-startup-id snixembed
 exec --no-startup-id setxkbmap -option compose:ralt
 exec --no-startup-id discord --start-minimized
 exec --no-startup-id picom -b
@@ -43,7 +44,7 @@ floating_modifier $special
 bindsym $special+Return exec kitty
 
 # Common applications
-bindsym $special+b exec brave
+bindsym $special+b exec firefox
 bindsym $special+e exec kitty ranger
 bindsym $special+n exec kitty newsboat
 bindsym $special+c exec rofi -show calc -modi calc -no-show-match -no-sort

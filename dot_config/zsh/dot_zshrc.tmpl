@@ -70,8 +70,8 @@ if [ -x "$(command -v zoxide)" ]; then
   eval "$(zoxide init zsh)"
 fi
 
-if [ -x "$(command -v dosbox)" ]; then
-  alias dosbox=dosbox -conf "$XDG_CONFIG_HOME"/dosbox/dosbox.conf
+if [ -x "$(command -v irssi)" ]; then
+  alias irssi=irssi --config="$XDG_CONFIG_HOME"/irssi/config --home="$XDG_DATA_HOME"/irssi
 fi
 
 alias update='source ~/.zshrc'

@@ -33,6 +33,9 @@ if [ -x "$(command -v nvim)" ]; then
   export MANPAGER='nvim +Man!'
 fi
 
+if [ -x "$(command -v direnv)" ]; then
+  eval "$(direnv hook zsh)"
+fi
 if [ -x "$(command -v git)" ]; then
   alias g=git
   alias gti=git

@@ -33,3 +33,9 @@ Host nas.trumpi.co.za
     User trumpi
     IdentityFile ~/.ssh/local.pub
     IdentitiesOnly yes
+
+Host shell.trumpi.co.za
+    User trumpi
+    IdentityFile ~/.ssh/local.pub
+    IdentitiesOnly yes
+    ProxyCommand cloudflared access ssh --hostname %h

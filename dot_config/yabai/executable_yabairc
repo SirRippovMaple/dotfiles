@@ -14,6 +14,9 @@
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
 
+left_display_index=1
+right_display_index=2
+
 # global settings
 yabai -m config mouse_follows_focus          off
 yabai -m config focus_follows_mouse          off
@@ -24,10 +27,10 @@ yabai -m config window_opacity               off
 yabai -m config window_opacity_duration      0.0
 yabai -m config active_window_opacity        1.0
 yabai -m config normal_window_opacity        0.90
-yabai -m config window_border                off
-yabai -m config window_border_width          6
-yabai -m config active_window_border_color   0xff775759
+yabai -m config window_border                on
+yabai -m config window_border_width          2
 yabai -m config normal_window_border_color   0xff555555
+yabai -m config active_window_border_color   0xff00ff00
 yabai -m config insert_feedback_color        0xffd75f5f
 yabai -m config split_ratio                  0.50
 yabai -m config auto_balance                 off
@@ -49,28 +52,27 @@ setup_space() {
     local idx="$1"
     local name="$2"
     local display="$3"
-    local space=
-    echo "setup space $idx : $name"
+    echo "setup space $idx : $name (on $display)"
 
-    space=$(yabai -m query --spaces --space "$idx")
-    if [ -z "$space" ]; then
-        yabai -m space "$idx" --create
-    fi
+    until yabai -m query --spaces --space "$idx" 
+    do
+        yabai -m space --create
+    done
 
     yabai -m space "$idx" --display "$display" --label "$name"
 }
 
-setup_space 1 Firefox 1
-setup_space 2 Chrome 1
-setup_space 3 Slack 1
-setup_space 4 Quip 1
-setup_space 5 Spare1 1
+setup_space 1 Firefox "$left_display_index"
+setup_space 2 Chrome "$left_display_index"
+setup_space 3 Slack "$left_display_index"
+setup_space 4 Quip "$left_display_index"
+setup_space 5 Spare1 "$left_display_index"
 
-setup_space 6 Docker 2
-setup_space 7 Kitty 2
-setup_space 8 Spare2 2
-setup_space 9 Idea 2
-setup_space 10 Rider 2
+setup_space 6 Docker "$right_display_index"
+setup_space 7 Kitty "$right_display_index"
+setup_space 8 Spare2 "$right_display_index"
+setup_space 9 Idea "$right_display_index"
+setup_space 10 Rider "$right_display_index"
 
 for _ in $(yabai -m query --spaces | jq '.[].index | select(. > 10)'); do
   yabai -m space --destroy 7

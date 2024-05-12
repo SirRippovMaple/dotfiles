@@ -39,3 +39,8 @@ Host shell.trumpi.co.za
     IdentityFile ~/.ssh/local.pub
     IdentitiesOnly yes
     ProxyCommand cloudflared access ssh --hostname %h
+
+Host dad-and-mom
+    User trumpi
+    IdentityFile ~/.ssh/personal.pub
+

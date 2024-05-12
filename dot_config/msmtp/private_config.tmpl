@@ -1,6 +1,4 @@
-{{- $email := trim (bitwarden "item" "personal-identity").identity.email -}}
-{{- $email := trim (bitwarden "item" "personal-identity").identity.email -}}
-{{- $password := (bitwardenFields "item" "personal-identity").smtp_password.value -}}
+{{- $email := passFields "chezmoi/email" -}}
 # Set default values for all following accounts.
 defaults
 auth           on
@@ -9,13 +7,13 @@ tls_trust_file /etc/ssl/certs/ca-certificates.crt
 logfile        ~/.cache/msmtp.log
 aliases        /etc/aliases
 
-# Fastmail 
-account        fastmail
-host           smtp.fastmail.com
+# {{ $email.name }}
+account        {{ $email.name }} 
+host           {{ $email.smtphost }}
 port           587
-from           {{ $email }}
-user           {{ $email }}
-password       {{ $password }}
+from           {{ $email.login }}
+user           {{ $email.login }}
+password       {{ $email.password }}
 
 # Set a default account
-account default : fastmail
+account default : {{ $email.name  }} 

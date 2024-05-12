@@ -1,8 +1,9 @@
+{{- $rclone := passFields "chezmoi/rclone" -}}
 [gdrive]
 type = drive
-client_id = {{ (bitwardenFields "item" "rclone.conf").gdrive_client_id.value }}
-client_secret = {{ (bitwardenFields "item" "rclone.conf").gdrive_client_secret.value }}
+client_id = {{ $rclone.gdrive_client_id }}
+client_secret = {{ $rclone.gdrive_client_secret }}
 scope = drive
-token = {"access_token":"","token_type":"Bearer","refresh_token":"{{ (bitwardenFields "item" "rclone.conf").gdrive_refresh_token.value }}","expiry":"1970-01-01T00:00:00.000000000Z"}
+token = {"access_token":"","token_type":"Bearer","refresh_token":"{{ $rclone.gdrive_refresh_token }}","expiry":"1970-01-01T00:00:00.000000000Z"}
 team_drive = 
 

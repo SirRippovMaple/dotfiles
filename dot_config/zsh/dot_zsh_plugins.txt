@@ -1,3 +1,4 @@
+jeffreytse/zsh-vi-mode
 chrissicool/zsh-256color
 djui/alias-tips
 MichaelAquilina/zsh-auto-notify
@@ -8,6 +9,5 @@ unixorn/fzf-zsh-plugin branch:main
 zsh-users/zsh-syntax-highlighting
 ajeetdsouza/zoxide
 MenkeTechnologies/zsh-dotnet-completion
-jeffreytse/zsh-vi-mode
-joshskidmore/zsh-fzf-history-search
 romkatv/powerlevel10k kind:fpath kind:zsh
+joshskidmore/zsh-fzf-history-search

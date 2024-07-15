@@ -10,8 +10,17 @@
 {{- $email = trim (bitwarden "item" "git-identity").identity.email }}
 {{- end }}
 {{- $batcmd := "bat" }}
+{{- $os := "other" }}
+{{- if eq .chezmoi.os "darwin" }}
+{{- $os = "darwin" }}
+{{- else if eq .chezmoi.os "linux" }}
 {{- if eq .chezmoi.osRelease.idLike "debian" -}}
 {{- $batcmd = "batcat" }}
+{{- $os = "debian" }}
+{{- else }}
+{{- $batcmd = "bat" }}
+{{- $os = "linux" }}
+{{- end }}
 {{- end }}
 pager = {{ $batcmd | quote }}
 
@@ -19,3 +28,4 @@ pager = {{ $batcmd | quote }}
   work = {{ $atWork | quote }}
   name = {{ $name | quote }}
   email = {{ $email | quote }}
+  os = {{ $os | quote }}

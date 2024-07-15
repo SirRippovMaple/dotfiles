@@ -29,7 +29,12 @@ source "${ZDOTDIR:-~}/.antidote/antidote.zsh"
 antidote load
 
 # User configuration
+{{ if eq .chezmoi.osRelease.idLike "debian" -}}
+batcmd=batcat
+alias bat=batcat
+{{- else -}}
 batcmd=bat
+{{- end }}
 
 export AUTO_NOTIFY_THRESHOLD=20
 export EDITOR="vim"

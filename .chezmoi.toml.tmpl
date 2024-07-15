@@ -10,6 +10,9 @@
 {{- $email = trim (bitwarden "item" "git-identity").identity.email }}
 {{- end }}
 {{- $batcmd := "bat" }}
+{{- if eq .chezmoi.osRelease.idLike "debian" -}}
+{{- $batcmd = "batcat" }}
+{{- end }}
 pager = {{ $batcmd | quote }}
 
 [data]

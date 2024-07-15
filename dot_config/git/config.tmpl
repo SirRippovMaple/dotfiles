@@ -8,7 +8,11 @@
 {{- end}}
 [core]
     editor = nvim
+{{- if eq .chezmoi.osRelease.idLike "debian" }}
+    pager = batcat -p
+{{- else }}
     pager = bat -p
+{{- end }}
     excludeFile = ~/.config/git/gitignore
 [merge]
     tool = nvim

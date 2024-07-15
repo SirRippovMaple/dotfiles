@@ -106,7 +106,7 @@ if [ -x "$(command -v ncmpcpp)" ]; then
   alias music=ncmpcpp
 fi
 
-alias update='source ~/.zshrc'
+alias update="source ${ZDOTDIR:-~}/.zshrc"
 {{- if eq .chezmoi.os "darwin" }}
 alias start=open
 {{- else }}

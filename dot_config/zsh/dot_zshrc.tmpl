@@ -147,6 +147,15 @@ function rebind_ctrl_r() {
 }
 zvm_after_init_commands+=(rebind_ctrl_r)
 
+# History options
+export HISTFILE="$XDG_STATE_HOME/zsh/history"
+export HISTSIZE=1000000
+export SAVEHIST=1000000
+setopt INC_APPEND_HISTORY_TIME
+setopt EXTENDED_HISTORY
+setopt HIST_FIND_NO_DUPS
+mkdir -p "$(dirname "$HISTFILE")"
+
 # Open the Pull Request URL for your current directory's branch (base branch defaults to master)
 function openpr() {
   backup_remote=$(git remote | grep --quiet --no-messages '^upstream$' && echo -n upstream || echo -n origin)

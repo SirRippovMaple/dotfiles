@@ -70,15 +70,6 @@ move_config_file "$HOME/.inputrc" "$XDG_CONFIG_HOME/readline/inputrc"
 
 move_config_file "$HOME/.pulse-cookie" "$XDG_CONFIG_HOME/pulse/cookie"
 
-# History options
-export HISTFILE="$XDG_STATE_HOME/zsh/history"
-export HISTSIZE=1000000
-export SAVEHIST=1000000
-setopt INC_APPEND_HISTORY_TIME
-setopt EXTENDED_HISTORY
-setopt HIST_FIND_NO_DUPS
-mkdir -p "$(dirname "$HISTFILE")"
-
 # Prepended path
 [ -d /usr/local/go/bin ] && export PATH="/usr/local/go/bin:$PATH"
 [ -d $HOME/tools ] && export PATH="$HOME/tools:$PATH"

@@ -8,6 +8,7 @@ cmd - return : alacritty msg create-window
 cmd + ctrl + shift - b : cliclick w:100 t:"$(grep -v '^&#' ~/todo/bookmarks.txt | choose | cut -d',' -f2)"
 cmd + ctrl + shift - p : cliclick w:100 t:"$(pass "$(~/scripts/passlist | choose)")"
 cmd + ctrl + shift - o : cliclick w:100 t:"$(pass otp "$(~/scripts/passlist | choose)")"
+cmd + ctrl + shift - k : killall cliclick
 
 cmd - h : yabai -m window --focus west
 cmd - j : yabai -m window --focus south

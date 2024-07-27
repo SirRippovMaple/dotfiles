@@ -14,13 +14,16 @@
 {{- if eq .chezmoi.os "darwin" }}
 {{- $os = "darwin" }}
 {{- else if eq .chezmoi.os "linux" }}
-{{- if eq .chezmoi.osRelease.idLike "debian" -}}
-{{- $batcmd = "batcat" }}
+{{- if eq .chezmoi.osRelease.id "arch" -}}
+{{- $os = "arch" }}
+{{- else if eq .chezmoi.osRelease.idLike "debian" -}}
 {{- $os = "debian" }}
 {{- else }}
-{{- $batcmd = "bat" }}
 {{- $os = "linux" }}
 {{- end }}
+{{- end }}
+{{- if eq $os "debian" }}
+{{- $batcat = "batcat" }}
 {{- end }}
 pager = {{ $batcmd | quote }}
 

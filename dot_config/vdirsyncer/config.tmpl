@@ -1,5 +1,6 @@
 {{- $email := passFields "chezmoi/email" -}}
 {{- $icloud := passFields "chezmoi/icloud" -}}
+{{- $owncloud := passFields "chezmoi/owncloud" -}}
 [general]
 status_path = "~/.cache/vdirsyncer/status/"
 
@@ -7,6 +8,12 @@ status_path = "~/.cache/vdirsyncer/status/"
 collections = [["icloudcollections", "default", "card"]]
 a = "khard"
 b = "icloud"
+conflict_resolution = "a wins"
+
+[pair owncloudsync]
+collections = [["owncloudcollections", "default", "contacts"]]
+a = "khard"
+b = "owncloud"
 conflict_resolution = "a wins"
 
 [pair {{ $email.name }}sync]
@@ -19,6 +26,12 @@ conflict_resolution = "a wins"
 type = "filesystem"
 path = "~/contacts"
 fileext = ".vcf"
+
+[storage owncloud]
+type = "carddav"
+url = "https://owncloud.trumpi.co.za/remote.php/dav/principals/users/trumpi/"
+username = "{{ $owncloud.login }}"
+password = "{{ $owncloud.password }}"
 
 [storage icloud]
 type = "carddav"

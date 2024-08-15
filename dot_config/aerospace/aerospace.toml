@@ -18,7 +18,7 @@ outer.top =        10
 outer.right =      10
 
 [mode.main.binding]
-alt-enter = 'exec-and-forget open -n /System/Applications/Utilities/Terminal.app'
+cmd-enter = 'exec-and-forget alacritty msg create-window'
 
 alt-j = 'focus left'
 alt-k = 'focus down'

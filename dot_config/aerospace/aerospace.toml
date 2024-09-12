@@ -77,8 +77,6 @@ alt-shift-0 = 'move-node-to-workspace 10'
 
 alt-shift-c = 'reload-config'
 
-alt-r = 'mode resize'
-
 [workspace-to-monitor-force-assignment]
 1 = 'main'
 2 = 'main'
@@ -117,6 +115,10 @@ run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
+run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+if.app-id = 'com.hindsightlabs.paprika.mac.v3'
 run = 'move-node-to-workspace 2'
 
 [[on-window-detected]]

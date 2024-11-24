@@ -41,7 +41,11 @@ export NVM_DIR="$HOME/.nvm"
 
 alias g=git
 
+<<<<<<< Updated upstream
+export EDITOR=code
+=======
 export EDITOR="code -w"
+>>>>>>> Stashed changes
 export GOPATH=$HOME/go
 export PATH="/usr/local/bin:/usr/local/share/dotnet:$PATH:$GOPATH/bin:$HOME/.dotnet/tools"
 

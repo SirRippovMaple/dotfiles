@@ -520,5 +520,12 @@ return require('lazy').setup({
             vim.g['pencil#conceallevel'] = 0
             vim.g['pencil#wrapModeDefault'] = 'soft'
         end,
-    }
+    },
+    {
+        'kylechui/nvim-surround',
+        config = function()
+            require("nvim-surround").setup({
+            })
+        end
+    },
 })

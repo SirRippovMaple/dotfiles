@@ -85,14 +85,14 @@ batcmd=bat
 {{- end }}
 
 export AUTO_NOTIFY_THRESHOLD=20
-export EDITOR="nvim"
+export EDITOR="vim"
 export GOPATH=$HOME/go
 
 if [ -x "$(command -v nvim)" ]; then
   export PAGER="nvim -c 'setlocal noswapfile buftype=nofile bufhidden=hide' -c 'setlocal nomodified readonly nomodifiable' -c 'setlocal noexpandtab tabstop=8 softtabstop=8 shiftwidth=8' -c 'setlocal number norelativenumber' -c 'setlocal foldcolumn=0 colorcolumn=0 nolist nofoldenable' -c 'nnoremap <silent> <buffer> <nowait> q :lclose<CR>:q<CR>' -c 'nnoremap <silent> <buffer> j gj' -c 'nnoremap <silent> <buffer> k gk'"
   export EDITOR="nvim"
   alias vim=nvim
-  export MANPAGER="nvim -c 'set ft=man' -"
+  export MANPAGER='nvim +Man!'
 fi
 
 if [ -x "$(command -v git)" ]; then

@@ -6,15 +6,10 @@
     pager = less -RM -TX -s
 [merge]
     tool = vscode
-[mergetool "kdiff3"]
-    path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
 [mergetool "vscode"]
     cmd = code --wait $MERGED
 [diff]
     tool = vscode
-[difftool "kdiff3"]
-    path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
-    trustExitCode = false
 [difftool "vscode"]
     cmd = code --wait --diff $LOCAL $REMOTE
 [color]

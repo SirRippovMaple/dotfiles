@@ -30,6 +30,8 @@ cmd + shift - j : yabai -m window --warp south
 cmd + shift - k : yabai -m window --warp north
 cmd + shift - l : yabai -m window --warp east
 
+cmd + shift - t : yabai -m window --toggle float --grid 5:5:1:1:3:3
+
 cmd + shift - 1 : yabai -m window --space 1
 cmd + shift - 2 : yabai -m window --space 2
 cmd + shift - 3 : yabai -m window --space 3

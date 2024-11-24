@@ -1,7 +1,7 @@
 [user]
     email = {{ .email }}
     name = {{ .name }}
-    signingkey = ~/.ssh/id_ed25519.pub 
+    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDD2Yt/vbrkysqbbwdxg/O/GsJ5YMwPWYiMkCOGK/csB
 [core]
     editor = nvim
 {{- if eq .os "debian" }}
@@ -55,6 +55,10 @@
     gpgsign = true
 [gpg]
     format = ssh
+{{- if eq .os "darwin" }}
+[gpg "ssh]
+    program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+{{- end }}
 [pull]
     ff = only
 [init]

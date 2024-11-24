@@ -83,3 +83,9 @@ move_config_file "$HOME/.pulse-cookie" "$XDG_CONFIG_HOME/pulse/cookie"
 [ -d $HOME/repositories/useful-scripts ] && export PATH="$PATH:$HOME/repositories/useful-scripts"
 [ -d $HOME/.local/bin ] && export PATH="$PATH:$HOME/.local/bin"
 [ -f $HOME/.local/share/cargo/env ] && source "$HOME/.local/share/cargo/env"
+
+{{ if eq .os "darwin" -}}
+export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+{{ else -}}
+export SSH_AUTH_SOCK=~/.1password/agent.sock
+{{ end -}}

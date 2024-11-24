@@ -1,0 +1,51 @@
+#!/usr/bin/env /bin/bash
+msg() {
+  echo >&2 -e "${1-}"
+}
+
+files=(*)
+file=${files[0]}
+msg "-> ${YELLOW}$file${NOFORMAT}"
+basename=$(basename -- "$file")
+extension="$([[ "$basename" = *.* ]] && echo "${basename##*.}" || echo '')"
+msg "-> $extension"
+w=$(xdotool getactivewindow)
+
+[ -f /tmp/tagfirst.pid ] && kill $(cat /tmp/tagfirst.pid) && rm /tmp/tagfirst.pid
+case "$extension" in
+    pdf)
+        nohup zathura "$file" >/tmp/nohup.out&
+        echo $! > /tmp/tagfirst.pid
+        ;;
+    jpg|jpeg|png)
+        nohup feh "$file" >/tmp/nohup.out&
+        echo $! > /tmp/tagfirst.pid
+        ;;
+    *)
+        xdg-open "$file"
+        ;;
+esac
+sleep 1
+xdotool windowfocus $w
+xdotool windowactivate $w
+
+msg "Decide"
+
+decision=$(echo -e "Tag\nSplit\nDelete\nRemove Password\nQuit" | fzf)
+if [ "$decision" == "Split" ]; then
+    split "$file"
+elif [ "$decision" == "Tag" ]; then
+    tag "$file"
+elif [ "$decision" == "Delete" ]; then
+    rm "$file"
+elif [ "$decision" == "Remove Password" ]; then
+    msg "Enter PDF password:"
+    read -e -p "> " password
+    rm -f /tmp/output.pdf
+    mv $file /tmp/output.pdf
+    qpdf --password=$password --decrypt /tmp/output.pdf $file
+else
+    exit 0
+fi
+
+tagfirst

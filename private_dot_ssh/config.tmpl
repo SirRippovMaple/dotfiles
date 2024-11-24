@@ -1,4 +1,4 @@
-# {{ .chezmoi.fullHostname }}
+# {{ .chezmoi.fqdnHostname }}
 Host github.com
     AddKeysToAgent yes
 {{- if eq .chezmoi.os "darwin" }}
@@ -8,7 +8,7 @@ Host github.com
     StrictHostKeyChecking yes
     CheckHostIP no
 
-{{- if hasSuffix "salesforce.com" .chezmoi.fullHostname }}
+{{- if hasSuffix "salesforce.com" .chezmoi.fqdnHostname }}
 
 {{ (bitwarden "item" "ssh_config_moveit").notes }}
 
@@ -26,7 +26,8 @@ Host github.com
 
 {{- else }}
 
-Host localhost
+Host git.trumpi.co.za
+    Port 2222
     AddKeysToAgent yes
     IdentityFile ~/.ssh/github
     StrictHostKeyChecking yes

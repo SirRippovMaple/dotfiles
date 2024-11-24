@@ -49,6 +49,7 @@ export KUBE_EDITOR="code --wait"
 export GOPATH=$HOME/go
 
 # Prepended path
+[ -d /usr/local/go/bin ] && export PATH="/usr/local/go/bin:$PATH"
 [ -d $HOME/tools ] && export PATH="$HOME/tools:$PATH"
 [ -d /usr/local/opt/terraform@0.12/bin ] && export PATH="/usr/local/opt/terraform@0.12/bin:$PATH"
 [ -d /usr/local/opt/helm@2/bin ] && export PATH="/usr/local/opt/helm@2/bin:$PATH"
@@ -73,7 +74,7 @@ alias start=xdg-open
 {{- end }}
 
 [ -f ~/todo/todo.sh ] && alias t=~/todo/todo.sh
-{{- if hasSuffix "salesforce.com" .chezmoi.fullHostname }}
+{{- if hasSuffix "salesforce.com" .chezmoi.fqdnHostname }}
 [ -f ~/todo/todo.sh ] && alias tedit=code ~/todo/work.txt
 {{- else }}
 [ -f ~/todo/todo.sh ] && alias tedit=code ~/todo/todo.txt

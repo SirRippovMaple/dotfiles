@@ -21,7 +21,7 @@ font pango:MesloLGM NerdFont Mono 12
 exec --no-startup-id snixembed
 exec --no-startup-id setxkbmap -option compose:ralt
 exec --no-startup-id discord --start-minimized
-exec --no-startup-id picom -b
+exec --no-startup-id killall picom; picom -b
 exec --no-startup-id udiskie --tray
 exec --no-startup-id feh --no-fehbg --randomize --bg-fill ~/Pictures/wallpaper/*
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
@@ -178,6 +178,10 @@ bindsym $special+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $special+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 bindsym $special+Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
+
+# MPV and Picture-in-picture
+for_window [class="mpv"] sticky enable, fullscreen disable, floating enable, resize set 480 270, move position 1400 730
+for_window [window_role="PictureInPicture"] sticky enable, fullscreen disable, floating enable, resize set 480 270, move position 1400 730
 
 # TODO List popup
 for_window [instance="todo-list"] floating enable, resize set 1200 650;

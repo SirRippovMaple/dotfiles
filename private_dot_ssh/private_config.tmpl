@@ -2,13 +2,13 @@
 {{- if eq .work "true" }}
 Host github.com-SirRippovMaple
     HostName github.com
-    IdentityFile ~/.ssh/github.pub
+    IdentityFile ~/.ssh/personal.pub
     IdentitiesOnly yes
     StrictHostKeyChecking yes
     CheckHostIP no
 {{- else }}
 Host github.com
-    IdentityFile ~/.ssh/github.pub
+    IdentityFile ~/.ssh/personal.pub
     IdentitiesOnly yes
     StrictHostKeyChecking yes
     CheckHostIP no
@@ -22,7 +22,7 @@ Host github.com
 
 Host git.trumpi.co.za
     Port 2222
-    IdentityFile ~/.ssh/github.pub
+    IdentityFile ~/.ssh/personal.pub
     IdentitiesOnly yes
     StrictHostKeyChecking yes
     CheckHostIP no
@@ -34,5 +34,5 @@ Host git.sr.ht
 
 Host trumpi-nas trumpi-nas.internal.trumpi.co.za
     User trumpi
-    IdentityFile ~/.ssh/github.pub
+    IdentityFile ~/.ssh/personal.pub
     IdentitiesOnly yes

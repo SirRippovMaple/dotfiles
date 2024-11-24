@@ -1,7 +1,5 @@
 jeffreytse/zsh-vi-mode
 chrissicool/zsh-256color
-djui/alias-tips
-MichaelAquilina/zsh-auto-notify
 zsh-users/zsh-autosuggestions
 zsh-users/zsh-completions
 Aloxaf/fzf-tab

@@ -19,15 +19,14 @@ set $mod Mod4
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 font pango:MesloLGM NerdFont Mono 12
 
-# The combination of xss-lock, nm-applet and pactl is a popular choice, so
-# they are included here as an example. Modify as you see fit.
+exec --no-startup-id discord --start-minimized
 exec --no-startup-id picom -b
 exec --no-startup-id udiskie --tray
 exec --no-startup-id feh --no-fehbg --randomize --bg-fill ~/Pictures/wallpaper/*
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- dm-tool lock
+exec --no-startup-id xss-lock -- dm-tool lock
 bindsym $mod+Mod1+l exec loginctl lock-session
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,

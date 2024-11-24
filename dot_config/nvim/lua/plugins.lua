@@ -431,7 +431,7 @@ return require('packer').startup(
         use {
             'airblade/vim-rooter',
             config = function()
-                vim.g.rooter_patterns = {'.git'}
+                vim.g.rooter_patterns = {'.git', 'acl.yaml'}
             end
         }
 

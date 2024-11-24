@@ -28,6 +28,7 @@ sketchybar --default updates=when_shown                       \
 
 source $ITEM_DIR/spaces.sh
 source $ITEM_DIR/window_title.sh
+source $ITEM_DIR/clock-utc.sh
 source $ITEM_DIR/clock.sh
 source $ITEM_DIR/battery.sh
 source $ITEM_DIR/darkside.sh

@@ -176,6 +176,10 @@ for_window [instance="todo-list"] floating enable, resize set 1200 650;
 for_window [instance="todo-list"] move scratchpad, scratchpad show, move position center, move scratchpad, scratchpad show
 bindsym $special+t exec ~/.config/i3/todo; [instance="todo-list"] scratchpad show
 
+# X-Air mixer
+for_window [instance="X-AIR-Edit"] floating enable, move scratchpad, scratchpad show, move position center, move scratchpad, scratchpad show
+bindsym $special+m exec ~/.config/i3/xairone; [instance="X-AIR-Edit"] scratchpad show
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode

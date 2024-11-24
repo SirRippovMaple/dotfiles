@@ -53,6 +53,12 @@
     mouse_right_click = context
 [experimental]
     per_monitor_dpi = false
+[notify-send]
+    appname = notify-send
+    format = "%s\n%b"
+[telegram]
+    desktop_entry = telegram
+    urgency = low
 [urgency_low]
     background = "#faffffaa"
     foreground = "#002b36"
@@ -63,18 +69,10 @@
     foreground = "#002b36"
     frame_color = "#f2fff2aa"
     timeout = 10
+    script = ~/scripts/sound.sh
 [urgency_critical]
     background = "#fff2f2aa"
     foreground = "#002b36"
     frame_color = "#fcebebaa"
     timeout = 0
-[play_sound]
-    summary = "*"
     script = ~/scripts/sound.sh
-[notify-send]
-    appname = notify-send
-    format = "%s\n%b"
-[evolution-mail-notification]
-    appname = evolution-mail-notification
-    format = "<b>%s</b>\n%b"
-    timeout = 0

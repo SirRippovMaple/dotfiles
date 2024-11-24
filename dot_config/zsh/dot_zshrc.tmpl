@@ -135,11 +135,17 @@ alias portkill='function killit(){kill -9 "$(lsof -t -i:$1)" &>/dev/null || true
 [[ ! -f ${ZDOTDIR:-~}/.p10k.zsh ]] || source ${ZDOTDIR:-~}/.p10k.zsh
 
 if [ -f "${ZDOTDIR:-~}/fzf-git/fzf-git.sh" ]; then
-  function zvm_after_init() {
+  function zvm_after_init_fzf() {
     bindkey -r ^G
     source "${ZDOTDIR:-~}/fzf-git/fzf-git.sh"
   }
+  zvm_after_init_commands+=(zvm_after_init_fzf)
 fi
+
+function rebind_ctrl_r() {
+  bindkey ^R fzf_history_search
+}
+zvm_after_init_commands+=(rebind_ctrl_r)
 
 # Open the Pull Request URL for your current directory's branch (base branch defaults to master)
 function openpr() {

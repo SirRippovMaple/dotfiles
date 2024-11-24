@@ -69,7 +69,7 @@ setup_space 4 Quip "$left_display_index"
 setup_space 5 Spare1 "$left_display_index"
 
 setup_space 6 Docker "$right_display_index"
-setup_space 7 Kitty "$right_display_index"
+setup_space 7 Terminal "$right_display_index"
 setup_space 8 Spare2 "$right_display_index"
 setup_space 9 Idea "$right_display_index"
 setup_space 10 Rider "$right_display_index"
@@ -100,7 +100,7 @@ yabai -m rule --add app="Google Chrome" space="Chrome"
 yabai -m rule --add app="Firefox" space="Firefox"
 
 yabai -m rule --add app="Docker Desktop" space="Docker"
-yabai -m rule --add app="kitty" space="Kitty"
+yabai -m rule --add app="Alacritty" space="Terminal"
 yabai -m rule --add app="JetBrains Rider" space="Rider"
 yabai -m rule --add app="Huddle with" manage=off
 yabai -m rule --add app="Obsidian" display=1 sticky="on" grid=1:3:3:1:1:1

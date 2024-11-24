@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-xprop -name "f033bb09-c35c-4eb8-8c97-800bf0dae7a9" || kitty --class="todo-list" --title="f033bb09-c35c-4eb8-8c97-800bf0dae7a9" nvim -c 'let g:auto_save=1' ~/todo/todo.txt
+xprop -name "f033bb09-c35c-4eb8-8c97-800bf0dae7a9" || alacritty --class="todo-list" --title="f033bb09-c35c-4eb8-8c97-800bf0dae7a9" nvim -c 'let g:auto_save=1' ~/todo/todo.txt

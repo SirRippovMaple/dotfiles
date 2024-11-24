@@ -43,12 +43,11 @@ exec --no-startup-id blueman-applet
 floating_modifier $special
 
 # start a terminal
-bindsym $special+Return exec kitty
+bindsym $special+Return exec alacritty 
 
 # Common applications
 bindsym $special+b exec firefox
-bindsym $special+e exec kitty ranger
-bindsym $special+n exec kitty newsboat
+bindsym $special+e exec alacritty ranger
 bindsym $special+c exec rofi -show calc -modi calc -no-show-match -no-sort
 bindsym $special+v exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 

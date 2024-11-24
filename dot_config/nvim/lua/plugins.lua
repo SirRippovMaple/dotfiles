@@ -21,7 +21,7 @@ return require('lazy').setup({
         'nvim-lualine/lualine.nvim',
         dependencies = {
             'kyazdani42/nvim-web-devicons',
-            'akinsho/nvim-bufferline.lua',
+            'akinsho/bufferline.nvim',
         },
         config = function()
             local config = require('lualine')
@@ -155,7 +155,7 @@ return require('lazy').setup({
         end,
     },
     {
-        'akinsho/nvim-bufferline.lua',
+        'akinsho/bufferline.nvim',
         config = function()
             local cfg = require('bufferline')
             cfg.setup{}
@@ -285,7 +285,7 @@ return require('lazy').setup({
     },
     {
         'rcarriga/nvim-dap-ui',
-        dependencies = {'mfussenegger/nvim-dap'},
+        dependencies = {'mfussenegger/nvim-dap','nvim-neotest/nvim-nio'},
         config = function()
             local cfg = require('dapui')
             local dap = require('dap')

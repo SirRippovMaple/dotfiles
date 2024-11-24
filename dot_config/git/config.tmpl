@@ -47,12 +47,13 @@
         git fetch upstream && git rebase upstream/$main_branch && git push -f; \
         }; f"
     prepare = "!f() { \
-        main_branch=`git remote show origin | sed -n '/HEAD branch/s/.*: //p'`; \
-        git checkout $main_branch && git fetch -p; \
+        main_branch=`git remote show upstream | sed -n '/HEAD branch/s/.*: //p'`; \
+        git fetch upsteam; \
         for branch in $(git branch -vv | grep ': gone]' | awk '{print $1}'); do \
             git branch -D $branch; \
         done; \
-        git pull -r && git checkout -b $1 && git push -u origin $1; \
+        git fetch upstream && git checkout -b $1 upstream/$main_branch && git push -u origin $1; \
+        git lprune; \
         }; f"
 [commit]
     gpgsign = true

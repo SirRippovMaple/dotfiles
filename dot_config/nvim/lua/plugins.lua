@@ -512,4 +512,13 @@ return require('lazy').setup({
         ft = "plantuml",
     },
     'mechatroner/rainbow_csv',
+    {
+        'preservim/vim-pencil',
+        opt = false,
+        config = function()
+            vim.g.tex_conceal = ""
+            vim.g['pencil#conceallevel'] = 0
+            vim.g['pencil#wrapModeDefault'] = 'soft'
+        end,
+    }
 })

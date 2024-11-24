@@ -32,10 +32,9 @@ alias g=git
 
 export EDITOR=vim
 export GOPATH=$HOME/go
-export PATH="$PATH:$GOPATH/bin:$HOME/.dotnet/tools"
+export PATH="/usr/local/bin:/usr/local/share/dotnet:$PATH:$GOPATH/bin:$HOME/.dotnet/tools"
 
 alias unlock='export BW_SESSION=`bw unlock --raw`'
 alias lock='bw lock'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export PATH="/usr/local/bin:$PATH"

@@ -8,4 +8,12 @@ export NPM_CONFIG_PREFIX=$XDG_DATA_HOME/.npm-global
 mkdir -p $NPM_CONFIG_PREFIX
 export PATH=$NPM_CONFIG_PREFIX/bin:$PATH
 
+{{ $token := "" }}
+{{ $fields := (bitwarden "item" "www.fastmail.com").fields -}}
+{{ range $field := $fields -}}
+{{ if eq $field.name "masked_email_token" -}}
+{{ $token = $field.value -}}
+{{ end -}}
+export FASTMAIL_MASKEDEMAIL_TOKEN='{{ $token }}'
+
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"

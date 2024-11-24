@@ -47,11 +47,10 @@ _comp_options+=(globdots)
 #
 
 source <(antibody init)
-antibody bundle < ~/.zsh_plugins.txt
+antibody bundle < ~/.config/zsh/.zsh_plugins.txt
 
 # History options
-[ -f ~/.histfile ] && mkdir -p "$XDG_DATA_HOME/zsh" && mv ~/.histfile "$XDG_DATA_HOME/history"
-export HISTFILE="$XDG_DATA_HOME/zsh/history"
+export HISTFILE="$XDG_STATE_HOME/zsh/history"
 export HISTSIZE=1000000
 export SAVEHIST=1000000
 setopt INC_APPEND_HISTORY_TIME

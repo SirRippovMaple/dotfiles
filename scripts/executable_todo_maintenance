@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -eu
+pushd ~/todo
+$(command -v todo.sh) archive
+$(command -v todo.sh) ice_recur
+git commit -am "Automated commit"
+popd

@@ -81,6 +81,10 @@ fi
 if [ -x "$(command -v bw)" ]; then
   alias unlock='export BW_SESSION=$(~/scripts/unlocker)'
   alias lock='bw lock'
+
+  # Temp workaround to disable punycode deprecation logging to stderr
+  # https://github.com/bitwarden/clients/issues/6689
+  alias bw='NODE_OPTIONS="--no-deprecation" bw'
 fi
 
 if [ -x "$(command -v eza)" ]; then

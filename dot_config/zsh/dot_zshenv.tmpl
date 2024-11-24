@@ -79,6 +79,7 @@ export SAVEHIST=1000000
 setopt INC_APPEND_HISTORY_TIME
 setopt EXTENDED_HISTORY
 setopt HIST_FIND_NO_DUPS
+mkdir -p "$(dirname "$HISTFILE")"
 
 # Prepended path
 [ -d /usr/local/go/bin ] && export PATH="/usr/local/go/bin:$PATH"

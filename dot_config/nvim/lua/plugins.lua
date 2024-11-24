@@ -1,10 +1,9 @@
 fn = vim.fn
 mapkey = vim.api.nvim_set_keymap
-set = vim.opt
 
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
-    packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
 return require('packer').startup(
@@ -192,7 +191,7 @@ return require('packer').startup(
                 })
             end
         }
-        
+
         use {
             'renerocksai/calendar-vim',
         }
@@ -242,6 +241,55 @@ return require('packer').startup(
             end
         }
 
+        use {
+            'rcarriga/nvim-dap-ui',
+            requires = {'mfussenegger/nvim-dap'},
+            config = function()
+                local cfg = require('dapui')
+                local dap = require('dap')
+                cfg.setup {
+                    layouts = {
+                        {
+                            elements = {
+                                "scopes",
+                                "breakpoints"
+                            },
+                            size = 40,
+                            position = "right"
+                        }
+                    },
+                }
+
+                dap.listeners.after.event_initialized["dapui_config"] = function()
+                    cfg.open()
+                end
+
+                dap.listeners.before.event_terminated["dapui_config"] = function()
+                    cfg.close()
+                end
+
+                dap.listeners.before.event_exited["dapui_config"] = function()
+                    cfg.close()
+                end
+            end
+        }
+
+        use {
+            'mfussenegger/nvim-dap',
+            config = function()
+                fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
+                mapkey("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", { silent = true })
+                mapkey("n", "<leader>dc", "<cmd>lua require'dap'.continue()<cr>", { silent = true })
+                mapkey("n", "<leader>di", "<cmd>lua require'dap'.step_into()<cr>", { silent = true })
+                mapkey("n", "<leader>do", "<cmd>lua require'dap'.step_over()<cr>", { silent = true })
+                mapkey("n", "<leader>dO", "<cmd>lua require'dap'.step_out()<cr>", { silent = true })
+                mapkey("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>", { silent = true })
+                mapkey("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>", { silent = true })
+                mapkey("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", { silent = true })
+                mapkey("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<cr>", { silent = true })
+            end
+        }
+
         use 'hrsh7th/cmp-nvim-lsp'
         use 'hrsh7th/cmp-buffer'
         use 'hrsh7th/cmp-path'
@@ -249,9 +297,39 @@ return require('packer').startup(
 
         use {
             'hrsh7th/nvim-cmp',
-            requires = {'neovim/nvim-lspconfig'},
+            requires = {
+                'neovim/nvim-lspconfig',
+                'simrat39/rust-tools.nvim'
+            },
             config = function()
                 local cmp = require('cmp')
+                local kind_icons = {
+                    Text = "",
+                    Method = "m",
+                    Function = "",
+                    Constructor = "",
+                    Field = "",
+                    Variable = "",
+                    Class = "",
+                    Interface = "",
+                    Module = "",
+                    Property = "",
+                    Unit = "",
+                    Value = "",
+                    Enum = "",
+                    Keyword = "",
+                    Snippet = "",
+                    Color = "",
+                    File = "",
+                    Reference = "",
+                    Folder = "",
+                    EnumMember = "",
+                    Constant = "",
+                    Struct = "",
+                    Event = "",
+                    Operator = "",
+                    TypeParameter = "",
+                }
                 cmp.setup {
                     snippet = {
                         expand = function (args)
@@ -264,11 +342,30 @@ return require('packer').startup(
                         ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
                         ['<CR>'] = cmp.mapping.confirm({ select = true }),
                     },
+                    formatting = {
+                        fields = { "kind", "abbr", "menu" },
+                        format = function(entry, vim_item)
+                            -- Kind icons
+                            vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+                            -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+                            vim_item.menu = ({
+                                nvim_lsp = "[LSP]",
+                                luasnip = "[Snippet]",
+                                buffer = "[Buffer]",
+                                path = "[Path]",
+                            })[entry.source.name]
+                            return vim_item
+                        end,
+                    },
                     sources = cmp.config.sources({
                         { name = 'nvim_lsp' },
                         { name = 'ultisnips' },
                         { name = 'buffer' },
                     }),
+                    window = {
+                        completion = cmp.config.window.bordered(),
+                        documentation = cmp.config.window.bordered()
+                    }
                 }
 
                 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
@@ -291,37 +388,32 @@ return require('packer').startup(
                 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
                 local lspConfig = require('lspconfig')
-                lspConfig.csharp_ls.setup{
-                    capabilities = capabilities
+                local lspServers = {
+                    "csharp_ls",
+                    "tsserver",
+                    "sumneko_lua",
+                    "dockerls",
+                    "jsonls",
+                    "cssls"
                 }
-                lspConfig.tsserver.setup{
-                    capabilities = capabilities
-                }
-                lspConfig.sumneko_lua.setup{
-                    capabilities = capabilities,
-                    settings = {
-                        Lua = {
-                            diagnostics = {
-                                globals = {'vim'}
-                            },
-                            workspace = {
-                                library = vim.api.nvim_get_runtime_file("", true)
-                            }
-                        }
+
+                for _, server in pairs(lspServers) do
+                    local opts = {
+                        capabilities = capabilities,
+                    }
+                    lspConfig[server].setup(opts)
+                end
+
+                local rust_tools = require('rust-tools')
+                rust_tools.setup {
+                    server = {
+                        capabilities = capabilities
                     }
                 }
             end
         }
 
-        use {
-            'alexaandru/nvim-lspupdate',
-            requires = {'neovim/nvim-lspconfig'},
-        }
-
         use 'quangnguyen30192/cmp-nvim-ultisnips'
-
-        -- C# plugins
-        use 'razzmatazz/csharp-language-server'
 
         -- Go plugins
         use {
@@ -329,8 +421,11 @@ return require('packer').startup(
             run = ':GoUpdateBinaries'
         }
 
-        -- Typescript plugins
-        use 'theia-ide/typescript-language-server'
+        -- Rust plugins
+        use {
+            'simrat39/rust-tools.nvim',
+            requires = {'neovim/nvim-lspconfig'}
+        }
 
         use {
             'airblade/vim-rooter',
@@ -351,7 +446,7 @@ return require('packer').startup(
         use {
             'phaazon/hop.nvim',
             config = function()
-                cfg = require('hop')
+                local cfg = require('hop')
                 cfg.setup{}
                 mapkey('n', '<Leader><Leader>w', '<cmd>HopWord<CR>', { silent = true })
                 mapkey('n', '<Leader><Leader>l', '<cmd>HopLine<CR>', { silent = true })
@@ -359,10 +454,6 @@ return require('packer').startup(
                 mapkey('n', '<Leader><Leader>/', '<cmd>HopPattern<CR>', { silent = true })
             end
         }
-
-        if packer_bootstrap then
-            require('packer').sync()
-        end
     end
 )
 

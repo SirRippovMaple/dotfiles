@@ -2,20 +2,20 @@
 {{- if eq .work "true" }}
 Host github.com-SirRippovMaple
     HostName github.com
-    IdentityFile ~/.ssh/personal.pub
+    IdentityFile ~/.ssh/id_ed25519
     IdentitiesOnly yes
     StrictHostKeyChecking yes
     CheckHostIP no
 {{- else }}
 Host github.com
-    IdentityFile ~/.ssh/personal.pub
+    IdentityFile ~/.ssh/id_ed25519
     IdentitiesOnly yes
     StrictHostKeyChecking yes
     CheckHostIP no
 {{- end }}
 
 Host gitlab.com
-    IdentityFile ~/.ssh/personal.pub
+    IdentityFile ~/.ssh/id_ed25519
     IdentitiesOnly yes
     StrictHostKeyChecking yes
     CheckHostIP no
@@ -26,21 +26,15 @@ Host gitlab.com
 {{- end }}
 
 Host git.sr.ht
-    IdentityFile ~/.ssh/github.pub
+    IdentityFile ~/.ssh/id_ed25519
     IdentitiesOnly yes
 
 Host nas.trumpi.co.za
     User trumpi
-    IdentityFile ~/.ssh/personal.pub
+    IdentityFile ~/.ssh/id_ed25519
     IdentitiesOnly yes
-
-Host shell.trumpi.co.za
-    User trumpi
-    IdentityFile ~/.ssh/personal.pub
-    IdentitiesOnly yes
-    ProxyCommand cloudflared access ssh --hostname %h
 
 Host dad-and-mom
     User trumpi
-    IdentityFile ~/.ssh/personal.pub
+    IdentityFile ~/.ssh/id_ed25519
 

@@ -1,4 +1,16 @@
 # {{ .email }}
+{{- if hasSuffix "salesforce.com" .email }}
+Host me.github.com
+    HostName github.com
+    User git
+    AddKeysToAgent yes
+{{- if eq .chezmoi.os "darwin" }}
+    UseKeyChain yes
+{{- end }}
+    IdentityFile ~/.ssh/github
+    StrictHostKeyChecking yes
+    CheckHostIP no
+{{- else }}
 Host github.com
     AddKeysToAgent yes
 {{- if eq .chezmoi.os "darwin" }}
@@ -7,6 +19,7 @@ Host github.com
     IdentityFile ~/.ssh/github
     StrictHostKeyChecking yes
     CheckHostIP no
+{{- end }}
 
 {{- if hasSuffix "salesforce.com" .email }}
 

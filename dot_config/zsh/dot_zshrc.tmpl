@@ -138,21 +138,6 @@ kitty + complete setup zsh | source /dev/stdin
 
 enable-fzf-tab
 
-# Crontab
-if test -z $CRONTABCMD; then
-  # allows to source zshrc twice
-  export CRONTABCMD=$(which crontab)
-  crontab()
-  {
-      if [[ $@ == "-e" ]]; then
-          $EDITOR ~/.config/cron/crontab && $CRONTABCMD ~/.config/cron/crontab
-      else
-          $CRONTABCMD $@
-      fi
-  }
-  $CRONTABCMD ~/.config/cron/crontab
-fi
-
 # Open the Pull Request URL for your current directory's branch (base branch defaults to master)
 function openpr() {
   backup_remote=$(git remote | grep --quiet --no-messages '^upstream$' && echo -n upstream || echo -n origin)

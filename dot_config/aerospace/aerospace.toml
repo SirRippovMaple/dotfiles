@@ -1,6 +1,7 @@
 # Reference: https://github.com/i3/i3/blob/next/etc/config
 
 start-at-login = true
+default-root-container-layout = 'tiles'
 
 # Gaps between windows (inner-*) and between monitor edges (outer-*).
 # Possible values:
@@ -60,6 +61,7 @@ alt-9 = 'workspace 9'
 alt-0 = 'workspace 10'
 alt-m = 'workspace m'
 alt-n = 'workspace n'
+alt-r = 'workspace r'
 alt-t = 'workspace t'
 
 alt-shift-1 = 'move-node-to-workspace 1'
@@ -157,3 +159,7 @@ run = 'move-node-to-workspace 10'
 [[on-window-detected]]
 if.app-id = 'md.obsidian'
 run = 'move-node-to-workspace n'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.reminders'
+run = 'move-node-to-workspace r'

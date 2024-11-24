@@ -162,46 +162,6 @@ return require('lazy').setup({
         end
     },
     'ap/vim-css-color',
-    {
-        'SirVer/ultisnips',
-        config = function()
-            vim.g.UltiSnipsExpandTrigger = '<tab>'
-            vim.g.UltiSnipsJumpForwardTrigger='<tab>'
-            vim.g.UltiSnipsJumpBackwardTrigger='<S-tab>'
-            vim.g.UltiSnaipsEditSplit = 'vertical'
-        end
-    },
-    'SirRippovMaple/ultisnips-snippets',
-    {
-        'FotiadisM/tabset.nvim',
-        config = function()
-            local cfg = require('tabset')
-            cfg.setup({
-                defaults = {
-                    tabwidth = 4,
-                    shiftwidth = 4,
-                    expandtab = true,
-                },
-                languages = {
-                    go = {
-                        expandtab = false,
-                    },
-                    ts = {
-                        tabwidth = 2,
-                        shiftwidth = 2,
-                    },
-                    yaml = {
-                        tabwidth = 2,
-                        shiftwidth = 2,
-                        expandtab = true,
-                    },
-                    make = {
-                        expandtab = false,
-                    }
-                },
-            })
-        end
-    },
     'lukas-reineke/indent-blankline.nvim',
     'nvim-lua/plenary.nvim',
     {
@@ -398,7 +358,6 @@ return require('lazy').setup({
                 },
                 sources = cmp.config.sources({
                     { 'nvim_lsp' },
-                    { 'ultisnips' },
                     { 'buffer' },
                 }),
                 window = {
@@ -452,7 +411,6 @@ return require('lazy').setup({
             }
         end
     },
-    'quangnguyen30192/cmp-nvim-ultisnips',
     -- Go plugins
     {
         'fatih/vim-go',

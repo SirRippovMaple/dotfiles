@@ -1,15 +1,15 @@
-{{- $email := passFields "chezmoi/email" -}}
+{{- $email := onepasswordRead "op://Private/Chezmoi/email" -}}
 [retriever]
 type = SimpleIMAPSSLRetriever
-server = {{ $email.imaphost }}
-username = {{ $email.login }}
+server = {{ onepasswordRead "op://Private/Chezmoi/imap_host" }}
+username = {{ onepasswordRead "op://Private/Chezmoi/email" }}
 port = 993
-password = {{ $email.password }}
+password = {{ onepasswordRead "op://Private/Chezmoi/email_password" }}
 mailboxes = ("Archive",)
 
 [destination]
 type = Maildir
-path = ~/backups/{{ $email.name }}/
+path = ~/backups/{{ onepasswordRead "op://Private/Chezmoi/email_provider" }}/
 
 [options]
 read_all = False

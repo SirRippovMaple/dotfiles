@@ -1,6 +1,3 @@
-{{- $email := passFields "chezmoi/email" -}}
-{{- $icloud := passFields "chezmoi/icloud" -}}
-{{- $owncloud := passFields "chezmoi/owncloud" -}}
 [general]
 status_path = "~/.cache/vdirsyncer/status/"
 
@@ -16,10 +13,10 @@ a = "khard"
 b = "owncloud"
 conflict_resolution = "a wins"
 
-[pair {{ $email.name }}sync]
-collections = [["{{ $email.name }}collections", "default", "Default"]]
+[pair {{ onepasswordRead "op://Private/Chezmoi/email_provider" }}sync]
+collections = [["{{ onepasswordRead "op://Private/Chezmoi/email_provider" }}collections", "default", "Default"]]
 a = "khard"
-b = "{{ $email.name }}"
+b = "{{ onepasswordRead "op://Private/Chezmoi/email_provider" }}"
 conflict_resolution = "a wins"
 
 [storage khard]
@@ -30,17 +27,17 @@ fileext = ".vcf"
 [storage owncloud]
 type = "carddav"
 url = "https://owncloud.trumpi.co.za/remote.php/dav/principals/users/trumpi/"
-username = "{{ $owncloud.login }}"
-password = "{{ $owncloud.password }}"
+username = "{{ onepasswordRead "op://Private/Owncloud/username" }}"
+password = "{{ onepasswordRead "op://Private/Owncloud/password" }}"
 
 [storage icloud]
 type = "carddav"
 url = "https://contacts.icloud.com"
-username = "{{ $icloud.login }}"
-password = "{{ $icloud.app_password }}"
+username = "{{ onepasswordRead "op://Private/Apple/username" }}"
+password = "{{ onepasswordRead "op://Private/Apple/app_password" }}"
 
-[storage {{ $email.name }}]
+[storage {{ onepasswordRead "op://Private/Chezmoi/email_provider" }}]
 type = "carddav"
-url = "https://{{ $email.carddavhost }}"
-username = "{{ $email.login }}"
-password = "{{ $email.password }}"
+url = "https://{{ onepasswordRead "op://Private/Chezmoi/carddav_host" }}"
+username = "{{ onepasswordRead "op://Private/Chezmoi/email" }}"
+password = "{{ onepasswordRead "op://Private/Chezmoi/email_password" }}"

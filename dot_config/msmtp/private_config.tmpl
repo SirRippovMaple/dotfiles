@@ -1,4 +1,3 @@
-{{- $email := passFields "chezmoi/email" -}}
 # Set default values for all following accounts.
 defaults
 auth           on
@@ -7,13 +6,13 @@ tls_trust_file /etc/ssl/certs/ca-certificates.crt
 logfile        ~/.cache/msmtp.log
 aliases        /etc/aliases
 
-# {{ $email.name }}
-account        {{ $email.name }} 
-host           {{ $email.smtphost }}
+# {{ onepasswordRead "op://Private/Chezmoi/email_provider" }}
+account        {{ onepasswordRead "op://Private/Chezmoi/email_provider" }} 
+host           {{ onepasswordRead "op://Private/Chezmoi/smtp_host" }}
 port           587
-from           {{ $email.login }}
-user           {{ $email.login }}
-password       {{ $email.password }}
+from           {{ onepasswordRead "op://Private/Chezmoi/email" }}
+user           {{ onepasswordRead "op://Private/Chezmoi/email" }}
+password       {{ onepasswordRead "op://Private/Chezmoi/email_password" }}
 
 # Set a default account
-account default : {{ $email.name  }} 
+account default : {{ onepasswordRead "op://Private/Chezmoi/email_provider" }} 

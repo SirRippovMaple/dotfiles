@@ -1,9 +1,8 @@
-{{- $rclone := passFields "chezmoi/rclone" -}}
 [gdrive]
 type = drive
-client_id = {{ $rclone.gdrive_client_id }}
-client_secret = {{ $rclone.gdrive_client_secret }}
+client_id = {{ onepasswordRead "op://Private/Google/gdrive_client_id" }}
+client_secret = {{ onepasswordRead "op://Private/Google/gdrive_client_secret" }}
 scope = drive
-token = {"access_token":"","token_type":"Bearer","refresh_token":"{{ $rclone.gdrive_refresh_token }}","expiry":"1970-01-01T00:00:00.000000000Z"}
+token = {"access_token":"","token_type":"Bearer","refresh_token":"{{ onepasswordRead "op://Private/Google/gdrive_refresh_token" }}","expiry":"1970-01-01T00:00:00.000000000Z"}
 team_drive = 
 

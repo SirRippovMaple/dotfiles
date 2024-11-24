@@ -1,8 +1,0 @@
-{{- $ntfy := passFields "chezmoi/ntfy" -}}
-default-host: {{ $ntfy.url }}
-default-token: {{ $ntfy.token }}
-subscribe:
-  - topic: twitch
-    command: ~/.config/ntfy/ntfy-dunst.sh twitch "$raw" 
-  - topic: radarr
-    command: ~/.config/ntfy/ntfy-dunst.sh radarr "$raw" 

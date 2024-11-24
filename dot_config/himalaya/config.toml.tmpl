@@ -1,14 +1,13 @@
-{{- $email := passFields "chezmoi/email" -}}
-[{{ $email.name }}]
+[{{ onepasswordRead "op://Private/Chezmoi/email_provider" }}]
 default = true
-email = "{{ $email.login }}"
+email = "{{ onepasswordRead "op://Private/Chezmoi/email" }}"
 
 backend = "imap"
-imap-host = "{{ $email.imaphost }}"
+imap-host = "{{ onepasswordRead "op://Private/Chezmoi/imap_host" }}"
 imap-port = 993
-imap-login = "{{ $email.login }}"
+imap-login = "{{ onepasswordRead "op://Private/Chezmoi/email" }}"
 imap-auth = "passwd"
-imap-passwd = { raw = "{{ $email.password }}" }
+imap-passwd = { raw = "{{ onepasswordRead "op://Private/Chezmoi/email_password" }}" }
 imap-ssl = true
 
 sender = "sendmail"

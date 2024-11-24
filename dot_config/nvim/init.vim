@@ -17,6 +17,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
 Plug 'ap/vim-css-color'
+Plug 'junegunn/fzf'
 Plug 'rakr/vim-one'
 call plug#end()
 
@@ -96,6 +97,17 @@ set noshowcmd
 	map <C-k> <C-w>k
 	map <C-l> <C-w>l
 
+" Better word wrappage
+	nnoremap k gk
+	nnoremap j gj
+	nnoremap gk k
+	nnoremap gj j
+
+" Buffers
+	nnoremap ]b :bn<CR>
+	nnoremap [b :bp<CR>
+	nnoremap <leader>b :buffers<CR>:buffer<Space>
+
 " Replace ex mode with gq
 	map Q gq
 
@@ -103,7 +115,7 @@ set noshowcmd
 	map <leader>s :!clear && shellcheck -x %<CR>
 
 " Open my bibliography file in split
-	map <leader>b :vsp<space>$BIB<CR>
+	map <leader>B :vsp<space>$BIB<CR>
 	map <leader>r :vsp<space>$REFER<CR>
 
 " Replace all is aliased to S.
@@ -121,7 +133,7 @@ set noshowcmd
 " Ensure files are read as what I want:
 	let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
 	map <leader>v :VimwikiIndex
-	let g:vimwiki_list = [{'path': '~/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
+	let g:vimwiki_list = [{'path': '~/.notable', 'syntax': 'markdown', 'ext': '.md'}]
 	autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
 	autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
 	autocmd BufRead,BufNewFile *.tex set filetype=tex
@@ -154,7 +166,7 @@ if &diff
 endif
 
 " Function for toggling the bottom statusbar:
-let s:hidden_all = 1
+let s:hidden_all = 0
 function! ToggleHiddenAll()
     if s:hidden_all  == 0
         let s:hidden_all = 1

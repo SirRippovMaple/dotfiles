@@ -27,6 +27,10 @@ Host git.trumpi.co.za
     StrictHostKeyChecking yes
     CheckHostIP no
 
+Host git.sr.ht
+    IdentityFile ~/.ssh/github.pub
+    IdentitiesOnly yes
+
 Host trumpi-nas trumpi-nas.internal.trumpi.co.za
     User trumpi
     IdentityFile ~/.ssh/personal.pub

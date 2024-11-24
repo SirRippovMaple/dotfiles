@@ -1,0 +1,2 @@
+#!/usr/bin/env /bin/bash
+gpg --encrypt --output "$1.gpg" --recipient "{{ .email }}" "$1" && rm "$1"

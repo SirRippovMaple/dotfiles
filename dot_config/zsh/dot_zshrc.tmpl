@@ -81,6 +81,10 @@ if [ -x "$(command -v irssi)" ]; then
   alias irssi=irssi --config="$XDG_CONFIG_HOME"/irssi/config --home="$XDG_DATA_HOME"/irssi
 fi
 
+if [ -x "$(command -v ncmpcpp)" ]; then
+  alias music=ncmpcpp
+fi
+
 alias update='source ~/.zshrc'
 {{- if eq .chezmoi.os "darwin" }}
 alias start=open

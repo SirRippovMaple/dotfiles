@@ -22,22 +22,14 @@ Host gitlab.com
 {{- if eq .work "true" }}
 
 {{ (bitwarden "item" "ssh_config_work").notes }}
-
 {{- else }}
-
-Host git.trumpi.co.za
-    Port 2222
-    IdentityFile ~/.ssh/personal.pub
-    IdentitiesOnly yes
-    StrictHostKeyChecking yes
-    CheckHostIP no
 {{- end }}
 
 Host git.sr.ht
     IdentityFile ~/.ssh/github.pub
     IdentitiesOnly yes
 
-Host trumpi-nas trumpi-nas.internal.trumpi.co.za
+Host nas.trumpi.co.za
     User trumpi
     IdentityFile ~/.ssh/local.pub
     IdentitiesOnly yes

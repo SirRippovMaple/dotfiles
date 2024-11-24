@@ -1,6 +1,9 @@
 [user]
     email = {{ .email }}
     name = Trevor Green
+{{- if hasSuffix "salesforce.com" .chezmoi.fullHostname }}
+    signingkey = 3B2B4F3EEFF77D3B
+{{- end}}
 [core]
     editor = code --wait
     pager = less -RM -TX -s
@@ -27,3 +30,9 @@
     pf = push --force-with-lease
     st = status
     prepare = !git checkout master && git pull -r && git checkout -b $1 && git push -u origin $1 && :
+{{- if hasSuffix "salesforce.com" .chezmoi.fullHostname }}
+[gpg]
+    program = /usr/local/bin/gpg
+[commit]
+    gpgsign = true
+{{- end}}

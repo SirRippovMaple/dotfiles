@@ -37,7 +37,7 @@ floating_modifier $mod
 bindsym $mod+Return exec kitty
 
 # Common applications
-bindsym $mod+b exec firefox
+bindsym $mod+b exec brave
 bindsym $mod+e exec kitty ranger
 bindsym $mod+n exec kitty newsboat
 bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort

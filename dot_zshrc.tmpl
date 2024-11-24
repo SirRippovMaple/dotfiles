@@ -6,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Basic auto/tab complete:
-autoload -U compinit
+autoload -Uz compinit
 compinit
 _comp_options+=(globdots)
 
@@ -73,15 +73,14 @@ batcmd=bat
 {{- end }}
 
 export AUTO_NOTIFY_THRESHOLD=20
-
 export EDITOR="nvim"
 export GOPATH=$HOME/go
-export MANPAGER="$batcmd --language manpage"
-export PAGER=$batcmd
-export BAT_PAGER="less -RF"
 
 if [ -x "$(command -v nvim)" ]; then
+  export PAGER="nvim -c 'setlocal noswapfile buftype=nofile bufhidden=hide' -c 'setlocal nomodified readonly nomodifiable' -c 'setlocal noexpandtab tabstop=8 softtabstop=8 shiftwidth=8' -c 'setlocal number norelativenumber' -c 'setlocal foldcolumn=0 colorcolumn=0 nolist nofoldenable' -c 'nnoremap <silent> <buffer> <nowait> q :lclose<CR>:q<CR>' -c 'nnoremap <silent> <buffer> j gj' -c 'nnoremap <silent> <buffer> k gk'"
+  export EDITOR="nvim"
   alias vim=nvim
+  export MANPAGER="nvim -c 'set ft=man' -"
 fi
 
 if [ -x "$(command -v git)" ]; then
@@ -102,15 +101,10 @@ if [ -x "$(command -v exa)" ]; then
   alias ls=exa
 fi
 
-{{- if eq .chezmoi.osRelease.idLike "debian" }}
-if [ -x "$(command -v batcat)" ]; then
-  alias cat=batcat
+if [ -x "$(command -v $batcmd)" ]; then
+  export BAT_PAGER="less -RF"
+  alias cat=$batcmd
 fi
-{{- else }}
-if [ -x "$(command -v bat)" ]; then
-  alias cat=bat
-fi
-{{- end }}
 
 if [ -x "$(command -v zoxide)" ]; then
   eval "$(zoxide init zsh)"

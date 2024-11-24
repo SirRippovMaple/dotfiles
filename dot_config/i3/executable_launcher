@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+xprop -name "d1d983dc-617f-4af0-a93e-469b83c7e92f" || j4-dmenu-desktop --dmenu="~/.config/i3/fzfmenu"

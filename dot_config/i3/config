@@ -44,7 +44,7 @@ floating_modifier $mod
 bindsym $mod+Return exec kitty
 
 # Common applications
-bindsym $mod+b exec brave-browser
+bindsym $mod+b exec brave
 bindsym $mod+e exec kitty ranger
 bindsym $mod+n exec kitty newsboat
 
@@ -56,7 +56,9 @@ bindsym $mod+q kill
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $mod+space exec --no-startup-id i3-dmenu-desktop
+for_window [instance="fzfmenu"] floating enable, resize set 640 480;
+for_window [instance="fzfmenu"] move scratchpad, scratchpad show, move position center, move scratchpad, scratchpad show
+bindsym $mod+space exec ~/.config/i3/launcher; [instance="fzfmenu"] scratchpad show
 
 # change focus
 bindsym $mod+h focus left
@@ -151,6 +153,11 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# TODO List popup
+for_window [instance="todo-list"] floating enable, resize set 1200 650;
+for_window [instance="todo-list"] move scratchpad, scratchpad show, move position center, move scratchpad, scratchpad show
+bindsym $mod+t exec ~/.config/i3/todo; [instance="todo-list"] scratchpad show
 
 # resize window (you can also use the mouse for that)
 mode "resize" {

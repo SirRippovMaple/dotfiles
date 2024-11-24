@@ -52,3 +52,22 @@ move_config "$HOME/.gnupg" "$XDG_DATA_HOME/gnupg"
 
 move_config "$HOME/.dosbox" "$XDG_CONFIG_HOME/dosbox"
 move_config_file "$HOME/.notmuch-config" "$XDG_CONFIG_HOME/notmuch/default/config"
+
+export WINEPREFIX="$XDG_DATA_HOME/wine"
+move_config "$HOME/.wine" "$XDG_DATA_HOME/wine"
+
+export W3M_DIR="$XDG_DATA_HOME/w3m"
+move_config "$HOME/.w3m" "$XDG_DATA_HOME/w3m"
+
+export VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
+move_config "$HOME/.vagrant.d" "$XDG_DATA_HOME/vagrant"
+
+move_config "$HOME/.visidata" "$XDG_DATA_HOME/visidata"
+
+export TEXMFVAR="$XDG_CACHE_HOME/texlive/texmf-var"
+move_config "$HOME/.texlive/texmf-var" "$XDG_CACHE_HOME/texlive/texmf-var"
+
+export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
+move_config_file "$HOME/.inputrc" "$XDG_CONFIG_HOME/readline/inputrc"
+
+move_config_file "$HOME/.pulse-cookie" "$XDG_CONFIG_HOME/pulse/cookie"

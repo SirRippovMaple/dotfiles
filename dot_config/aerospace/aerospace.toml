@@ -18,6 +18,7 @@ outer.top =        10
 outer.right =      10
 
 [mode.main.binding]
+cmd-shift-enter = 'exec-and-forget (alacritty msg create-window || alacritty)'
 alt-h = 'focus left'
 alt-j = 'focus down'
 alt-k = 'focus up'
@@ -139,6 +140,10 @@ run = 'move-node-to-workspace 6'
 
 [[on-window-detected]]
 if.app-id = 'com.github.wez.wezterm'
+run = 'move-node-to-workspace 7'
+
+[[on-window-detected]]
+if.app-id = 'org.alacritty'
 run = 'move-node-to-workspace 7'
 
 [[on-window-detected]]

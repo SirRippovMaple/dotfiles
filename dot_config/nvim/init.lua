@@ -30,3 +30,4 @@ set.number = true
 set.relativenumber = true
 set.splitbelow = true
 set.splitright = true
+set.scrolloff = 5

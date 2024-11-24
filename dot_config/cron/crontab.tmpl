@@ -1,6 +1,0 @@
-{{- $email := trim (bitwarden "item" "personal-identity").identity.email -}}
-SHELL=/bin/bash
-MAILTO={{ $email }}
-CRON_TZ=America/Indianapolis
-0 * * * * chronic $HOME/scripts/todo_maintenance
-0 0 * * * chronic docker system prune --force

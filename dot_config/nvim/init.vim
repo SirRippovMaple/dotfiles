@@ -21,7 +21,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
 Plug 'ap/vim-css-color'
-Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'SirVer/ultisnips'
 Plug 'SirRippovMaple/ultisnips-snippets'
 Plug '907th/vim-auto-save'

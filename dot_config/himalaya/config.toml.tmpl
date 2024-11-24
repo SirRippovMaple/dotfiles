@@ -1,15 +1,14 @@
-{{- $email := trim (bitwarden "item" "personal-identity").identity.email -}}
-{{- $imap_password := (bitwardenFields "item" "c721f5a6-154c-4b8a-8d91-adb90000decf").himalaya.value -}}
-[fastmail]
+{{- $email := passFields "chezmoi/email" -}}
+[{{ $email.name }}]
 default = true
-email = "{{ $email }}"
+email = "{{ $email.login }}"
 
 backend = "imap"
-imap-host = "imap.fastmail.com"
+imap-host = "{{ $email.imaphost }}"
 imap-port = 993
-imap-login = "{{ $email }}"
+imap-login = "{{ $email.login }}"
 imap-auth = "passwd"
-imap-passwd = { raw = "{{ $imap_password }}" }
+imap-passwd = { raw = "{{ $email.password }}" }
 imap-ssl = true
 
 sender = "sendmail"

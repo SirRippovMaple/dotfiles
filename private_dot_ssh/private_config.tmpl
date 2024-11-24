@@ -21,7 +21,7 @@ Host gitlab.com
     CheckHostIP no
 {{- if eq .work "true" }}
 
-{{ (bitwarden "item" "ssh_config_work").notes }}
+{{ passRaw "chezmoi/ssh_config_work" }}
 {{- else }}
 {{- end }}
 

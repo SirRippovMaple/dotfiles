@@ -1,14 +1,15 @@
+{{- $email := passFields "chezmoi/email" -}}
 [retriever]
 type = SimpleIMAPSSLRetriever
-server = imap.fastmail.com
-username = {{ (bitwarden "item" "c721f5a6-154c-4b8a-8d91-adb90000decf").login.username }}
+server = {{ $email.imaphost }}
+username = {{ $email.login }}
 port = 993
-password = {{ (bitwardenFields "item" "c721f5a6-154c-4b8a-8d91-adb90000decf").imapsync.value }}
+password = {{ $email.password }}
 mailboxes = ("Archive",)
 
 [destination]
 type = Maildir
-path = ~/backups/fastmail/
+path = ~/backups/{{ $email.name }}/
 
 [options]
 read_all = False

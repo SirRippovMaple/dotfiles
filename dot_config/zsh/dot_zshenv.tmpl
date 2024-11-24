@@ -23,8 +23,6 @@ export LC_ALL=en_US.UTF-8
 export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
 
-export FASTMAIL_MASKEDEMAIL_TOKEN='{{ (bitwardenFields "item" "www.fastmail.com").masked_email_token.value }}'
-
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 move_config "$HOME/.cargo" "$CARGO_HOME"
 [ -f "$CARGO_HOME/env" ] && . "$CARGO_HOME/env"

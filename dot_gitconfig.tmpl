@@ -28,3 +28,4 @@
     co = checkout
     pf = push --force-with-lease
     st = status
+    prepare = !git checkout master && git pull -r && git checkout -b $1 && git push -u origin $1 && :

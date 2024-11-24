@@ -306,11 +306,11 @@ return require('packer').startup(
         }
 
         use {
-            'rakr/vim-one',
+            'ful1e5/onedark.nvim',
             config = function()
-                set.background = 'dark'
-                set.termguicolors = true
-                vim.cmd('colorscheme one')
+                require('onedark').setup({
+                    dark_float = true
+                })
             end
         }
 

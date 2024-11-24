@@ -5,6 +5,25 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Basic auto/tab complete:
+compinit
+_comp_options+=(globdots)
+
+# Prepended path
+[ -d /usr/local/go/bin ] && export PATH="/usr/local/go/bin:$PATH"
+[ -d $HOME/tools ] && export PATH="$HOME/tools:$PATH"
+[ -d /usr/local/opt/terraform@0.12/bin ] && export PATH="/usr/local/opt/terraform@0.12/bin:$PATH"
+[ -d /usr/local/opt/helm@2/bin ] && export PATH="/usr/local/opt/helm@2/bin:$PATH"
+[ -d $HOME/scripts ] && export PATH="$HOME/scripts:$PATH"
+[ -d /usr/local/share/dotnet ] && export PATH="/usr/local/share/dotnet:$PATH"
+[ -d /usr/local/bin ] && export PATH="/usr/local/bin:$PATH"
+
+# Appended path
+[ -d $GOPATH/bin ] && export PATH="$PATH:$GOPATH/bin"
+[ -d $HOME/.dotnet/tools ] && export PATH="$PATH:$HOME/.dotnet/tools"
+[ -d $HOME/repositories/useful-scripts ] && export PATH="$PATH:$HOME/repositories/useful-scripts"
+[ -d $HOME/.local/bin ] && export PATH="$PATH:$HOME/.local/bin"
+
 #
 # Dependencies
 #
@@ -22,13 +41,6 @@ antigen bundle unixorn/fzf-zsh-plugin@main
 antigen theme romkatv/powerlevel10k
 
 antigen apply
-
-# Basic auto/tab complete:
-autoload -U compinit
-zstyle ':completion:*' menu select
-zmodload zsh/complist
-compinit
-_comp_options+=(globdots)		# Include hidden files.
 
 # vi mode
 bindkey -v
@@ -54,21 +66,6 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 export EDITOR="nvim"
 export GOPATH=$HOME/go
-
-# Prepended path
-[ -d /usr/local/go/bin ] && export PATH="/usr/local/go/bin:$PATH"
-[ -d $HOME/tools ] && export PATH="$HOME/tools:$PATH"
-[ -d /usr/local/opt/terraform@0.12/bin ] && export PATH="/usr/local/opt/terraform@0.12/bin:$PATH"
-[ -d /usr/local/opt/helm@2/bin ] && export PATH="/usr/local/opt/helm@2/bin:$PATH"
-[ -d $HOME/scripts ] && export PATH="$HOME/scripts:$PATH"
-[ -d /usr/local/share/dotnet ] && export PATH="/usr/local/share/dotnet:$PATH"
-[ -d /usr/local/bin ] && export PATH="/usr/local/bin:$PATH"
-
-# Appended path
-[ -d $GOPATH/bin ] && export PATH="$PATH:$GOPATH/bin"
-[ -d $HOME/.dotnet/tools ] && export PATH="$PATH:$HOME/.dotnet/tools"
-[ -d $HOME/repositories/useful-scripts ] && export PATH="$PATH:$HOME/repositories/useful-scripts"
-[ -d $HOME/.local/bin ] && export PATH="$PATH:$HOME/.local/bin"
 
 if [ -x "$(command -v nvim)" ]; then
   alias vim=nvim
@@ -120,22 +117,15 @@ alias start=xdg-open
 [ -f ~/todo/todo.sh ] && alias tedit=code ~/todo/todo.txt
 {{- end }}
 
-if [ -f ~/.fzf.zsh ]; then
-    source ~/.fzf.zsh
-    export FZF_COMPLETION_OPTS='--border --info=inline'
-    alias searchhist="history | cut -c 8-| sort | uniq | fzf"
-fi
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# Completion for vault
-complete -o nospace -C /usr/local/bin/vault vault
 
 # Completion for kitty
 kitty + complete setup zsh | source /dev/stdin
 
 source ~/.profile
+
+enable-fzf-tab
 
 # Open the Pull Request URL for your current directory's branch (base branch defaults to master)
 function openpr() {

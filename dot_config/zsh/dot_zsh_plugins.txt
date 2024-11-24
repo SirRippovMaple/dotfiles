@@ -8,7 +8,7 @@ Aloxaf/fzf-tab
 unixorn/fzf-zsh-plugin branch:main
 zsh-users/zsh-syntax-highlighting
 ajeetdsouza/zoxide
-romkatv/powerlevel10k kind:zsh-theme
 MenkeTechnologies/zsh-dotnet-completion
 jeffreytse/zsh-vi-mode
 joshskidmore/zsh-fzf-history-search
+romkatv/powerlevel10k kind:fpath kind:zsh

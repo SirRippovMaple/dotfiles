@@ -441,6 +441,14 @@ return require('packer').startup(
                 mapkey('n', '<Leader><Leader>/', '<cmd>HopPattern<CR>', { silent = true })
             end
         }
+
+        use {
+            'junegunn/vim-easy-align',
+            config = function()
+                mapkey("x", "ga", "<Plug>(EasyAlign)", {})
+                mapkey("n", "ga", "<Plug>(EasyAlign)", {})
+            end
+        }
     end
 )
 

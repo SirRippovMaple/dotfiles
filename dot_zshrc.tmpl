@@ -73,7 +73,7 @@ alias start=xdg-open
 {{- end }}
 
 [ -f ~/todo/todo.sh ] && alias t=~/todo/todo.sh
-{{- if hasSuffix "salesforce.com" .chezmoi.fqdnHostname }}
+{{- if hasSuffix "salesforce.com" .email }}
 [ -f ~/todo/todo.sh ] && alias tedit=code ~/todo/work.txt
 {{- else }}
 [ -f ~/todo/todo.sh ] && alias tedit=code ~/todo/todo.txt

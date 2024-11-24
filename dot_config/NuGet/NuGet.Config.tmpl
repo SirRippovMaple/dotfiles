@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <packageSources>
-{{- if hasSuffix "salesforce.com" .chezmoi.fqdnHostname }}
+{{- if hasSuffix "salesforce.com" .email }}
     <add key="Artifactory" value="https://artifactory-dev.brighter.io/api/nuget/nuget-repo" protocolVersion="2" />
 {{- end }}
     <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
   </packageSources>
   <apikeys>
-{{- if hasSuffix "salesforce.com" .chezmoi.fqdnHostname }}
+{{- if hasSuffix "salesforce.com" .email }}
     <add key="https://artifactory-dev.brighter.io/api/nuget/nuget-repo" value="{{ (bitwarden "item" "artifactory-dev.brighter.io").login.password }}" />
 {{- end }}
   </apikeys>

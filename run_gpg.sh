@@ -1,12 +1,12 @@
 #!/usr/bin/env /bin/bash
 bw get item 'A0D2143A1F988F3A.gpg' | jq -r '.notes' | gpg --import-options restore --import -
-gpg --export-ssh-key A0D2143A1F988F3A > ~/.ssh/work.pub
+gpg --export-ssh-key A0D2143A1F988F3A > ~/.ssh/work.pub && chmod 600 ~/.ssh/work.pub
 
 bw get item '8042CE0E6B9CAB67.gpg' | jq -r '.notes' | gpg --import-options restore --import -
-gpg --export-ssh-key 8042CE0E6B9CAB67 > ~/.ssh/personal.pub
+gpg --export-ssh-key 8042CE0E6B9CAB67 > ~/.ssh/personal.pub && chmod 600 ~/.ssh/personal.pub
 
 bw get item '9096FF5992AD2A88.gpg' | jq -r '.notes' | gpg --import-options restore --import -
-gpg --export-ssh-key 9096FF5992AD2A88 > ~/.ssh/local.pub
+gpg --export-ssh-key 9096FF5992AD2A88 > ~/.ssh/local.pub && chmod 600 ~/.ssh/local.pub
 
 # https://musigma.blog/2021/05/09/gpg-ssh-ed25519.html
 # https://gist.github.com/mcattarinussi/834fc4b641ff4572018d0c665e5a94d3

@@ -48,5 +48,6 @@ yabai -m config window_gap                   1
 yabai -m rule --add app="^System Preferences$" manage=off
 yabai -m rule --add app="AnyConnect" manage=off
 yabai -m rule --add app="KeePassXC" manage=off
+yabai -m rule --add app="choose" manage=off
 
 echo "yabai configuration loaded.."

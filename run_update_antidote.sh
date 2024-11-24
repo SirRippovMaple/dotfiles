@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
-rm "${ZDOTDIR:-~}/.zsh_plugins.zsh"
 source "${ZDOTDIR:-~}/.antidote/antidote.zsh"
+rm -rf $(antidote home)
+rm "${ZDOTDIR:-~}/.zsh_plugins.zsh"
 antidote update

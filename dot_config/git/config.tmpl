@@ -56,7 +56,7 @@
 [gpg]
     format = ssh
 {{- if eq .os "darwin" }}
-[gpg "ssh]
+[gpg "ssh"]
     program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
 {{- end }}
 [pull]

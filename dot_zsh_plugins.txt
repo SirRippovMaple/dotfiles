@@ -1,3 +1,4 @@
+chrissicool/zsh-256color
 djui/alias-tips
 MichaelAquilina/zsh-auto-notify
 nocttuam/autodotenv
@@ -6,4 +7,6 @@ zsh-users/zsh-completions
 Aloxaf/fzf-tab
 unixorn/fzf-zsh-plugin branch:main
 zsh-users/zsh-syntax-highlighting
+ajeetdsouza/zoxide
 romkatv/powerlevel10k kind:zsh-theme
+MenkeTechnologies/zsh-dotnet-completion

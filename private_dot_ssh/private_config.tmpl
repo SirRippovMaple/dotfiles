@@ -21,7 +21,7 @@ Host gitlab.com
     CheckHostIP no
 {{- if eq .work "true" }}
 
-{{ passRaw "chezmoi/ssh_config_work" }}
+{{ onepasswordRead "op://Employee/ssh_config_work/notesPlain" }}
 {{- else }}
 {{- end }}
 

@@ -94,5 +94,7 @@ export GOPATH=$HOME/go
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias unlock='export BW_SESSION=`bw unlock --raw`'
+alias lock='bw lock'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

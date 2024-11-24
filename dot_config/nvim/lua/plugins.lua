@@ -9,12 +9,7 @@ end
 
 return require('packer').startup(
     function(use)
-        use {
-            'wbthomason/packer.nvim',
-            config = function()
-                mapkey('n', '<Leader>p', ':PackerCompile<CR>', {})
-            end
-        }
+        use 'wbthomason/packer.nvim'
 
         use {
             'nvim-lualine/lualine.nvim',
@@ -525,6 +520,10 @@ return require('packer').startup(
                 mapkey("n", "ga", "<Plug>(EasyAlign)", {})
             end
         }
+
+        use 'aklt/plantuml-syntax'
+        use 'tyru/open-browser.vim'
+        use 'weirongxu/plantuml-previewer.vim'
     end
 )
 

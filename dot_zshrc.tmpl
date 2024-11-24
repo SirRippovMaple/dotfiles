@@ -40,13 +40,24 @@ export NVM_DIR="$HOME/.nvm"
 
 # User configuration
 
-alias g=git
-
 export EDITOR="code --wait"
 export KUBE_EDITOR="code --wait"
 export GOPATH=$HOME/go
-export GOROOT=/usr/local/go/bin
-export PATH="/usr/local/go/bin:/usr/local/bin:/usr/local/share/dotnet:$PATH:$GOPATH/bin:$HOME/.dotnet/tools"
+export GOROOT=/usr/local/go
+
+# Prepended path
+[ -d $HOME/tools ] && export PATH="$HOME/tools:$PATH"
+[ -d /usr/local/opt/terraform@0.12/bin ] && export PATH="/usr/local/opt/terraform@0.12/bin:$PATH"
+[ -d /usr/local/opt/helm@2/bin ] && export PATH="/usr/local/opt/helm@2/bin:$PATH"
+[ -d $HOME/scripts ] && export PATH="$HOME/scripts:$PATH"
+[ -d /usr/local/share/dotnet ] && export PATH="/usr/local/share/dotnet:$PATH"
+[ -d /usr/local/bin ] && export PATH="/usr/local/bin:$PATH"
+[ -d $GOROOT/bin ] && export PATH="$GOROOT/bin:$PATH"
+
+# Appended path
+[ -d $GOPATH/bin ] && export PATH="$PATH:$GOPATH/bin"
+[ -d $HOME/.dotnet/tools ] && export PATH="$PATH:$HOME/.dotnet/tools"
+[ -d $HOME/repositories/useful-scripts ] && export PATH="$PATH:$HOME/repositories/useful-scripts"
 
 alias g=git
 alias k=kubectl

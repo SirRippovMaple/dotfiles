@@ -14,6 +14,11 @@ Host github.com
     CheckHostIP no
 {{- end }}
 
+Host gitlab.com
+    IdentityFile ~/.ssh/personal.pub
+    IdentitiesOnly yes
+    StrictHostKeyChecking yes
+    CheckHostIP no
 {{- if eq .work "true" }}
 
 {{ (bitwarden "item" "ssh_config_work").notes }}

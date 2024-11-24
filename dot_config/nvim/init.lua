@@ -1,6 +1,7 @@
 mapkey = vim.api.nvim_set_keymap
 set = vim.opt
 
+vim.g.mapleader = ' '
 require('plugins')
 
 mapkey('n', '<Space>', '<NOP>', { noremap = true, silent = true })
@@ -17,7 +18,6 @@ mapkey('i', 'jj', '<esc>', { noremap = true })
 mapkey('n', ']b', '<cmd>bn<cr>', { noremap = true, silent = true })
 mapkey('n', '[b', '<cmd>bp<cr>', { noremap = true, silent = true })
 
-vim.g.mapleader = ' '
 vim.g.auto_save = 0
 
 set.title = true

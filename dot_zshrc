@@ -1,3 +1,9 @@
+if [ -z "$TMUX" ]
+then
+    tmux attach -t default || tmux new -s default;
+    exit;
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -90,12 +96,3 @@ export GOPATH=$HOME/go
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-if (which tmux >/dev/null) && [[ -o login ]] && [[ -z "$TMUX" ]] && [[ -f ~/scripts/tmux-login ]]; then
-    exec zsh "$HOME/scripts/tmux-login" $(which tmux)
-fi
-
-case $TERM in
-    screen)
-        alias detach="touch $TMUX_LEAVE_SHELL_FILE && tmux detach" ;;
-esac

@@ -1,1 +1,3 @@
+{{- if hasSuffix "salesforce.com" .chezmoi.fullHostname }}
 {{ (bitwarden "item" "private_key_et_github").notes }}
+{{- end }}

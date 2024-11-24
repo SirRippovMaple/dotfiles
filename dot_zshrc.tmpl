@@ -150,7 +150,7 @@ enable-fzf-tab
 # Open the Pull Request URL for your current directory's branch (base branch defaults to master)
 function openpr() {
   remote=${1:-origin}
-  github_url=`git remote -v | awk "/^${remote}.*\\(fetch\\)$/{print \\$2}" | sed -Ee 's#(git@|git://)#https://#' -e 's@com:@com/@' -e 's%\.git$%%' -e 's#work.github.com#github.com#' -e 's#me.github.com#github.com#'`;
+  github_url=`git remote -v | awk "/^${remote}.*\\(fetch\\)$/{print \\$2}" | sed -Ee 's#(git@|git://)#https://#' -e 's#github.com-[^:]+#github.com#' -e 's@com:@com/@' -e 's%\.git$%%'`;
   main_branch=`git remote show origin | sed -n '/HEAD branch/s/.*: //p'`
   branch_name=`git symbolic-ref HEAD | cut -d"/" -f 3,4`;
   pr_url=$github_url"/compare/$main_branch..."$branch_name

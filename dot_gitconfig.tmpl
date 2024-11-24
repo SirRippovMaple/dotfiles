@@ -2,17 +2,21 @@
     email = {{ .email }}
     name = Trevor Green
 [core]
-    editor = vim
+    editor = code --wait
     pager = less -RM -TX -s
 [merge]
-    tool = kdiff3
+    tool = vscode
 [mergetool "kdiff3"]
     path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
+[mergetool "vscode"]
+    cmd = code --wait $MERGED
 [diff]
-    tool = kdiff3
+    tool = vscode
 [difftool "kdiff3"]
     path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
     trustExitCode = false
+[difftool "vscode"]
+    cmd = code --wait --diff $LOCAL $REMOTE
 [color]
     ui = true
 [push]
@@ -28,4 +32,3 @@
     pf = push --force-with-lease
     st = status
     prepare = !git checkout master && git pull -r && git checkout -b $1 && git push -u origin $1 && :
-    prepdc = !git checkout dotnet-core && git pull -r && git checkout -b $1 && git push -u origin $1 && :

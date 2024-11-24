@@ -3,8 +3,6 @@
   <packageSources>
 {{- if hasSuffix "salesforce.com" .chezmoi.fullHostname }}
     <add key="Artifactory" value="https://artifactory-dev.brighter.io/api/nuget/nuget-repo" protocolVersion="2" />
-    <add key="nexus" value="https://nexus.soma.salesforce.com/nexus/service/local/nuget/nuget/" protocolVersion="2" />
-    <add key="nexus-proxy" value="https://nexus.soma.salesforce.com/nexus/service/local/nuget/nugetproxy2/" protocolVersion="2" /> 
 {{- end }}
     <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
   </packageSources>
@@ -13,16 +11,4 @@
     <add key="https://artifactory-dev.brighter.io/api/nuget/nuget-repo" value="{{ (bitwarden "item" "artifactory-dev.brighter.io").login.password }}" />
 {{- end }}
   </apikeys>
-  <packageSourceCredentials>
-{{- if hasSuffix "salesforce.com" .chezmoi.fullHostname }}
-    <nexus>
-      <add key="Username" value="{{ (bitwarden "item" "Nexus SF").login.username }}" />
-      <add key="Password" value="{{ (bitwarden "item" "Nexus SF").login.password }}" />
-    </nexus>
-    <nexus-proxy>
-      <add key="Username" value="{{ (bitwarden "item" "Nexus Proxy SF").login.username }}" />
-      <add key="Password" value="{{ (bitwarden "item" "Nexus Proxy SF").login.password }}" />
-    </nexus-proxy>
-{{- end }}
-  </packageSourceCredentials>
 </configuration>

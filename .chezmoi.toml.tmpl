@@ -2,12 +2,13 @@
 {{- $fullHostname := trim ( output "hostname" ) }}
 {{- $atWork := hasSuffix $workDnsSuffix $fullHostname }}
 {{- $email := "" }}
+{{- $personalEmail := trim (bitwarden "item" "personal-identity").identity.email }}
 {{- $name := "Sir Rippov the Maple" }}
 {{- if $atWork }}
 {{- $email = trim (bitwarden "item" "work-identity").identity.email }}
 {{- $name = printf "%s %s" (bitwarden "item" "work-identity").identity.firstName (bitwarden "item" "work-identity").identity.lastName }}
 {{- else }}
-{{- $email = trim (bitwarden "item" "git-identity").identity.email }}
+{{- $email := trim (bitwarden "item" "git-identity").identity.email }}
 {{- end }}
 {{- $batcmd := "bat" }}
 {{- $os := "other" }}
@@ -32,3 +33,6 @@ pager = {{ $batcmd | quote }}
   name = {{ $name | quote }}
   email = {{ $email | quote }}
   os = {{ $os | quote }}
+
+[gpg]
+  recipient = {{ $personalEmail | quote }}

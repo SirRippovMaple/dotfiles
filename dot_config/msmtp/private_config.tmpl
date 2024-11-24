@@ -1,0 +1,26 @@
+{{- $email := trim (bitwarden "item" "personal-identity").identity.email -}}
+{{- $password := "" }}
+{{- $fields := (bitwarden "item" "personal-identity").fields -}}
+{{- range $field := $fields }}
+    {{- if eq $field.name "smtp_password" }}
+        {{- $password = $field.value }}
+    {{- end }}
+{{- end -}}
+# Set default values for all following accounts.
+defaults
+auth           on
+tls            on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+logfile        ~/.cache/msmtp.log
+aliases        /etc/aliases
+
+# Fastmail 
+account        fastmail
+host           smtp.fastmail.com
+port           587
+from           {{ $email }}
+user           {{ $email }}
+password       {{ $password }}
+
+# Set a default account
+account default : fastmail

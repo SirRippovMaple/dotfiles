@@ -63,6 +63,7 @@ yabai -m rule --add label="About This Mac" app="System Information" title="About
 yabai -m rule --add label="HHKB" app="HHKB Keymap Tool" title="About This Mac" manage=off
 yabai -m rule --add app="1Password" manage=off
 yabai -m rule --add app="OmniFocus" manage=off
+yabai -m rule --add app="Music" manage=off
 
 space_firefox=1
 space_chrome=2
@@ -88,6 +89,7 @@ yabai -m rule --add app="Alacritty" space=^"$space_terminal"
 yabai -m rule --add app="Code" space=^"$space_code"
 yabai -m rule --add app="Obsidian" display=1 sticky="on" grid=1:3:3:1:1:1
 yabai -m rule --add app="OmniFocus" display=1 sticky="on" grid=5:5:1:1:3:3
+yabai -m rule --add app="Music" display=1 sticky="on" grid=5:5:1:1:3:3
 
 ## Super Jetbrains mode
 JB_Apps='^(CLion|PyCharm|IntelliJ IDEA|Rider)$'

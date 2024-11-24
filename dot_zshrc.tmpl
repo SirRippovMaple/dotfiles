@@ -12,36 +12,47 @@ fi
 [[ ! -d "$HOME/.antigen" ]] && git clone https://github.com/zsh-users/antigen.git "$HOME/.antigen"
 source "$HOME/.antigen/antigen.zsh"
 
-# Specify completions we want before the completion module
-antigen bundle zsh-users/zsh-completions
-
-# Specify plugins we want
-antigen bundle aws
-antigen bundle brew
-antigen bundle completion
-antigen bundle docker
-antigen bundle docker-compose
-antigen bundle dotenv
-antigen bundle dotnet
-antigen bundle editor
-antigen bundle fzf
-antigen bundle git
-antigen bundle history
-antigen bundle httpie
-antigen bundle kubectl
-antigen bundle utility
-antigen bundle vault
-antigen bundle vscode
-antigen bundle zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle nocttuam/autodotenv
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-completions
+antigen bundle Aloxaf/fzf-tab
+antigen bundle unixorn/fzf-zsh-plugin@main
 
 antigen theme romkatv/powerlevel10k
 
 antigen apply
 
+# Basic auto/tab complete:
+autoload -U compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+compinit
+_comp_options+=(globdots)		# Include hidden files.
+
+# vi mode
+bindkey -v
+export KEYTIMEOUT=1
+
+# Change cursor shape for different vi modes.
+function zle-keymap-select () {
+    case $KEYMAP in
+        vicmd) echo -ne '\e[1 q';;      # block
+        viins|main) echo -ne '\e[5 q';; # beam
+    esac
+}
+zle -N zle-keymap-select
+zle-line-init() {
+    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+    echo -ne "\e[5 q"
+}
+zle -N zle-line-init
+echo -ne '\e[5 q' # Use beam shape cursor on startup.
+preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+
 # User configuration
 
-export EDITOR="code --wait"
+export EDITOR="nvim"
 export GOPATH=$HOME/go
 
 # Prepended path
@@ -58,6 +69,10 @@ export GOPATH=$HOME/go
 [ -d $HOME/.dotnet/tools ] && export PATH="$PATH:$HOME/.dotnet/tools"
 [ -d $HOME/repositories/useful-scripts ] && export PATH="$PATH:$HOME/repositories/useful-scripts"
 [ -d $HOME/.local/bin ] && export PATH="$PATH:$HOME/.local/bin"
+
+if [ -x "$(command -v nvim)" ]; then
+  alias vim=nvim
+fi
 
 if [ -x "$(command -v git)" ]; then
   alias g=git

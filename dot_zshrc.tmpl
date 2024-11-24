@@ -5,6 +5,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+umask 027
+
 mkdir -p "$XDG_DATA_HOME/zsh"
 mkdir -p "$XDG_CACHE_HOME/zsh"
 

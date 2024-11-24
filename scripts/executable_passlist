@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+shopt -s nullglob
+prefix=${PASSWORD_STORE_DIR-~/.password-store}
+password_files=( "$prefix"/*.gpg "$prefix"/**/*.gpg )
+password_files=( "${password_files[@]#"$prefix"/}" )
+password_files=( "${password_files[@]%.gpg}" )
+
+for index in "${!password_files[@]}"; do
+    [[ ${password_files[$index]} =~ ^p/ ]] && unset -v 'password_files[$index]'
+done
+
+printf '%s\n' "${password_files[@]}"

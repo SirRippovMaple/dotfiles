@@ -6,6 +6,14 @@ mkdir -p "$XDG_CACHE_HOME/zsh"
 # No beeps
 unsetopt BEEP
 
+# GPG agent
+if [ -x "$(command -v gpg-agent)" ]; then
+    unset SSH_AGENT_PID
+    export GPG_TTY=$(tty)
+    export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+    gpgconf --launch gpg-agent
+fi
+
 # Basic auto/tab complete:
 autoload -Uz compinit
 compinit -d -"$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"

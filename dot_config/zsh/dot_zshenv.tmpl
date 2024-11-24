@@ -72,14 +72,6 @@ move_config_file "$HOME/.inputrc" "$XDG_CONFIG_HOME/readline/inputrc"
 
 move_config_file "$HOME/.pulse-cookie" "$XDG_CONFIG_HOME/pulse/cookie"
 
-# GPG agent
-if [ -x "$(command -v gpg-agent)" ]; then
-    unset SSH_AGENT_PID
-    export GPG_TTY=$(tty)
-    export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-    gpgconf --launch gpg-agent
-fi
-
 # History options
 export HISTFILE="$XDG_STATE_HOME/zsh/history"
 export HISTSIZE=1000000

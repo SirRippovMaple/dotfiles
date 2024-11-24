@@ -1,14 +1,20 @@
 [user]
-	email = {{ .email }}
-	name = Trevor Green
+    email = {{ .email }}
+    name = Trevor Green
 [core]
-	editor = vim
+    editor = vim
+    pager = less -RM -TX -s
 [merge]
-	tool = kdiff3
+    tool = kdiff3
 [mergetool "kdiff3"]
-	path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
+    path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
 [diff]
     tool = kdiff3
 [difftool "kdiff3"]
     path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
     trustExitCode = false
+[color]
+    ui = true
+[push]
+    default = simple
+

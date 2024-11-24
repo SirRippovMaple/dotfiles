@@ -1,5 +1,6 @@
 fn = vim.fn
 mapkey = vim.api.nvim_set_keymap
+mapkeylua = vim.keymap.set
 
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
@@ -127,17 +128,22 @@ return require('packer').startup(
                     defaults = {
                         tabwidth = 4,
                         shiftwidth = 4,
-                        expandtab = true
+                        expandtab = true,
                     },
                     languages = {
                         go = {
-                            expandtab = false
+                            expandtab = false,
                         },
                         ts = {
                             tabwidth = 2,
-                            shiftwidth = 2
+                            shiftwidth = 2,
                         },
-                    }
+                        yaml = {
+                            tabwidth = 2,
+                            shiftwidth = 2,
+                            expandtab = true,
+                        },
+                    },
                 })
             end
         }
@@ -448,6 +454,24 @@ return require('packer').startup(
                 mapkey("x", "ga", "<Plug>(EasyAlign)", {})
                 mapkey("n", "ga", "<Plug>(EasyAlign)", {})
             end
+        }
+
+        use {
+            'renerocksai/telekasten.nvim',
+            config = function()
+                local home = vim.fn.expand("~/.notable")
+                local cfg = require('telekasten')
+                cfg.setup({
+                    home = home,
+                })
+
+                mapkeylua('n', '<Leader>zf', cfg.find_notes, { silent = true })
+                mapkeylua('n', '<Leader>zd', cfg.find_daily_notes, { silent = true })
+                mapkeylua('n', '<Leader>zg', cfg.search_notes, { silent = true })
+                mapkeylua('n', '<Leader>zz', cfg.follow_link, { silent = true })
+                mapkeylua('n', '<Leader>z', cfg.panel, { silent = true })
+            end
+
         }
     end
 )

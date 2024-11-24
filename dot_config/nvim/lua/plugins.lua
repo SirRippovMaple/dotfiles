@@ -17,10 +17,6 @@ return require('packer').startup(
         }
 
         use {
-            'samjwill/nvim-unception',
-        }
-
-        use {
             'nvim-lualine/lualine.nvim',
             requires = { 'kyazdani42/nvim-web-devicons' },
             config = function()
@@ -315,6 +311,11 @@ return require('packer').startup(
                     }
                 }
             end
+        }
+
+        use {
+            'alexaandru/nvim-lspupdate',
+            requires = {'neovim/nvim-lspconfig'},
         }
 
         use 'quangnguyen30192/cmp-nvim-ultisnips'

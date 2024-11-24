@@ -59,7 +59,7 @@ bindsym $alt+Sys_Req "exec maim --hidecursor --select | xclip -selection clipboa
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $special+space exec rofi -show drun -modi drun -theme arthur -show combi -icon-theme "Papirus" -show-icons
+bindsym $special+space exec rofi -show drun -modi drun -show combi -show-icons
 
 # change focus
 bindsym $special+h focus left

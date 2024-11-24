@@ -11,3 +11,4 @@ ajeetdsouza/zoxide
 romkatv/powerlevel10k kind:zsh-theme
 MenkeTechnologies/zsh-dotnet-completion
 jeffreytse/zsh-vi-mode
+joshskidmore/zsh-fzf-history-search

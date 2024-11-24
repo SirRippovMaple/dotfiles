@@ -44,13 +44,15 @@ yabai -m config left_padding                 1
 yabai -m config right_padding                1
 yabai -m config window_gap                   1
 
- yabai -m space 9 --label Chrome
- yabai -m space 8 --label Brave
- yabai -m space 7 --label Quip
+ yabai -m space 9 --display 1 --label Chrome
+ yabai -m space 8 --display 1 --label Brave
+ yabai -m space 7 --display 1 --label Quip
+ yabai -m space 6 --display 1 --label Slack
  
- yabai -m space 2 --label Kitty
- yabai -m space 3 --label Rider
- yabai -m space 4 --label Idea
+ yabai -m space 2 --display 2 --label Kitty
+ yabai -m space 3 --display 2 --label Rider
+ yabai -m space 4 --display 2 --label Idea
+ yabai -m space 5 --display 2 --label Docker
  
  yabai -m rule --add app="^System Settings$" manage=off
  yabai -m rule --add app="AnyConnect" manage=off

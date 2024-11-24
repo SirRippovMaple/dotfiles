@@ -41,15 +41,10 @@ export NVM_DIR="$HOME/.nvm"
 
 alias g=git
 
-export EDITOR="code -w"
+export EDITOR="code --wait"
+export KUBE_EDITOR="code --wait"
 export GOPATH=$HOME/go
 export PATH="/usr/local/bin:/usr/local/share/dotnet:$PATH:$GOPATH/bin:$HOME/.dotnet/tools"
-
-{{- if hasSuffix "salesforce.com" .chezmoi.fullHostname }}
-export AD_STUDIO_ARTIFACTORY_AUTH="{{ (bitwarden "item" "artifactory-dev.brighter.io").notes }}"
-export AD_STUDIO_ARTIFACTORY_EMAIL="{{ .email }}"
-{{ (bitwarden "item" "sf_exports").notes }}
-{{- end }}
 
 alias unlock='export BW_SESSION=`bw unlock --raw`'
 alias lock='bw lock'
@@ -69,22 +64,17 @@ fi
 
 complete -o nospace -C /usr/local/bin/vault vault
 
+source ~/.profile
+
 # Open the Pull Request URL for your current directory's branch (base branch defaults to master)
 function openpr() {
-  remote=${$1:-origin}
-  github_url=`git remote -v | awk "/^${remote}.*\\(fetch\\)$/{print \$2}" | sed -Ee 's#(git@|git://)#https://#' -e 's@com:@com/@' -e 's%\.git$%%'`;
+  remote=${1:-origin}
+  github_url=`git remote -v | awk "/^${remote}.*\\(fetch\\)$/{print \\$2}" | sed -Ee 's#(git@|git://)#https://#' -e 's@com:@com/@' -e 's%\.git$%%'`;
   branch_name=`git symbolic-ref HEAD | cut -d"/" -f 3,4`;
   pr_url=$github_url"/compare/master..."$branch_name
   open $pr_url;
 }
 
-# Run git push and then immediately open the Pull Request URL
-function gpr() {
-  git push origin HEAD
-
-  if [ $? -eq 0 ]; then
-    openpr
-  else
-    echo 'failed to push commits and open a pull request.';
-  fi
+function pruneBranches() {
+  git fetch -p && for branch in $(git branch -vv | grep ': gone]' | awk '{print $1}'); do git branch -D $branch; done
 }

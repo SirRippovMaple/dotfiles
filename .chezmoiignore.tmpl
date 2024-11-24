@@ -1,0 +1,11 @@
+{{- if ne .chezmoi.os "darwin" }}
+.config/sketchybar
+.config/skhd
+.config/yabai
+{{- else if ne .chezmoi.os "linux" }}
+.config/i3
+.config/dunst
+.config/i3status
+.config/picom
+.config/polybar
+{{- end }}

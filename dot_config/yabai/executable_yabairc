@@ -79,7 +79,7 @@ space_ide=10
 yabai -m rule --add app="Slack" label="Slack" space=^"$space_slack"
 yabai -m rule --add app="Google Chrome" label="Chrome" space=^"$space_chrome"
 yabai -m rule --add app="Firefox" label="Firefox" space=^"$space_firefox"
-yabai -m rule --add app="Huddle with" manage=off space=^"$space_comms"
+yabai -m rule --add app="Slack" title="^Huddle" space=^"$space_comms"
 yabai -m rule --add app="zoom.us" space=^"$space_comms"
 yabai -m rule --add app="Google Meet" space=^"$space_comms"
 

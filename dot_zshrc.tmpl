@@ -23,6 +23,7 @@ compinit -d -"$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
 _comp_options+=(globdots)
 
 # Prepended path
+export GOPATH=$HOME/go
 [ -d /usr/local/go/bin ] && export PATH="/usr/local/go/bin:$PATH"
 [ -d $HOME/tools ] && export PATH="$HOME/tools:$PATH"
 [ -d /usr/local/opt/terraform@0.12/bin ] && export PATH="/usr/local/opt/terraform@0.12/bin:$PATH"
@@ -91,7 +92,6 @@ batcmd=bat
 
 export AUTO_NOTIFY_THRESHOLD=20
 export EDITOR="vim"
-export GOPATH=$HOME/go
 
 if [ -x "$(command -v nvim)" ]; then
   export PAGER="nvim -c 'setlocal noswapfile buftype=nofile bufhidden=hide' -c 'setlocal nomodified readonly nomodifiable' -c 'setlocal noexpandtab tabstop=8 softtabstop=8 shiftwidth=8' -c 'setlocal number norelativenumber' -c 'setlocal foldcolumn=0 colorcolumn=0 nolist nofoldenable' -c 'nnoremap <silent> <buffer> <nowait> q :lclose<CR>:q<CR>' -c 'nnoremap <silent> <buffer> j gj' -c 'nnoremap <silent> <buffer> k gk'"

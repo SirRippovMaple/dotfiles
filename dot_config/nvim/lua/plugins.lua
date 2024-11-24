@@ -500,20 +500,16 @@ return require('lazy').setup({
             mapkey("n", "ga", "<Plug>(EasyAlign)", {})
         end
     },
-    {
-        'aklt/plantuml-syntax',
-        lazy = true,
-        ft = "puml",
-    },
+    'aklt/plantuml-syntax',
     {
         'tyru/open-browser.vim',
         lazy = true,
-        ft = "puml",
+        ft = "plantuml",
     },
     {
         'weirongxu/plantuml-previewer.vim',
         lazy = true,
-        ft = "puml",
+        ft = "plantuml",
     },
     'mechatroner/rainbow_csv',
 })

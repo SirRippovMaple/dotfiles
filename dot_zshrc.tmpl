@@ -1,12 +1,16 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 #
 # Dependencies
 #
 
 [[ ! -d "$HOME/.antigen" ]] && git clone https://github.com/zsh-users/antigen.git "$HOME/.antigen"
 source "$HOME/.antigen/antigen.zsh"
-
-# Set the default plugin repo to be zsh-utils
-antigen use oh-my-zsh
 
 # Specify completions we want before the completion module
 antigen bundle zsh-users/zsh-completions
@@ -22,7 +26,6 @@ antigen bundle dotnet
 antigen bundle editor
 antigen bundle fzf
 antigen bundle git
-antigen bundle git-prompt
 antigen bundle history
 antigen bundle httpie
 antigen bundle kubectl
@@ -33,14 +36,9 @@ antigen bundle vscode
 antigen bundle zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 
-antigen theme agnoster
+antigen theme romkatv/powerlevel10k
 
 antigen apply
-
-# NVM Configuration
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
 
 # User configuration
 
@@ -61,6 +59,7 @@ export GOPATH=$HOME/go
 [ -d $GOPATH/bin ] && export PATH="$PATH:$GOPATH/bin"
 [ -d $HOME/.dotnet/tools ] && export PATH="$PATH:$HOME/.dotnet/tools"
 [ -d $HOME/repositories/useful-scripts ] && export PATH="$PATH:$HOME/repositories/useful-scripts"
+[ -d $HOME/.local/bin ] && export PATH="$PATH:$HOME/.local/bin"
 
 alias g=git
 alias k=kubectl
@@ -86,11 +85,8 @@ if [ -f ~/.fzf.zsh ]; then
     alias searchhist="history | cut -c 8-| sort | uniq | fzf"
 fi
 
-if [ -f ~/.okrepo/ok.sh ]; then
-    pushd ~/.okrepo
-    source ./ok.sh auto_show > /dev/null 2>&1
-    popd > /dev/null 2>&1
-fi
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Completion for vault
 complete -o nospace -C /usr/local/bin/vault vault

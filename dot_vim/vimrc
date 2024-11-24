@@ -1,0 +1,729 @@
+" Vundle {{{
+
+set rtp+=~/.vim/bundle/vundle.vim
+let s:bootstrap = 0
+try
+        call vundle#begin('~/.vim/bundle')
+catch /E117:/
+        let s:bootstrap = 1
+        silent !mkdir -p ~/.vim/bundle
+        silent !unset GIT_DIR && git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+        redraw!
+        call vundle#begin('~/.vim/bundle')
+endtry
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-shell'
+Plugin 'OrangeT/vim-csharp'
+Plugin 'trumpi/vim-razor'
+Plugin 'reedes/vim-pencil'
+Plugin 'sjl/splice.vim'
+Plugin 'docunext/closetag.vim'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'tpope/vim-surround'
+Plugin 'ervandew/supertab'
+Plugin 'maxbrunsfeld/vim-yankstack'
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'wavded/vim-stylus'
+Plugin 'scrooloose/syntastic'
+Plugin 'sjl/gundo.vim'
+Plugin 'tpope/vim-dispatch'
+Plugin 'vim-scripts/Conque-Shell'
+Plugin 'xolox/vim-notes'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'Yggdroot/indentLine'
+Plugin 'ivyl/vim-bling'
+Plugin 'davidoc/taskpaper.vim'
+Plugin 'vim-scripts/marvim'
+Plugin 'vim-scripts/xptemplate'
+Plugin 'zhaocai/GoldenView.Vim'
+Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'PProvost/vim-ps1'
+Plugin 'noahfrederick/vim-hemisu'
+Plugin 'SirVer/ultisnips'
+Plugin 'trumpi/ultisnips-snippets'
+Plugin 'honza/vim-snippets'
+if has('macunix') && has('python')
+    Plugin 'baverman/vial'
+    Plugin 'baverman/vial-http'
+endif
+Plugin 'OmniSharp/omnisharp-vim'
+Plugin 'nelstrom/vim-visual-star-search'
+Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-repeat'
+Plugin 'vim-scripts/dbext.vim'
+
+call vundle#end()
+
+if s:bootstrap
+        silent PluginInstall
+        quit
+end
+" }}}
+" Preamble {{{
+" Needed on some linux distros.
+" see http://www.adamlowe.me/2009/12/vim-destroys-all-other-rails-editors.html
+filetype off
+syntax on
+filetype plugin indent on
+set encoding=utf-8
+set nobomb
+set switchbuf+=usetab,newtab
+set clipboard=unnamed " Use the system clipboard
+set nocompatible
+set autoread
+let g:miniBufExplModSelTarget = 1
+set backspace=indent,eol,start
+set lazyredraw
+
+set nobackup            " do not keep backups
+set history=100         " keep 50 lines of command line history
+set ruler               " show the cursor position all the time
+set incsearch           " do incremental searching
+set expandtab
+set shiftwidth=4
+set tabstop=4
+set helpheight=1000
+set list
+set noswapfile
+set hlsearch
+let mapleader=","
+
+if has("gui_running")
+  set number
+else
+  set number
+  set term=xterm
+  set t_Co=256
+  let &t_AB="\e[48;5;%dm"
+  let &t_AF="\e[38;5;%dm"
+endif
+
+if has("gui_macvim")
+  " write on pretty much any event (including :q)
+  set autowriteall
+  set tabpagemax=100
+  set guifont=Monofur\ for\ Powerline:h18
+endif
+
+autocmd BufNewFile,BufRead *.css set fdm=marker fmr={,}
+
+" Fuck tpope
+xmap s <Plug>VSurround
+
+hi IncSearch term=reverse
+hi    Search term=reverse
+hi    Visual term=reverse cterm=reverse ctermbg=9
+
+set listchars=tab:»-,trail:∙,extends:¶,eol:$
+set fillchars = "vert:\u259a,fold:\u00b7"
+set list
+
+set completeopt=menu,menuone,preview
+set wildmode=longest,list:longest
+set sessionoptions=buffers,curdir,folds,localoptions,resize,slash,tabpages,winpos,unix
+
+"set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.storyboard,*.storyboardc,*/vendor/*,*/build/*
+
+" set cursorcolumn " highlight the screen column of the cursor
+" set cursorline   " highlight the screen line of the cursor
+
+let g:shell_fullscreen_items = "mT"
+
+setlocal numberwidth=3
+" }}}
+" Plugins {{{
+" noahfrederick/vim-hemisu {{{
+set background=dark
+colorscheme hemisu
+" }}}
+" bling/vim-airline {{{
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme='badwolf'
+
+" }}}
+" kien/ctrlp.vim {{{
+let g:ctrlp_open_new_file = 't'
+let g:ctrlp_open_multiple_files = 't'
+let g:ctrlp_max_files=0
+let g:ctrlp_map = '<D-p>'
+let g:ctrlp_prompt_mappings = { 'AcceptSelection("e")': [], 'AcceptSelection("t")': ['<cr>', '<c-m>'], }
+let g:ctrlp_working_path_mode = 'a'
+noremap <C-p> :CtrlP<CR>
+" }}}
+" scroolose/nerdtree {{{
+nnoremap <leader>n :NERDTreeToggle<CR>
+let NERDChristmasTree = 1
+let NERDTreeWinPos = "right"
+let NERDTreeQuitOnOpen = 1
+let NERDTreeDirArrows = 1
+" }}}
+" tpope/vim-fugitive {{{
+
+" }}}
+" tpope/vim-unimpaired {{{
+" }}}
+" Lokaltog/vim-easymotion {{{
+" }}}
+" xolox/vim-misc {{{
+" }}}
+" xolox/vim-shell {{{
+" }}}
+" OrangeT/vim-csharp {{{
+" }}}
+" trumpi/vim-razor {{{
+" }}}
+" reedes/vim-pencil {{{
+let g:pencil#wrapModeDefault = 'hard'
+let g:pencil#textwidth = 74
+augroup pencil
+  autocmd!
+  autocmd filetype markdown call pencil#init()
+  autocmd filetype textile call pencil#init()
+  autocmd filetype text call pencil#init()
+  autocmd filetype notes call pencil#init()
+augroup END
+" }}}
+" sjl/splice.vim {{{
+" }}}
+" vim-scripts/taglist.vim {{{
+let Tlist_Auto_Open = 0
+let Tlist_Compact_Format = 1
+let Tlist_Use_Right_Window = 1
+" }}}
+" docunext/closetag.vim {{{
+" }}}
+" scrooloose/nerdcommenter {{{
+" }}}
+" tpope/vim-surround {{{
+let g:surround_40 = "(\r)"
+let g:surround_91 = "[\r]"
+let g:surround_60 = "<\r>"
+" }}}
+" ervandew/supertab {{{
+" avoid key conflict
+let g:SuperTabMappingForward = '<Plug>supertabKey'
+
+" if nothing matched in xpt, try supertab
+let g:xptemplate_fallback = '<Plug>supertabKey'
+" }}}
+" maxbrunsfeld/vim-yankstack {{{
+let g:yankstack_map_keys = 0
+nmap <leader>p <Plug>yankstack_substitute_older_paste
+nmap <leader>P <Plug>yankstack_substitute_newer_paste
+" }}}
+" jelera/vim-javascript-syntax {{{
+" }}}
+" kchmck/vim-coffee-script {{{
+" }}}
+" wavded/vim-stylus {{{
+" }}}
+" scrooloose/syntastic {{{
+" let g:syntastic_jshint_exec="C:\\Program Files\\nodejs\\node_modules\\.bin\\jshint.cmd"
+let g:syntastic_javascript_checkers = ['jshint']
+" }}}
+" sjl/gundo.vim {{{
+" }}}
+" tpope/vim-dispatch {{{
+" }}}
+" vim-scripts/Conque-Shell {{{
+" }}}
+" edsono/vim-matchit {{{
+" }}}
+" xolox/vim-notes {{{
+" }}}
+" xolox/vim-session {{{
+" }}}
+" docunext/closetag.vim {{{
+" }}}
+" airblade/vim-gitgutter {{{
+" }}}
+" Yggdroot/indentLine {{{
+" }}}
+" ivyl/vim-bling {{{
+" }}}
+" davidoc/taskpaper.vim {{{
+" }}}
+" vim-scripts/marvim {{{
+" }}}
+" vim-scripts/xptemplate {{{
+" xpt uses <Tab> as trigger key
+let g:xptemplate_key = '<Tab>'
+
+" use <tab>/<S-tab> to navigate through pum. Optional
+let g:xptemplate_pum_tab_nav = 1
+
+" xpt triggers only when you typed whole name of a snippet. Optional
+let g:xptemplate_minimal_prefix = 'full'
+let g:xptemplate_vars = "author=Trevor Green&email=trevor@trumpi.co.za&SPargs="
+" }}}
+" zhaocai/GoldenView.Vim {{{
+let g:goldenview__enable_default_mapping = 0
+
+nmap <silent> <C-n> <Plug>GoldenViewSplit
+" }}}
+" kien/rainbow_parentheses.vim {{{
+" }}}
+" PProvost/vim-ps1 {{{
+" }}}
+" SirVer/ultisnips {{{
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" }}}
+" vim-scripts/dbext.vim {{{
+if(filereadable(expand("~/db-profiles.vim")))
+    source ~/db-profiles.vim
+endif
+" }}}
+" }}}
+" Other settings {{{
+" Make j/k move to next visual line instead of physical line
+" http://yubinkim.com/?p=6
+nnoremap k gk
+nnoremap j gj
+nnoremap gk k
+nnoremap gj j
+map <tab> %
+
+" File management
+nnoremap <leader>v :vsplit<CR>:w<CR>:Ex<CR>
+nnoremap <leader>s :split<CR>:w<CR>:Ex<CR>
+nnoremap <leader>t :tabnew<CR>:Ex<CR>
+
+" Source
+vnoremap <leader>S y:execute @@<cr>:echo 'Sourced selection.'<cr>
+nnoremap <leader>S ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
+
+" Exchange
+nmap <C-j> ddp
+nmap <C-k> ddkp
+
+" Brace completion {{{
+imap <leader>' ''<ESC>i
+imap <leader>" ""<ESC>i
+imap <leader>( ()<ESC>i
+imap <leader>[ []<ESC>i
+" }}}
+" Next and Last {{{
+"
+" Motion for "next/last object".  "Last" here means "previous", not "final".
+" Unfortunately the "p" motion was already taken for paragraphs.
+"
+" Next acts on the next object of the given type, last acts on the previous
+" object of the given type.  These don't necessarily have to be in the current
+" line.
+"
+" Currently works for (, [, {, and their shortcuts b, r, B.
+"
+" Next kind of works for ' and " as long as there are no escaped versions of
+" them in the string (TODO: fix that).  Last is currently broken for quotes
+" (TODO: fix that).
+"
+" Some examples (C marks cursor positions, V means visually selected):
+"
+" din'  -> delete in next single quotes                foo = bar('spam')
+"                                                      C
+"                                                      foo = bar('')
+"                                                                C
+"
+" canb  -> change around next parens                   foo = bar('spam')
+"                                                      C
+"                                                      foo = bar
+"                                                               C
+"
+" vin"  -> select inside next double quotes            print "hello ", name
+"                                                       C
+"                                                      print "hello ", name
+"                                                             VVVVVV
+
+onoremap an :<c-u>call <SID>NextTextObject('a', '/')<cr>
+xnoremap an :<c-u>call <SID>NextTextObject('a', '/')<cr>
+onoremap in :<c-u>call <SID>NextTextObject('i', '/')<cr>
+xnoremap in :<c-u>call <SID>NextTextObject('i', '/')<cr>
+
+onoremap al :<c-u>call <SID>NextTextObject('a', '?')<cr>
+xnoremap al :<c-u>call <SID>NextTextObject('a', '?')<cr>
+onoremap il :<c-u>call <SID>NextTextObject('i', '?')<cr>
+xnoremap il :<c-u>call <SID>NextTextObject('i', '?')<cr>
+
+
+function! s:NextTextObject(motion, dir)
+    let c = nr2char(getchar())
+    let d = ''
+
+    if c ==# "b" || c ==# "(" || c ==# ")"
+        let c = "("
+    elseif c ==# "B" || c ==# "{" || c ==# "}"
+        let c = "{"
+    elseif c ==# "r" || c ==# "[" || c ==# "]"
+        let c = "["
+    elseif c ==# "'"
+        let c = "'"
+    elseif c ==# '"'
+        let c = '"'
+    else
+        return
+    endif
+
+    " Find the next opening-whatever.
+    execute "normal! " . a:dir . c . "\<cr>"
+
+    if a:motion ==# 'a'
+        " If we're doing an 'around' method, we just need to select around it
+        " and we can bail out to Vim.
+        execute "normal! va" . c
+    else
+        " Otherwise we're looking at an 'inside' motion.  Unfortunately these
+        " get tricky when you're dealing with an empty set of delimiters because
+        " Vim does the wrong thing when you say vi(.
+
+        let open = ''
+        let close = ''
+
+        if c ==# "("
+            let open = "("
+            let close = ")"
+        elseif c ==# "{"
+            let open = "{"
+            let close = "}"
+        elseif c ==# "["
+            let open = "\\["
+            let close = "\\]"
+        elseif c ==# "'"
+            let open = "'"
+            let close = "'"
+        elseif c ==# '"'
+            let open = '"'
+            let close = '"'
+        endif
+
+        " We'll start at the current delimiter.
+        let start_pos = getpos('.')
+        let start_l = start_pos[1]
+        let start_c = start_pos[2]
+
+        " Then we'll find it's matching end delimiter.
+        if c ==# "'" || c ==# '"'
+            " searchpairpos() doesn't work for quotes, because fuck me.
+            let end_pos = searchpos(open)
+        else
+            let end_pos = searchpairpos(open, '', close)
+        endif
+
+        let end_l = end_pos[0]
+        let end_c = end_pos[1]
+
+        call setpos('.', start_pos)
+
+        if start_l == end_l && start_c == (end_c - 1)
+            " We're in an empty set of delimiters.  We'll append an "x"
+            " character and select that so most Vim commands will do something
+            " sane.  v is gonna be weird, and so is y.  Oh well.
+            execute "normal! ax\<esc>\<left>"
+            execute "normal! vi" . c
+        elseif start_l == end_l && start_c == (end_c - 2)
+            " We're on a set of delimiters that contain a single, non-newline
+            " character.  We can just select that and we're done.
+            execute "normal! vi" . c
+        else
+            " Otherwise these delimiters contain something.  But we're still not
+            " sure Vim's gonna work, because if they contain nothing but
+            " newlines Vim still does the wrong thing.  So we'll manually select
+            " the guts ourselves.
+            let whichwrap = &whichwrap
+            set whichwrap+=h,l
+
+            execute "normal! va" . c . "hol"
+
+            let &whichwrap = whichwrap
+        endif
+    endif
+endfunction
+
+" }}}
+" Comma stuff {{{
+nmap di, f,dT,
+nmap ci, f,cT,
+nmap da, f,ld2T,
+nmap ca, f,ld2T,i
+
+noremap ds{ F{xf}x
+noremap ds" F"x,x
+noremap ds' F'x,x
+noremap ds) F(xf)x
+noremap ds( F(xf)x
+noremap ds[ F[xf]x
+noremap ds] F[xf]x
+" }}}
+" Tabs {{{
+nmap <C-t> :tabe<CR>
+nmap <C-TAB> :tabn<CR>
+imap <C-TAB> <ESC>:tabn<CR>
+" }}}
+" Auto center screen on some jumps {{{
+nmap G Gzzzv
+nmap n nzzzv
+nmap N Nzzzv
+nmap } }zzzv
+nmap { {zzzv
+imap jj <ESC>
+" }}}
+nmap <C-l> <C-w>l
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <Left> <C-w><
+nmap <Right> <C-w>>
+
+nmap gO O<ESC>j
+nmap go o<ESC>j
+
+command! -complete=shellcmd -nargs=* R belowright 15new | r ! <args>
+
+autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+
+" Quick-fix
+nnoremap <leader>w :%s/\s\+$//g<cr>
+
+" Text objects ------------------------------------------------------------ {{{
+
+" Shortcut for [] {{{
+
+onoremap ir i[
+onoremap ar a[
+vnoremap ir i[
+vnoremap ar a[
+
+" }}}
+" Next and Last {{{
+"
+" Motion for "next/last object".  "Last" here means "previous", not "final".
+" Unfortunately the "p" motion was already taken for paragraphs.
+"
+" Next acts on the next object of the given type, last acts on the previous
+" object of the given type.  These don't necessarily have to be in the current
+" line.
+"
+" Currently works for (, [, {, and their shortcuts b, r, B.
+"
+" Next kind of works for ' and " as long as there are no escaped versions of
+" them in the string (TODO: fix that).  Last is currently broken for quotes
+" (TODO: fix that).
+"
+" Some examples (C marks cursor positions, V means visually selected):
+"
+" din'  -> delete in next single quotes                foo = bar('spam')
+"                                                      C
+"                                                      foo = bar('')
+"                                                                C
+"
+" canb  -> change around next parens                   foo = bar('spam')
+"                                                      C
+"                                                      foo = bar
+"                                                               C
+"
+" vin"  -> select inside next double quotes            print "hello ", name
+"                                                       C
+"                                                      print "hello ", name
+"                                                             VVVVVV
+
+onoremap an :<c-u>call <SID>NextTextObject('a', '/')<cr>
+xnoremap an :<c-u>call <SID>NextTextObject('a', '/')<cr>
+onoremap in :<c-u>call <SID>NextTextObject('i', '/')<cr>
+xnoremap in :<c-u>call <SID>NextTextObject('i', '/')<cr>
+
+onoremap al :<c-u>call <SID>NextTextObject('a', '?')<cr>
+xnoremap al :<c-u>call <SID>NextTextObject('a', '?')<cr>
+onoremap il :<c-u>call <SID>NextTextObject('i', '?')<cr>
+xnoremap il :<c-u>call <SID>NextTextObject('i', '?')<cr>
+
+
+function! s:NextTextObject(motion, dir)
+    let c = nr2char(getchar())
+    let d = ''
+
+    if c ==# "b" || c ==# "(" || c ==# ")"
+        let c = "("
+    elseif c ==# "B" || c ==# "{" || c ==# "}"
+        let c = "{"
+    elseif c ==# "r" || c ==# "[" || c ==# "]"
+        let c = "["
+    elseif c ==# "'"
+        let c = "'"
+    elseif c ==# '"'
+        let c = '"'
+    else
+        return
+    endif
+
+    " Find the next opening-whatever.
+    execute "normal! " . a:dir . c . "\<cr>"
+
+    if a:motion ==# 'a'
+        " If we're doing an 'around' method, we just need to select around it
+        " and we can bail out to Vim.
+        execute "normal! va" . c
+    else
+        " Otherwise we're looking at an 'inside' motion.  Unfortunately these
+        " get tricky when you're dealing with an empty set of delimiters because
+        " Vim does the wrong thing when you say vi(.
+
+        let open = ''
+        let close = ''
+
+        if c ==# "("
+            let open = "("
+            let close = ")"
+        elseif c ==# "{"
+            let open = "{"
+            let close = "}"
+        elseif c ==# "["
+            let open = "\\["
+            let close = "\\]"
+        elseif c ==# "'"
+            let open = "'"
+            let close = "'"
+        elseif c ==# '"'
+            let open = '"'
+            let close = '"'
+        endif
+
+        " We'll start at the current delimiter.
+        let start_pos = getpos('.')
+        let start_l = start_pos[1]
+        let start_c = start_pos[2]
+
+        " Then we'll find it's matching end delimiter.
+        if c ==# "'" || c ==# '"'
+            " searchpairpos() doesn't work for quotes, because fuck me.
+            let end_pos = searchpos(open)
+        else
+            let end_pos = searchpairpos(open, '', close)
+        endif
+
+        let end_l = end_pos[0]
+        let end_c = end_pos[1]
+
+        call setpos('.', start_pos)
+
+        if start_l == end_l && start_c == (end_c - 1)
+            " We're in an empty set of delimiters.  We'll append an "x"
+            " character and select that so most Vim commands will do something
+            " sane.  v is gonna be weird, and so is y.  Oh well.
+            execute "normal! ax\<esc>\<left>"
+            execute "normal! vi" . c
+        elseif start_l == end_l && start_c == (end_c - 2)
+            " We're on a set of delimiters that contain a single, non-newline
+            " character.  We can just select that and we're done.
+            execute "normal! vi" . c
+        else
+            " Otherwise these delimiters contain something.  But we're still not
+            " sure Vim's gonna work, because if they contain nothing but
+            " newlines Vim still does the wrong thing.  So we'll manually select
+            " the guts ourselves.
+            let whichwrap = &whichwrap
+            set whichwrap+=h,l
+
+            execute "normal! va" . c . "hol"
+
+            let &whichwrap = whichwrap
+        endif
+    endif
+endfunction
+
+" }}}
+" Numbers {{{
+
+" Motion for numbers.  Great for CSS.  Lets you do things like this:
+"
+" margin-top: 200px; -> daN -> margin-top: px;
+"              ^                          ^
+" TODO: Handle floats.
+
+onoremap N :<c-u>call <SID>NumberTextObject(0)<cr>
+xnoremap N :<c-u>call <SID>NumberTextObject(0)<cr>
+onoremap aN :<c-u>call <SID>NumberTextObject(1)<cr>
+xnoremap aN :<c-u>call <SID>NumberTextObject(1)<cr>
+onoremap iN :<c-u>call <SID>NumberTextObject(1)<cr>
+xnoremap iN :<c-u>call <SID>NumberTextObject(1)<cr>
+
+function! s:NumberTextObject(whole)
+    normal! v
+
+    while getline('.')[col('.')] =~# '\v[0-9]'
+        normal! l
+    endwhile
+
+    if a:whole
+        normal! o
+
+        while col('.') > 1 && getline('.')[col('.') - 2] =~# '\v[0-9]'
+            normal! h
+        endwhile
+    endif
+endfunction
+
+" }}}
+
+" }}}
+" Quickedit {{{
+nnoremap <leader>ev :tabe $MYVIMRC<cr>
+nnoremap <leader>eg :tabe ~/.gitconfig<cr>
+nnoremap <leader>s :tabnew<CR>:NERDTreeToggle ~/.vim/bundle/ultisnips-snippets/UltiSnips/<CR>
+" }}}
+
+noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
+call matchadd('ColorColumn', '\%81v', 160)
+
+" }}}
+" Folding {{{
+" Enter to toggle folds.
+nnoremap <cr> za
+vnoremap <cr> za
+
+function! MyFoldText() " {{{
+    let line = getline(v:foldstart)
+
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+    let foldedlinecount = v:foldend - v:foldstart
+
+    " expand tabs into spaces
+    let onetab = strpart('          ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
+
+    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+endfunction " }}}
+set foldtext=MyFoldText()
+" }}}
+" Filetypes {{{
+" Vim {{{
+
+augroup ft_vim
+    au!
+
+    au FileType vim setlocal foldmethod=marker
+    au FileType help setlocal textwidth=78
+    au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
+augroup END
+
+" }}}
+" }}}

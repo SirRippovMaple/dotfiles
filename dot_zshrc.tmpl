@@ -54,6 +54,11 @@ export AD_STUDIO_ARTIFACTORY_EMAIL="{{ .email }}"
 alias unlock='export BW_SESSION=`bw unlock --raw`'
 alias lock='bw lock'
 alias update='source ~/.zshrc'
+{{- if eq .chezmoi.os "darwin" }}
+alias start=open
+{{- else }}
+alias start=xdg-open
+{{- end }}
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 if [ -f ~/.okrepo/ok.sh ]; then

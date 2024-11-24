@@ -79,12 +79,13 @@ space_ide=10
 yabai -m rule --add app="Slack" label="Slack" space=^"$space_slack"
 yabai -m rule --add app="Google Chrome" label="Chrome" space=^"$space_chrome"
 yabai -m rule --add app="Firefox" label="Firefox" space=^"$space_firefox"
+yabai -m rule --add app="Huddle with" manage=off space=^"$space_comms"
+yabai -m rule --add app="zoom.us" space=^"$space_comms"
+yabai -m rule --add app="Google Meet" space=^"$space_comms"
 
 yabai -m rule --add app="Docker Desktop" space=^"$space_docker"
 yabai -m rule --add app="Alacritty" space=^"$space_terminal"
 yabai -m rule --add app="Code" space=^"$space_code"
-yabai -m rule --add app="Huddle with" manage=off space=^"$space_comms"
-yabai -m rule --add app="zoom.us" space=^"$space_comms"
 yabai -m rule --add app="Obsidian" display=1 sticky="on" grid=1:3:3:1:1:1
 yabai -m rule --add app="OmniFocus" display=1 sticky="on" grid=5:5:1:1:3:3
 

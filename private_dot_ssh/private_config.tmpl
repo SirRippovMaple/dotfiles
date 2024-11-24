@@ -31,12 +31,12 @@ Host git.sr.ht
 
 Host nas.trumpi.co.za
     User trumpi
-    IdentityFile ~/.ssh/local.pub
+    IdentityFile ~/.ssh/personal.pub
     IdentitiesOnly yes
 
 Host shell.trumpi.co.za
     User trumpi
-    IdentityFile ~/.ssh/local.pub
+    IdentityFile ~/.ssh/personal.pub
     IdentitiesOnly yes
     ProxyCommand cloudflared access ssh --hostname %h
 

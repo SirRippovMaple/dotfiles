@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+{{- if eq .work "true" }}
+    cat - | grep "@work"
+{{- else }}
+cat - | grep -v "@work"
+{{- end }}

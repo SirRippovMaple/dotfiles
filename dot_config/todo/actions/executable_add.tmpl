@@ -2,4 +2,12 @@
 
 # Add reformat the input arguments to remove the 'add' thats the "${@:2}"
 # Call todo.sh using the -t flag to add the created on date and the default add command.
+{{- if eq .work "true" }}
+if [[ ${@:2} == *'@work'* ]]; then
+    todo.sh -t command add "${@:2}"
+else
+    todo.sh -t command add "${@:"} @work"
+fi
+{{- else }}
 todo.sh -t command add "${@:2}"
+{{- end }}

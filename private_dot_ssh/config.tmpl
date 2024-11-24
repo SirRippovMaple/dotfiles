@@ -24,4 +24,11 @@ Host github.com
 
 {{ (bitwarden "item" "ssh_config_bastion").notes }}
 
+{{- else }}
+
+Host localhost
+    AddKeysToAgent yes
+    IdentityFile ~/.ssh/github
+    StrictHostKeyChecking yes
+    CheckHostIP no
 {{- end }}

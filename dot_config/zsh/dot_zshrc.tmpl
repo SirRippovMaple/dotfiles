@@ -29,7 +29,7 @@ source "${ZDOTDIR:-~}/.antidote/antidote.zsh"
 antidote load
 
 # User configuration
-{{ if eq .chezmoi.osRelease.idLike "debian" -}}
+{{ if eq .os "debian" -}}
 batcmd=batcat
 alias bat=batcat
 {{- else -}}

@@ -1,7 +1,6 @@
 chrissicool/zsh-256color
 djui/alias-tips
 MichaelAquilina/zsh-auto-notify
-nocttuam/autodotenv
 zsh-users/zsh-autosuggestions
 zsh-users/zsh-completions
 Aloxaf/fzf-tab

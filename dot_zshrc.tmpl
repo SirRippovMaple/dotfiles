@@ -74,15 +74,7 @@ setopt EXTENDED_HISTORY
 setopt HIST_FIND_NO_DUPS
 
 # User configuration
-{{- if eq .chezmoi.os "linux" }}
-{{- if eq .chezmoi.osRelease.idLike "debian" }}
-batcmd=batcat
-{{- else }}
 batcmd=bat
-{{- end }}
-{{- else }}
-batcmd=bat
-{{- end }}
 
 export AUTO_NOTIFY_THRESHOLD=20
 export EDITOR="vim"

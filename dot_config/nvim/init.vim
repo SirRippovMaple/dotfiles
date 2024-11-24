@@ -20,6 +20,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'akinsho/nvim-bufferline.lua'
 Plug 'tpope/vim-commentary'
 Plug 'ap/vim-css-color'
@@ -28,7 +29,7 @@ Plug 'SirRippovMaple/ultisnips-snippets'
 Plug '907th/vim-auto-save'
 Plug 'lambdalisue/suda.vim'
 Plug 'FotiadisM/tabset.nvim'
-Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
+Plug 'lukas-reineke/indent-blankline.nvim'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -177,9 +178,48 @@ EOF
 
 nmap <C-b> <cmd>lua vim.lsp.buf.definition()<CR>
 
-" Ranger
-let g:rnvimr_ex_enable = 1
-nmap <leader>n <cmd>RnvimrToggle<CR>
+" NVimTree
+nmap <leader>n <cmd>NvimTreeToggle<CR>
+lua <<EOF
+nvim_tree = require("nvim-tree")
+nvim_tree_config = require("nvim-tree.config")
+local tree_cb = nvim_tree_config.nvim_tree_callback
+
+nvim_tree.setup {
+    disable_netrw = true,
+    hijack_netrw = true,
+    open_on_setup = false,
+    auto_close = true,
+    open_on_tab = false,
+    hijack_cursor = false,
+    update_cwd = true,
+    update_to_buf_dir = {
+        enable = true,
+        auto_open = true,
+    },
+    diagnostics = {
+        enable = true,
+    },
+    update_focused_file = {
+        enable = true,
+        update_cwd = true,
+    },
+    git = {
+       enable = true,
+       ignore = true,
+       timeout = 500,
+    },
+    view = {
+        mappings = {
+            list = {
+                { key = { "l", "<CR>", "o" }, cb = tree_cb "edit" },
+                { key = "h", cb = tree_cb "close_node" },
+                { key = "v", cb = tree_cb "vsplit" },
+            },
+        },
+    }
+}
+EOF
 
 " Shortcutting split navigation, saving a keypress:
 map <C-h> <C-w>h

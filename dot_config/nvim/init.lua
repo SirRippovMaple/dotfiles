@@ -24,7 +24,6 @@ set.title = true
 set.mouse = 'a'
 set.clipboard = 'unnamedplus'
 set.ruler = false
-set.laststatus = 0
 set.encoding = 'utf-8'
 set.fileencoding = 'utf-8'
 set.number = true

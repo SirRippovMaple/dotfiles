@@ -17,16 +17,16 @@ return require('packer').startup(
         }
 
         use {
-            'vim-airline/vim-airline',
+            'nvim-lualine/lualine.nvim',
+            requires = { 'kyazdani42/nvim-web-devicons' },
             config = function()
-                vim.g.airline_powerline_fonts = 1
-            end
-        }
-
-        use {
-            'vim-airline/vim-airline-themes',
-            config = function()
-                vim.g.airline_theme='one'
+                local config = require('lualine')
+                config.setup {
+                    options = {
+                        icons_enabled = true,
+                        theme = 'onedart'
+                    }
+                }
             end
         }
 
@@ -54,14 +54,9 @@ return require('packer').startup(
                     disable_netrw = true,
                     hijack_netrw = true,
                     open_on_setup = false,
-                    auto_close = true,
                     open_on_tab = false,
                     hijack_cursor = false,
                     update_cwd = true,
-                    update_to_buf_dir = {
-                        enable = true,
-                        auto_open = true,
-                    },
                     diagnostics = {
                         enable = true,
                     },
@@ -177,7 +172,6 @@ return require('packer').startup(
             run = ':TSUpdate',
             config = function()
                 require('nvim-treesitter.configs').setup {
-                    ensure_installed = "maintained",
                     sync_install = false,
                     autopairs = {
                         enable = true,

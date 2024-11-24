@@ -134,12 +134,7 @@ alias start=open
 alias start=xdg-open
 {{- end }}
 
-[ -f ~/todo/todo.sh ] && alias t=~/todo/todo.sh
-{{- if eq .work "true" }}
-[ -f ~/todo/todo.sh ] && alias tedit=code ~/todo/work.txt
-{{- else }}
-[ -f ~/todo/todo.sh ] && alias tedit=code ~/todo/todo.txt
-{{- end }}
+[ -x "$(command -v todo.sh)" ] && alias t=todo.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

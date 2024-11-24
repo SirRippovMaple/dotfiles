@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+d=$(date +%Y%m%d)
+exclusions=('useful-scripts' 'archive' 'NerdFonts' 'playground')
+
+pushd ~/repositories
+mkdir -p archive
+
+if [[ $# -eq 0 ]]; then
+  find * -maxdepth 0 -mtime +90 -type d -exec echo {} \; > /tmp/archive.tmp
+else
+  rm -f /tmp/archive.tmp
+  while [[ $# -gt 0 ]]; do
+    echo $1 >> /tmp/archive.tmp
+    shift
+  done
+fi
+
+while read p || [[ -n $p ]]; do
+  if ! ( echo "${exclusions[@]}" | fgrep --word-regexp $p ); then
+    echo "$p -> archive/$p-$d.tar.bz"
+    tar --create --bzip2 --file "archive/$p-$d.tar.bz" $p
+    rm -rf $p
+  fi
+done </tmp/archive.tmp
+
+popd

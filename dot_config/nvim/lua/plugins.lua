@@ -17,6 +17,10 @@ return require('packer').startup(
         }
 
         use {
+            'samjwill/nvim-unception',
+        }
+
+        use {
             'nvim-lualine/lualine.nvim',
             requires = { 'kyazdani42/nvim-web-devicons' },
             config = function()

@@ -4,7 +4,7 @@ y = 3
 
 [font]
 normal = { family = "MesloLGM Nerd Font Mono" }
-size = 11
+size = 12
 
 [colors.primary]
 foreground = "#979eab"

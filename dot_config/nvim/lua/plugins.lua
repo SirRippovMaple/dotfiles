@@ -17,6 +17,9 @@ return require('packer').startup(
 
         use {
             'nvim-lualine/lualine.nvim',
+            after = {
+                'onedark',
+            },
             requires = {
                 'kyazdani42/nvim-web-devicons',
                 'akinsho/nvim-bufferline.lua',
@@ -419,6 +422,7 @@ return require('packer').startup(
 
         use {
             'ful1e5/onedark.nvim',
+            as = 'onedark',
             config = function()
                 require('onedark').setup({
                     dark_float = true

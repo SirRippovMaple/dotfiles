@@ -5,6 +5,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+mkdir -p "$XDG_DATA_HOME/zsh"
+mkdir -p "$XDG_CACHE_HOME/zsh"
+
 # No beeps
 unsetopt BEEP
 
@@ -16,7 +19,7 @@ fi
 
 # Basic auto/tab complete:
 autoload -Uz compinit
-compinit
+compinit -d -"$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
 _comp_options+=(globdots)
 
 # Prepended path
@@ -75,7 +78,8 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # History options
-export HISTFILE=~/.histfile
+[ -f ~/.histfile ] && mkdir -p "$XDG_DATA_HOME/zsh" && move ~/.histfile "$XDG_DATA_HOME/history"
+export HISTFILE="$XDG_DATA_HOME/zsh/history"
 export HISTSIZE=1000000
 export SAVEHIST=1000000
 setopt INC_APPEND_HISTORY_TIME

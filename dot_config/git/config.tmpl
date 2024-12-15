@@ -3,7 +3,6 @@
     name = {{ .name }}
     signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDD2Yt/vbrkysqbbwdxg/O/GsJ5YMwPWYiMkCOGK/csB
 [core]
-    editor = code -w
 {{- if eq .os "debian" }}
     pager = batcat -p
 {{- else }}

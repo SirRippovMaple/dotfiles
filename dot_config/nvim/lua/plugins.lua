@@ -387,7 +387,7 @@ return require('lazy').setup({
             local lspConfig = require('lspconfig')
             local lspServers = {
                 "csharp_ls",
-                "tsserver",
+                "ts_ls",
                 "lua_ls",
                 "dockerls",
                 "jsonls",

@@ -114,7 +114,7 @@ if.app-id = 'com.apple.Music'
 run = 'move-node-to-workspace m'
 
 [[on-window-detected]]
-if.app-id = 'org.mozilla.firefox'
+if.app-id = 'com.vivaldi.Vivaldi'
 run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]

@@ -59,6 +59,7 @@ alt-7 = 'workspace 7'
 alt-8 = 'workspace 8'
 alt-9 = 'workspace 9'
 alt-0 = 'workspace 10'
+alt-c = 'workspace c'
 alt-m = 'workspace m'
 alt-n = 'workspace n'
 alt-r = 'workspace r'
@@ -119,7 +120,7 @@ run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
-run = 'move-node-to-workspace 2'
+run = 'move-node-to-workspace c'
 
 [[on-window-detected]]
 if.app-id = 'com.hindsightlabs.paprika.mac.v3'

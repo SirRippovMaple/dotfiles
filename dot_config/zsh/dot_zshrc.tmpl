@@ -37,10 +37,6 @@ if [ -x "$(command -v nvim)" ]; then
   export MANPAGER='nvim +Man!'
 fi
 
-if [ -x "$(command -v code)" ]; then
-  export EDITOR="code -w"
-fi
-
 if [ -x "$(command -v direnv)" ]; then
   eval "$(direnv hook zsh)"
 fi

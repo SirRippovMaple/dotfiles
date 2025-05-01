@@ -25,22 +25,15 @@
     ap = add --patch
     bb = !better-git-branch.sh
     branches = for-each-ref --sort=-committerdate --format=\"%(color:blue)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes
-    lprune = "!f() { \
-          git fetch origin | git branch --v | grep '\\[gone\\]' | awk '{print $1}' | xargs git branch -D; \
-        }; f"
+    lprune = !~/.config/git/lprune.sh
     ci = commit -v
     co = checkout
     pf = push --force-with-lease
+    pr = "!$HOME/.config/git/pr.sh"
     st = status
     sign = "!git rebase --exec 'git commit --amend --no-edit -n -S' -i origin/HEAD"
-    refork = "!f() { \
-        main_branch=`git remote show upstream | sed -n '/HEAD branch/s/.*: //p'`; \
-        git checkout $main_branch && git fetch upstream && git reset upstream/$main_branch --hard && git push -f; \
-        }; f"
-    update = "!f() { \
-        main_branch=`git remote show upstream | sed -n '/HEAD branch/s/.*: //p'`; \
-        git fetch upstream && git rebase upstream/$main_branch && git push -f; \
-        }; f"
+    refork = !~/.config/git/refork.sh
+    update = "!$HOME/.config/git/update.sh"
     prepare = "!$HOME/.config/git/prepare.sh"
 [commit]
     gpgsign = true

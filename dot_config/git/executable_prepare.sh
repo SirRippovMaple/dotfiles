@@ -49,7 +49,7 @@ parse_params() {
   branch_name="${args[0]}"
   remote=$(get_upstream_remote)
   if [[ ${#args[@]} -eq 2 ]]; then
-    base_branch="$remote/${args[1]}"
+    base_branch="${args[1]}"
   fi
   return 0
 }
@@ -58,24 +58,35 @@ create_branch() {
   msg "${BLUE}🔄 Fetching latest changes from $remote...${NOFORMAT}"
   git fetch "$remote"
 
-  if [[ ! -z "${base_branch}" ]]; then
-    base_branch="$(git branch -r | grep "  upstream/$branch_name" | xargs)"
+  if [[ -z "${base_branch}" ]]; then
+    # Try to find matching upstream branch, fallback to default branch
+    matching_branch=$(git branch -r | grep "  $remote/$branch_name" || true)
+    if [[ -n "$matching_branch" ]]; then
+      base_branch="$branch_name"
+    else
+      base_branch="$(git remote show "$remote" | sed -n '/HEAD branch/s/.*: //p')"
+    fi
   fi
 
   # Clean up old branches
   msg "${BLUE}🧹 Cleaning up stale branches...${NOFORMAT}"
-  while IFS= read -r branch; do
-    msg "${ORANGE}🗑️  Removing stale branch: $branch${NOFORMAT}"
-    git branch -D "$branch"
-  done < <(git branch -vv | grep ': gone]' | awk '{print $1}')
+  gone_branches=$(git branch -vv | grep ': gone]' || true)
+  if [[ -n "$gone_branches" ]]; then
+    while IFS= read -r branch; do
+      msg "${ORANGE}🗑️  Removing stale branch: $branch${NOFORMAT}"
+      git branch -D "$branch"
+    done < <(echo "$gone_branches" | awk '{print $1}')
+  else
+    msg "${BLUE}📝 No stale branches found${NOFORMAT}"
+  fi
 
   # Create and configure new branch
   msg "${BLUE}🌱 Creating new branch '$branch_name' from '$base_branch'...${NOFORMAT}"
-  if git checkout -b "$branch_name" "$base_branch" && \
+  if git checkout -b "$branch_name" "$remote/$base_branch" && \
      git config "branch.$branch_name.description" "$(jq -n --arg base "$base_branch" '{base: $base}')" && \
      git push -u origin "$branch_name" && \
      git lprune; then
-    msg "${GREEN}🎉 Branch '$branch_name' created and configured successfully!${NOFORMAT}"
+    msg "${GREEN}🎉 Branch '$branch_name' created and configured successfully from '$remote/$base_branch'!${NOFORMAT}"
   else
     die "${RED}💥 Failed to create and configure branch '$branch_name'${NOFORMAT}"
   fi
@@ -85,3 +96,9 @@ parse_params "$@"
 
 # Main script execution
 create_branch
+
+# Execute POST_GIT_PREPARE if set and executable
+if [[ -n "${POST_GIT_PREPARE-}" && -x "$POST_GIT_PREPARE" ]]; then
+  msg "${CYAN}⚙️  Running post-branch prepare script: $POST_GIT_PREPARE${NOFORMAT}"
+  "$POST_GIT_PREPARE"
+fi

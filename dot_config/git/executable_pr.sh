@@ -55,5 +55,31 @@ if [ "$remote" = "upstream" ]; then
 fi
 
 pr_url=$github_url"/compare/$base_branch..."$branch_name
+
+# Obtain PR title: use PR_TITLE_SCRIPT if set and executable, else skip
+if [[ -n "${PR_TITLE_SCRIPT-}" && -x "$PR_TITLE_SCRIPT" ]]; then
+  msg "${BLUE}📝 Obtaining PR title from script: $PR_TITLE_SCRIPT${NOFORMAT}"
+  pr_title="$($PR_TITLE_SCRIPT "$base_branch" "$branch_name")"
+  # URL-encode the title
+  urlencode() {
+    local LANG=C i c e=""
+    for ((i = 0; i < ${#1}; i++)); do
+      c=${1:i:1}
+      case $c in
+        [a-zA-Z0-9.~_-]) e+="$c" ;;
+        *) printf -v c '%%%02X' "'${c}'"; e+="$c" ;;
+      esac
+    done
+    echo "$e"
+  }
+  pr_title_encoded=$(urlencode "$pr_title")
+  # Show the message for review
+  msg "${CYAN}📝 Your PR title:${NOFORMAT}"
+  msg "$pr_title"
+  msg "${YELLOW}⚠️  This title will be pre-filled in the GitHub PR form.${NOFORMAT}"
+  # Append the title as a query parameter
+  pr_url="$pr_url?title=$pr_title_encoded"
+fi
+
 msg "${GREEN}🚀 Opening pull request URL in browser...${NOFORMAT}"
 open "$pr_url"

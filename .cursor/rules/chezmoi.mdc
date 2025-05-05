@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+This repository is a dotfiles repository that is managed by [Chezmoi](https://www.chezmoi.io).
+
+If I'm working with a template file and I ask that it be updated, the corresponding file under my home directory needs to be found, bearing in mind the rules for how Chezmoi applies files, and any differences needs to be brought back into the template.

@@ -21,7 +21,7 @@ get_base_branch() {
         memoized_main_branch=$(jq -r '.base' <(git config "branch.$(git branch --show-current).description"))
         if [ -z "$memoized_main_branch" ]; then
             remote=$(get_upstream_remote)
-            memoized_main_branch=$(git remote show "$remote" | sed -n '/HEAD branch/s/.*: //p')
+            memoized_main_branch="$(git remote show "$remote" | sed -n '/HEAD branch/s/.*: //p')"
         fi
     fi
     echo "$memoized_main_branch"

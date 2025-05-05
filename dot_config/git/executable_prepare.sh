@@ -98,7 +98,7 @@ parse_params "$@"
 create_branch
 
 # Execute POST_GIT_PREPARE if set and executable
-if [[ -n "${POST_GIT_PREPARE-}" && -x "$POST_GIT_PREPARE" ]]; then
-  msg "${CYAN}⚙️  Running post-branch prepare script: $POST_GIT_PREPARE${NOFORMAT}"
-  "$POST_GIT_PREPARE" "$branch_name"
+if [[ -n "${POST_GIT_PREPARE_SCRIPT-}" && -x "$POST_GIT_PREPARE_SCRIPT" ]]; then
+  msg "${CYAN}⚙️  Running post-branch prepare script: $POST_GIT_PREPARE_SCRIPT${NOFORMAT}"
+  "$POST_GIT_PREPARE_SCRIPT" "$branch_name"
 fi

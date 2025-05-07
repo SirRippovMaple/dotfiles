@@ -27,12 +27,13 @@ batcmd=bat
 {{- end }}
 
 export AUTO_NOTIFY_THRESHOLD=20
-export EDITOR="vim"
 export LESS="-X"
 export PAGER="less"
 
+# Set EDITOR to nvim only if nvim is available and EDITOR is not already set
 if [ -x "$(command -v nvim)" ]; then
-  export EDITOR="nvim"
+  : "${EDITOR:=nvim}"
+  export EDITOR
   alias vim=nvim
   export MANPAGER='nvim +Man!'
 fi

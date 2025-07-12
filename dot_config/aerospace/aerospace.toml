@@ -3,11 +3,6 @@
 start-at-login = true
 default-root-container-layout = 'tiles'
 
-after-startup-command = [
-    # Install JankyBorders first, it has a built-in detection of already running process,
-    # so it won't be run twice on AeroSpace restart
-    'exec-and-forget borders active_color=0xff00FFFF inactive_color=0xffa1a1a1 width=5.0',
-]
 # Gaps between windows (inner-*) and between monitor edges (outer-*).
 # Possible values:
 # - Constant:     gaps.outer.top = 8

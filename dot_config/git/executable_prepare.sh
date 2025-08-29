@@ -57,20 +57,26 @@ parse_params() {
 create_branch() {
   msg "${BLUE}🔄 Fetching latest changes from $remote...${NOFORMAT}"
   git fetch "$remote"
+  local track_with_push=1
 
   if [[ -z "${base_branch}" ]]; then
-    # Try to find matching upstream branch, fallback to default branch
-    matching_branch=$(git branch -r | grep "  $remote/$branch_name" || true)
-    if [[ -n "$matching_branch" ]]; then
+    if [[ "$branch_name" =~ ^renovate/ ]]; then
       base_branch="$branch_name"
+      track_with_push=0
     else
-      base_branch="$(git remote show "$remote" | sed -n '/HEAD branch/s/.*: //p')"
+      # Try to find matching upstream branch, fallback to default branch
+      matching_branch=$(git branch -r | grep "  $remote/$branch_name" || true)
+      if [[ -n "$matching_branch" ]]; then
+        base_branch="$branch_name"
+      else
+        base_branch="$(git remote show "$remote" | sed -n '/HEAD branch/s/.*: //p')"
+      fi
     fi
   fi
 
   # Clean up old branches
   msg "${BLUE}🧹 Cleaning up stale branches...${NOFORMAT}"
-  gone_branches=$(git branch -vv | grep ': gone]' || true)
+  gone_branches=$(git branch -vv | grep ': gone]' | grep -v '^*' || true)
   if [[ -n "$gone_branches" ]]; then
     while IFS= read -r branch; do
       msg "${ORANGE}🗑️  Removing stale branch: $branch${NOFORMAT}"
@@ -82,6 +88,7 @@ create_branch() {
 
   # Create and configure new branch
   msg "${BLUE}🌱 Creating new branch '$branch_name' from '$base_branch'...${NOFORMAT}"
+  if [[ $track_with_push -eq 1 ]]; then
   if git checkout -b "$branch_name" "$remote/$base_branch" && \
      git config "branch.$branch_name.description" "$(jq -n --arg base "$base_branch" '{base: $base}')" && \
      git push -u origin "$branch_name" && \
@@ -89,6 +96,16 @@ create_branch() {
     msg "${GREEN}🎉 Branch '$branch_name' created and configured successfully from '$remote/$base_branch'!${NOFORMAT}"
   else
     die "${RED}💥 Failed to create and configure branch '$branch_name'${NOFORMAT}"
+  fi
+  else
+    if git checkout -b "$branch_name" "$remote/$base_branch" && \
+       git config "branch.$branch_name.description" "$(jq -n --arg base "$base_branch" '{base: $base}')" && \
+       git branch --set-upstream-to "$remote/$branch_name" && \
+       git lprune; then
+      msg "${GREEN}🎉 Branch '$branch_name' created and configured successfully from '$remote/$base_branch'!${NOFORMAT}"
+    else
+      die "${RED}💥 Failed to create and configure branch '$branch_name'${NOFORMAT}"
+    fi
   fi
 }
 

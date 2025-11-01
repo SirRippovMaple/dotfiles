@@ -103,6 +103,10 @@ enter = 'mode main'
 esc = 'mode main'
 
 [[on-window-detected]]
+if.app-id = 'com.TechSmith.Snagit2023'
+run = 'layout floating'
+
+[[on-window-detected]]
 if.app-id = 'com.1password.1password'
 run = 'layout floating'
 

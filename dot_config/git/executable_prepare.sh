@@ -76,7 +76,7 @@ create_branch() {
 
   # Clean up old branches
   msg "${BLUE}🧹 Cleaning up stale branches...${NOFORMAT}"
-  gone_branches=$(git branch -vv | grep ': gone]' | grep -v '^*' || true)
+  gone_branches=$(git branch -vv | grep ': gone]' | grep -v '^*' | grep -v '^+' || true)
   if [[ -n "$gone_branches" ]]; then
     while IFS= read -r branch; do
       msg "${ORANGE}🗑️  Removing stale branch: $branch${NOFORMAT}"

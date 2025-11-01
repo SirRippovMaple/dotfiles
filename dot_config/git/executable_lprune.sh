@@ -39,7 +39,7 @@ parse_params "$@"
 # Script logic
 msg "${BLUE}🔍 Fetching from origin and checking for gone branches...${NOFORMAT}"
 git fetch origin
-gone_branches=$(git branch -v | grep '\[gone\]' | awk '{print $1}' || true)
+gone_branches=$(git branch -v | grep '\[gone\]' | grep -v '^+' | grep -v '^*' | awk '{print $1}' || true)
 
 # Only try to delete if we found any gone branches
 if [ -n "$gone_branches" ]; then

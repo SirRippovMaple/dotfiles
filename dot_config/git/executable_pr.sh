@@ -59,7 +59,7 @@ pr_url=$github_url"/compare/$base_branch..."$branch_name
 # Obtain PR title: use PR_TITLE_SCRIPT if set and executable, else skip
 if [[ -n "${PR_TITLE_SCRIPT-}" && -x "$PR_TITLE_SCRIPT" ]]; then
   msg "${BLUE}📝 Obtaining PR title from script: $PR_TITLE_SCRIPT${NOFORMAT}"
-  pr_title="$($PR_TITLE_SCRIPT "$base_branch" "$branch_name")"
+  pr_title="$($PR_TITLE_SCRIPT "$remote/$base_branch" "$branch_name")"
   # URL-encode the title
   urlencode() {
     local LANG=C i c e=""

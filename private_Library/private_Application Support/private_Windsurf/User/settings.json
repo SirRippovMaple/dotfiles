@@ -1,5 +1,4 @@
 {
-    "workbench.colorTheme": "Tokyo Night",
     "extensions.experimental.affinity": {
         "asvetliakov.vscode-neovim": 1
     },
@@ -21,5 +20,6 @@
         "vs-kubernetes.crd-code-completion": "disabled"
     },
     "docker.extension.enableComposeLanguageServer": false,
-    "terminal.integrated.fontFamily": "MesloLGM Nerd Font Mono"
+    "terminal.integrated.fontFamily": "MesloLGM Nerd Font Mono",
+    "workbench.colorTheme": "Monokai"
 }

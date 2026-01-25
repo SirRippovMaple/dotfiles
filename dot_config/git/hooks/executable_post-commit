@@ -1,0 +1,10 @@
+#!/bin/bash
+# Git post-commit hook: Automatically deletes all *.orig files in the repository.
+# These files are remnants from merge conflict resolutions and can be safely removed post-commit.
+# Reference: https://git-scm.com/docs/githooks#_post_commit
+
+# Determine the root directory of the Git repository
+REPO_ROOT=$(git rev-parse --show-toplevel)
+
+# Find and delete all files matching *.orig in the repository (including subdirectories)
+find "$REPO_ROOT" -name "*.orig" -type f -delete

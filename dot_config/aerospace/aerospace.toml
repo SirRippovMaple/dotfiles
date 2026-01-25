@@ -156,15 +156,11 @@ if.app-id = 'com.electron.dockerdesktop'
 run = 'move-node-to-workspace 6'
 
 [[on-window-detected]]
-if.app-id = 'com.github.wez.wezterm'
-run = 'move-node-to-workspace 7'
-
-[[on-window-detected]]
 if.app-id = 'org.alacritty'
 run = 'move-node-to-workspace 7'
 
 [[on-window-detected]]
-if.app-id = 'com.microsoft.VSCode'
+if.app-id = 'com.exafunction.windsurf'
 run = 'move-node-to-workspace 9'
 
 [[on-window-detected]]
@@ -178,3 +174,7 @@ run = 'move-node-to-workspace n'
 [[on-window-detected]]
 if.app-id = 'com.apple.reminders'
 run = 'move-node-to-workspace r'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = 'layout floating'

@@ -207,6 +207,8 @@ return require('lazy').setup({
     },
     {
         'nvim-treesitter/nvim-treesitter',
+        branch = 'master',
+        lazy = false,
         build = ":TSUpdate",
         config = function()
             require('nvim-treesitter.configs').setup {
@@ -298,7 +300,6 @@ return require('lazy').setup({
         'hrsh7th/nvim-cmp',
         dependencies = {
             'neovim/nvim-lspconfig',
-            'simrat39/rust-tools.nvim'
         },
         config = function()
             local cmp = require('cmp')
@@ -384,7 +385,6 @@ return require('lazy').setup({
 
             -- Setup lspconfig.
             local capabilities = require('cmp_nvim_lsp').default_capabilities()
-            local lspConfig = require('lspconfig')
             local lspServers = {
                 "csharp_ls",
                 "ts_ls",
@@ -394,21 +394,15 @@ return require('lazy').setup({
                 "cssls",
                 "bashls",
                 "marksman",
+                "rust_analyzer",
             }
 
             for _, server in pairs(lspServers) do
-                local opts = {
+                vim.lsp.config(server, {
                     capabilities = capabilities,
-                }
-                lspConfig[server].setup(opts)
+                })
+                vim.lsp.enable(server)
             end
-
-            local rust_tools = require('rust-tools')
-            rust_tools.setup {
-                server = {
-                    capabilities = capabilities
-                }
-            }
         end
     },
     -- Go plugins
@@ -421,6 +415,7 @@ return require('lazy').setup({
     -- Rust plugins
     {
         'simrat39/rust-tools.nvim',
+        enabled = false,
         depencendies = {'neovim/nvim-lspconfig'},
         lazy = true,
         ft = "rust",

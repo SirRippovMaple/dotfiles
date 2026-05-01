@@ -82,17 +82,20 @@ alt-shift-0 = 'move-node-to-workspace 10'
 
 alt-shift-c = 'reload-config'
 
+cmd-alt-shift-ctrl-t = 'exec-and-forget bash ~/.config/aerospace/toggle-tv-mode.sh'
+
 [workspace-to-monitor-force-assignment]
 1 = 'main'
 2 = 'main'
 3 = 'main'
-4 = 'main'
+4 = 'secondary'
 5 = 'main'
-6 = 'secondary'
-7 = 'secondary'
-8 = 'secondary'
-9 = 'secondary'
-10 = 'secondary'
+6 = 'main'
+7 = 'main'
+8 = 'main'
+9 = 'main'
+10 = 'main'
+v = 'Sidecar'
 
 [mode.resize.binding]
 h = 'resize width -50'
@@ -178,3 +181,7 @@ run = 'move-node-to-workspace r'
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
 run = 'layout floating'
+
+[[on-window-detected]]
+if.window-title-regex-substring = '^IBM Video Streaming'
+run = 'move-node-to-workspace v'

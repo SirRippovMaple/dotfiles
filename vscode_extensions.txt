@@ -2,7 +2,6 @@ akamud.vscode-theme-onedark
 anweber.vscode-httpyac
 asvetliakov.vscode-neovim
 buenon.scratchpads
-codeium.windsurfpyright
 docker.docker
 eamodio.gitlens
 hashicorp.terraform

@@ -7,7 +7,7 @@ memoized_upstream_remote=""
 
 get_upstream_remote() {
     if [ -z "$memoized_upstream_remote" ]; then
-        if [ -d .git/refs/remotes/upstream ]; then
+        if git remote get-url upstream &>/dev/null; then
             memoized_upstream_remote="upstream"
         else
             memoized_upstream_remote="origin"

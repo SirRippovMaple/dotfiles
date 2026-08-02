@@ -16,7 +16,7 @@ export OP_ACCOUNT=$(op account list --format json | jq -r '.[] | select(.url == 
 
 All `chezmoi` commands in this workflow must be run with `OP_ACCOUNT` set (either via the export above or inline as `OP_ACCOUNT=<value> chezmoi ...`).
 
-Then run `chezmoi diff` to get the current differences. If the output is empty, tell the user everything is in sync and stop.
+Then run `chezmoi diff --include files` to get the current differences (the `--include files` flag excludes run scripts from the output). If the output is empty, tell the user everything is in sync and stop.
 
 The diff format shows:
 - `--- a/` = current state on disk (the TARGET, which is the user's desired truth)

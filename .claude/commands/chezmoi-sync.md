@@ -8,7 +8,15 @@ You MUST use plan mode for this command. Call EnterPlanMode before doing anythin
 
 ### Step 1: Gather the diff
 
-Run `chezmoi diff` to get the current differences. If the output is empty, tell the user everything is in sync and stop.
+First, resolve the 1Password account UUID and set it for all subsequent chezmoi commands:
+
+```bash
+export OP_ACCOUNT=$(op account list --format json | jq -r '.[] | select(.url == "my.1password.com") | .account_uuid')
+```
+
+All `chezmoi` commands in this workflow must be run with `OP_ACCOUNT` set (either via the export above or inline as `OP_ACCOUNT=<value> chezmoi ...`).
+
+Then run `chezmoi diff` to get the current differences. If the output is empty, tell the user everything is in sync and stop.
 
 The diff format shows:
 - `--- a/` = current state on disk (the TARGET, which is the user's desired truth)
@@ -53,4 +61,4 @@ Run `chezmoi diff` again. Report what remains (should only be intentional source
 - For `.tmpl` files, you must understand the template syntax — edits need to preserve template directives while updating the static content
 - Trailing whitespace differences are cosmetic — don't create commits just for trailing spaces
 - Directory mode changes (e.g. `40751` → `40755`) are typically cosmetic and can be skipped
-- If `chezmoi diff` errors on 1Password templates, ignore those errors and work with the diff output that was produced
+- If `chezmoi diff` still errors on 1Password templates despite OP_ACCOUNT being set, ignore those errors and work with the diff output that was produced

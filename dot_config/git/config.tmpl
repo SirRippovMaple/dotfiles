@@ -18,6 +18,7 @@
     pager = no
 [push]
     default = simple
+	recurseSubmodules = check
 [fetch]
     prune = true
 [alias]
@@ -47,6 +48,7 @@
 {{- end }}
 [pull]
     ff = only
+	rebase = false
 [init]
     defaultBranch = master
 [filter "lfs"]
@@ -56,3 +58,9 @@
     required = true
 [advice]
     skippedCherryPicks = false
+[gui]
+	pruneduringfetch = true
+[smartgit "submodule"]
+	fetchalways = false
+	update = true
+	initializenew = true

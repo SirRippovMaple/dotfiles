@@ -40,46 +40,65 @@ parse_params "$@"
 remote=$(get_upstream_remote)
 base_branch=$(get_base_branch)
 
-msg "${BLUE}🔍 Generating pull request URL...${NOFORMAT}"
-
-# Get the GitHub URL from remote, converting SSH format to HTTPS
-github_url=$(git remote -v | awk "/^${remote}.*\\(fetch\\)$/{print \$2}" | 
-  sed -E 's#(git@|git://)#https://#' |
-  sed -E 's#github.com-[^:]+#github.com#' |
-  sed -E 's#com:#com/#' |
-  sed -E 's#\.git$##')
+gh_host=$(git remote get-url "$remote" | sed -n 's|.*@\([^:]*\):.*|\1|p')
 
 branch_name=$(git symbolic-ref HEAD | cut -d"/" -f 3,4)
 if [ "$remote" = "upstream" ]; then
   branch_name="trevor-green:$branch_name"
 fi
 
-pr_url=$github_url"/compare/$base_branch..."$branch_name
+gh_args=(--base "$base_branch" --head "$branch_name")
 
-# Obtain PR title: use PR_TITLE_SCRIPT if set and executable, else skip
-if [[ -n "${PR_TITLE_SCRIPT-}" && -x "$PR_TITLE_SCRIPT" ]]; then
-  msg "${BLUE}📝 Obtaining PR title from script: $PR_TITLE_SCRIPT${NOFORMAT}"
-  pr_title="$($PR_TITLE_SCRIPT "$remote/$base_branch" "$branch_name")"
-  # URL-encode the title
-  urlencode() {
-    local LANG=C i c e=""
-    for ((i = 0; i < ${#1}; i++)); do
-      c=${1:i:1}
-      case $c in
-        [a-zA-Z0-9.~_-]) e+="$c" ;;
-        *) printf -v c '%%%02X' "'${c}'"; e+="$c" ;;
-      esac
-    done
-    echo "$e"
-  }
-  pr_title_encoded=$(urlencode "$pr_title")
-  # Show the message for review
-  msg "${CYAN}📝 Your PR title:${NOFORMAT}"
-  msg "$pr_title"
-  msg "${YELLOW}⚠️  This title will be pre-filled in the GitHub PR form.${NOFORMAT}"
-  # Append the title as a query parameter
-  pr_url="$pr_url?title=$pr_title_encoded"
+# Generate PR title and description using Claude
+if command -v claude &>/dev/null; then
+  msg "${BLUE}📝 Generating PR title and description with Claude...${NOFORMAT}"
+
+  claude_output=$(claude -p "Run git log and git diff to understand the changes on this branch relative to $remote/$base_branch, then generate a pull request title and description.
+Don't include a work item in the title (\`@W-XXXXXXX\`). This will be prepended manually.
+
+Output EXACTLY in this format with no other text:
+---TITLE---
+<concise PR title, under 70 chars>
+---BODY---
+<markdown PR description with a short summary and bullet points of what changed>" --allowedTools "Bash(git log:*)" --allowedTools "Bash(git diff:*)" 2>/dev/null) || true
+
+  if [[ -n "$claude_output" ]]; then
+    pr_title=$(echo "$claude_output" | sed -n '/^---TITLE---$/,/^---BODY---$/{ /^---/d; p; }' | head -1)
+    pr_body=$(echo "$claude_output" | sed -n '/^---BODY---$/,$ { /^---BODY---$/d; p; }')
+
+    if [[ -n "$pr_title" && -n "${GIT_WORKFLOW_HOOKS_PATH-}" ]]; then
+      hook="$GIT_WORKFLOW_HOOKS_PATH/pre-pr-title.sh"
+      if [[ -x "$hook" ]]; then
+        pr_title=$("$hook" "$pr_title")
+      fi
+    fi
+
+    if [[ -n "$pr_title" ]]; then
+      msg "${CYAN}📝 PR title:${NOFORMAT}"
+      msg "$pr_title"
+      msg ""
+      msg "${CYAN}📝 PR description:${NOFORMAT}"
+      msg "$pr_body"
+      msg ""
+
+      gh_args+=(--title "$pr_title" --body "$pr_body")
+    else
+      msg "${YELLOW}⚠️  Could not parse Claude output, creating PR without pre-filled fields.${NOFORMAT}"
+    fi
+  else
+    msg "${YELLOW}⚠️  Claude returned no output, creating PR without pre-filled fields.${NOFORMAT}"
+  fi
+else
+  msg "${YELLOW}⚠️  claude CLI not found, creating PR without pre-filled fields.${NOFORMAT}"
 fi
 
-msg "${GREEN}🚀 Opening pull request URL in browser...${NOFORMAT}"
-open "$pr_url"
+msg "${GREEN}🚀 Creating pull request...${NOFORMAT}"
+pr_url=$(GH_HOST="$gh_host" gh pr create "${gh_args[@]}")
+msg "${GREEN}✅ $pr_url${NOFORMAT}"
+
+if [[ -n "${GIT_WORKFLOW_HOOKS_PATH-}" ]]; then
+  hook="$GIT_WORKFLOW_HOOKS_PATH/post-pr.sh"
+  if [[ -x "$hook" ]]; then
+    "$hook" "$pr_url"
+  fi
+fi

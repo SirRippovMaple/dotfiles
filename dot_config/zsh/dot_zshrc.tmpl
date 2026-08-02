@@ -186,6 +186,8 @@ function down() {
   fi
 }
 
+[ -f ~/.zshrc ] && source ~/.zshrc
+#
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 if [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]]; then
     export SDKMAN_DIR="$HOME/.sdkman"

@@ -18,11 +18,26 @@ All `chezmoi` commands in this workflow must be run with `OP_ACCOUNT` set (eithe
 
 Then run `chezmoi diff --include files` to get the current differences (the `--include files` flag excludes run scripts from the output). If the output is empty, tell the user everything is in sync and stop.
 
-The diff format shows:
-- `--- a/` = current state on disk (the TARGET, which is the user's desired truth)
-- `+++ b/` = what chezmoi source would write (the SOURCE state)
+**CRITICAL — understanding the diff direction:**
 
-Our goal is to update the SOURCE to match the TARGET (disk). This means applying the REVERSE of each hunk: the `-` lines are what we want the source to produce; the `+` lines are what we're replacing in the source.
+`chezmoi diff` output is BACKWARDS from what you might expect. It shows what `chezmoi apply` WOULD do to the disk:
+- `--- a/` (the `-` lines) = what is CURRENTLY ON DISK. **This is the user's desired state.**
+- `+++ b/` (the `+` lines) = what the chezmoi source currently generates. **This is what we are CHANGING.**
+
+**Therefore:**
+- When you see `-foo` in the diff, that means the DISK has `foo` and the source does NOT. You must ADD `foo` to the source.
+- When you see `+bar` in the diff, that means the SOURCE produces `bar` but the disk does NOT have it. You must REMOVE `bar` from the source.
+
+This is the opposite of a normal "apply this patch" workflow. Do NOT apply the diff as-is. You are making the source match the `-` lines.
+
+**Worked example:**
+```
+-width=12.0
++width=6.0
+```
+This means: disk has `width=12.0`, source has `width=6.0`. Action: change `6.0` → `12.0` in the source file.
+
+**How to verify your understanding:** After your edits, the source file should produce output identical to what's on disk — which means `chezmoi diff` for that file would be EMPTY.
 
 ### Step 2: Analyze and categorize
 
@@ -58,7 +73,8 @@ Run `chezmoi diff` again. Report what remains (should only be intentional source
 
 ## Important notes
 
-- For `.tmpl` files, you must understand the template syntax — edits need to preserve template directives while updating the static content
+- For `.tmpl` files: the diff shows EVALUATED output, not template source. Edit the template to produce the desired output. Do NOT read the template source and conclude "it already matches" — always trust the diff.
+- **Additions AND removals**: If the diff shows `-` lines that don't exist in the source, you must ADD them. If the diff shows `+` lines that exist in the source, you must REMOVE them. Both directions matter.
 - Trailing whitespace differences are cosmetic — don't create commits just for trailing spaces
 - Directory mode changes (e.g. `40751` → `40755`) are typically cosmetic and can be skipped
 - If `chezmoi diff` still errors on 1Password templates despite OP_ACCOUNT being set, ignore those errors and work with the diff output that was produced

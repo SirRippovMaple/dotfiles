@@ -114,8 +114,15 @@ parse_params "$@"
 # Main script execution
 create_branch
 
-# Execute POST_GIT_PREPARE if set and executable
-if [[ -n "${POST_GIT_PREPARE_SCRIPT-}" && -x "$POST_GIT_PREPARE_SCRIPT" ]]; then
+# Execute post-prepare hook
+if [[ -n "${GIT_WORKFLOW_HOOKS_PATH-}" ]]; then
+  hook="$GIT_WORKFLOW_HOOKS_PATH/post-prepare.sh"
+  if [[ -x "$hook" ]]; then
+    msg "${CYAN}⚙️  Running post-prepare hook...${NOFORMAT}"
+    "$hook" "$branch_name"
+  fi
+elif [[ -n "${POST_GIT_PREPARE_SCRIPT-}" && -x "$POST_GIT_PREPARE_SCRIPT" ]]; then
   msg "${CYAN}⚙️  Running post-branch prepare script: $POST_GIT_PREPARE_SCRIPT${NOFORMAT}"
+  msg "${YELLOW}⚠️  POST_GIT_PREPARE_SCRIPT is deprecated. Use GIT_WORKFLOW_HOOKS_PATH/post-prepare.sh instead.${NOFORMAT}"
   "$POST_GIT_PREPARE_SCRIPT" "$branch_name"
 fi

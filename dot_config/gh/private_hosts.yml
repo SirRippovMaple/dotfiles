@@ -1,5 +1,0 @@
-git.soma.salesforce.com:
-    user: trevor-green
-    users:
-        trevor-green: {}
-    git_protocol: https

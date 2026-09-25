@@ -83,3 +83,6 @@ export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agen
 {{ else -}}
 export SSH_AUTH_SOCK=~/.1password/agent.sock
 {{ end -}}
+
+export VOLTA_HOME="$HOME/.volta"
+[ -d "$VOLTA_HOME/bin" ] && export PATH="$VOLTA_HOME/bin:$PATH"

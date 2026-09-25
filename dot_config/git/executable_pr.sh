@@ -49,6 +49,14 @@ fi
 
 gh_args=(--base "$base_branch" --head "$branch_name")
 
+# Bail out early if there are no commits to open a PR for
+ahead_count=$(git rev-list --count "$remote/$base_branch..HEAD" 2>/dev/null || echo "")
+if [[ -z "$ahead_count" ]]; then
+  die "${RED}❌ Could not find '$remote/$base_branch'. Fetch the base branch and try again.${NOFORMAT}"
+elif [[ "$ahead_count" -eq 0 ]]; then
+  die "${YELLOW}🤷 No commits on '$branch_name' ahead of '$remote/$base_branch' — nothing to open a PR for.${NOFORMAT}"
+fi
+
 # Generate PR title and description using Claude
 if command -v claude &>/dev/null; then
   msg "${BLUE}📝 Generating PR title and description with Claude...${NOFORMAT}"

@@ -64,6 +64,11 @@ if [ -x "$(command -v gh)" ]; then
   alias gh='PAGER=less gh'
 fi
 
+if [ -x "$(command -v claude)" ]; then
+  alias commit='claude -p commit --allowedTools "Bash(git *)"'
+  alias rr='claude -p "/request-review"'
+fi
+
 if [ -x "$(command -v kubectl)" ]; then
   alias k=kubectl
   export KUBE_EDITOR=$EDITOR
